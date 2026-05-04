@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Smile3D - вариант 1</title>
+    <meta name="description" content="Smile3D - первый вариант первого экрана">
+    <link rel="stylesheet" href="./smile3d-preview.css">
+  </head>
+  <body>
+    <main class="page page--v1">
+      <div class="site">
+        <header class="topbar topbar--island">
+          <a class="brand brand--text" href="#">Smile3D</a>
+          <nav class="nav" data-nav>
+            <a class="nav__link" href="#services">Услуги</a>
+            <a class="nav__link" href="#record">Запись</a>
+            <a class="nav__link" href="#doctors">Для врачей</a>
+            <a class="nav__link" href="#contacts">Контакты</a>
+          </nav>
+          <div class="header-actions">
+            <a class="phone phone--ghost" href="tel:+79934731010">8 (993) 473-10-10</a>
+            <a class="header-request" href="#record">Оставить заявку</a>
+            <button class="menu-toggle" type="button" data-menu-toggle aria-label="Открыть меню" aria-expanded="false">
+              <span></span><span></span><span></span>
+            </button>
+          </div>
+        </header>
+
+        <div class="variant-switch" aria-label="Варианты первого экрана">
+          <a class="variant-switch__link is-active" href="./variant-1-clear-route.html">Вариант 1</a>
+          <a class="variant-switch__link" href="./variant-2-scan-depth.html">Вариант 2</a>
+          <a class="variant-switch__link" href="./variant-3-glass-table.html">Вариант 3</a>
+        </div>
+
+        <section class="hero hero--v1">
+          <div class="hero__copy hero__copy--v1 fade-in">
+            <h1 class="hero__title hero__title--editorial">3D-снимок зубов без очередей и лишних звонков</h1>
+            <p class="hero__lead">Пациент выбирает время онлайн, кабинет делает исследование, лечащий врач получает понятный снимок для плана лечения.</p>
+
+            <div class="audience-grid">
+              <article class="audience-card">
+                <h2>Пациент</h2>
+                <p>Записывается на нужное исследование и сразу видит свободные окна.</p>
+              </article>
+              <article class="audience-card">
+                <h2>Врач</h2>
+                <p>Получает КЛКТ, ОПТГ или ТРГ без путаницы в типе снимка.</p>
+              </article>
+            </div>
+
+            <div class="hero__actions">
+              <a class="btn btn--primary btn--shine" href="#record">Записаться на приём</a>
+              <a class="btn btn--secondary" href="#doctors">Запись для врачей</a>
+            </div>
+
+          </div>
+
+          <div class="kt-video-scene fade-in delay-2" aria-label="3D КТ-визуализация челюсти">
+            <span class="kt-video-scene__aura" aria-hidden="true"></span>
+            <span class="kt-video-scene__beam" aria-hidden="true"></span>
+            <video class="kt-video-scene__video" autoplay muted loop playsinline preload="metadata">
+              <source src="../background-kt.mp4" type="video/mp4">
+            </video>
+            <span class="kt-video-scene__base" aria-hidden="true"></span>
+          </div>
+        </section>
+      </div>
+    </main>
+    <script src="./smile3d-preview.js"></script>
+  </body>
+</html>

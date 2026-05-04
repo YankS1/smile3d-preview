@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Smile3D - вариант 2</title>
+    <meta name="description" content="Smile3D - второй вариант первого экрана">
+    <link rel="stylesheet" href="./smile3d-preview.css">
+  </head>
+  <body>
+    <main class="page page--v2">
+      <div class="site">
+        <header class="topbar topbar--island topbar--light">
+          <a class="brand brand--text" href="#">Smile3D</a>
+          <nav class="nav" data-nav>
+            <a class="nav__link" href="#services">Услуги</a>
+            <a class="nav__link" href="#record">Запись</a>
+            <a class="nav__link" href="#doctors">Для врачей</a>
+            <a class="nav__link" href="#contacts">Контакты</a>
+          </nav>
+          <div class="header-actions">
+            <a class="phone phone--ghost" href="tel:+79934731010">8 (993) 473-10-10</a>
+            <a class="header-request" href="#record">Оставить заявку</a>
+            <button class="menu-toggle" type="button" data-menu-toggle aria-label="Открыть меню" aria-expanded="false">
+              <span></span><span></span><span></span>
+            </button>
+          </div>
+        </header>
+
+        <div class="variant-switch" aria-label="Варианты первого экрана">
+          <a class="variant-switch__link" href="./variant-1-clear-route.html">Вариант 1</a>
+          <a class="variant-switch__link is-active" href="./variant-2-scan-depth.html">Вариант 2</a>
+          <a class="variant-switch__link" href="./variant-3-glass-table.html">Вариант 3</a>
+        </div>
+
+        <section class="hero-poster">
+          <div class="poster-bg" aria-hidden="true">
+            <span class="poster-bg__column poster-bg__column--one"></span>
+            <span class="poster-bg__column poster-bg__column--two"></span>
+            <span class="poster-bg__column poster-bg__column--three"></span>
+            <div class="poster-bg__jaw-stage">
+              <img class="poster-bg__jaw poster-bg__jaw--shadow" src="./assets/jaw-side-transparent.png" alt="">
+              <img class="poster-bg__jaw poster-bg__jaw--core" src="./assets/jaw-side-transparent.png" alt="">
+              <img class="poster-bg__jaw poster-bg__jaw--front" src="./assets/jaw-front-transparent.png" alt="">
+            </div>
+            <span class="poster-bg__orbit poster-bg__orbit--one"></span>
+            <span class="poster-bg__orbit poster-bg__orbit--two"></span>
+            <span class="poster-bg__plate"></span>
+            <span class="poster-bg__scan"></span>
+          </div>
+          <div class="poster-content fade-in">
+            <h1 class="poster-title">Точный 3D-снимок зубов в удобное время</h1>
+            <p class="poster-lead">Онлайн-запись, свободные слоты и готовые данные для лечащего врача - без перегруженного сайта и лишних шагов.</p>
+            <div class="poster-actions">
+              <a class="btn btn--primary btn--shine" href="#record">Записаться на приём</a>
+              <a class="btn btn--glass" href="#doctors">Для врачей</a>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+    <script src="./smile3d-preview.js"></script>
+  </body>
+</html>
