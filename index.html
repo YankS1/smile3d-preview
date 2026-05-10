@@ -277,6 +277,7 @@
       margin-top: 8px;
     }
     .btn-primary {
+      position: relative;
       display: inline-flex; align-items: center; justify-content: center;
       padding: 15px 30px;
       background: var(--accent);
@@ -284,10 +285,21 @@
       font-family: var(--font-body);
       font-size: 17px; font-weight: 700;
       border-radius: 14px;
-      box-shadow: 0 0 24px rgba(94, 231, 240, 0.4);
-      transition: background 200ms ease, transform 150ms ease;
+      /* unique ring instead of generic cyan glow blob */
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.35),
+        0 1px 0 rgba(33, 182, 199, 0.55),
+        0 6px 14px -6px rgba(33, 182, 199, 0.35);
+      transition: background 200ms ease, transform 150ms ease, box-shadow 200ms ease;
     }
-    .btn-primary:hover { background: var(--accent-deep); transform: translateY(-1px); }
+    .btn-primary:hover {
+      background: var(--accent-deep);
+      transform: translateY(-1px);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.35),
+        0 1px 0 rgba(33, 182, 199, 0.7),
+        0 12px 24px -8px rgba(33, 182, 199, 0.45);
+    }
     .btn-secondary {
       display: inline-flex; align-items: center; justify-content: center;
       padding: 15px 30px;
@@ -325,6 +337,85 @@
     .hero-ruler__sep {
       flex: 0 0 96px; height: 1px;
       background: var(--border-strong);
+    }
+
+    /* ============================================================
+       Hero trust-bar - снимает страх излучения в первом экране
+       Уникальный паттерн: stat-chip с цифрой + единицей + sub-line
+    ============================================================ */
+    .hero-trust {
+      list-style: none;
+      display: flex; gap: 14px;
+      margin: 22px 0 28px;
+      padding: 0;
+      flex-wrap: wrap;
+    }
+    .hero-trust__chip {
+      position: relative;
+      display: inline-flex; flex-direction: column;
+      gap: 2px;
+      padding: 10px 16px 10px 20px;
+      background: rgba(255, 255, 255, 0.72);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      border: 1px solid rgba(33, 182, 199, 0.22);
+      border-radius: 12px;
+      min-width: 0;
+    }
+    .hero-trust__chip::before {
+      content: '';
+      position: absolute;
+      left: 8px; top: 50%; transform: translateY(-50%);
+      width: 4px; height: 24px;
+      border-radius: 2px;
+      background: linear-gradient(180deg, var(--accent) 0%, var(--accent-deep) 100%);
+    }
+    .hero-trust__num {
+      font-family: var(--font-mono);
+      font-size: 22px; font-weight: 600;
+      letter-spacing: -0.4px;
+      color: var(--fg);
+      line-height: 1;
+    }
+    .hero-trust__unit {
+      display: inline;
+      font-family: var(--font-mono);
+      font-size: 13px; font-weight: 500;
+      color: var(--accent-deep);
+      margin-left: 4px;
+      letter-spacing: 0.2px;
+    }
+    .hero-trust__sub {
+      display: block;
+      font-family: var(--font-body);
+      font-size: 11.5px; font-weight: 500;
+      color: var(--muted);
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+    .hero-trust__chip:first-child::before {
+      background: linear-gradient(180deg, #2EA77E 0%, #1F6E55 100%);
+    }
+    .hero-trust__chip:first-child .hero-trust__unit {
+      color: #1F6E55;
+    }
+    @media (max-width: 767px) {
+      .hero-trust { gap: 8px; margin: 18px 0 22px; }
+      .hero-trust__chip {
+        padding: 8px 12px 8px 16px;
+        flex: 1 1 calc(33% - 8px);
+        min-width: 0;
+      }
+      .hero-trust__chip::before { left: 6px; height: 20px; width: 3px; }
+      .hero-trust__num { font-size: 18px; }
+      .hero-trust__unit { font-size: 11px; }
+      .hero-trust__sub { font-size: 9.5px; letter-spacing: 0.3px; }
+    }
+    @media (max-width: 540px) {
+      .hero-trust { flex-direction: column; }
+      .hero-trust__chip { flex-direction: row; align-items: baseline; gap: 8px; flex: none; }
+      .hero-trust__sub { margin-top: 0; }
     }
     @media (max-width: 1100px) {
       .hero-ruler { flex-wrap: wrap; gap: 12px; padding: 16px 24px; }
@@ -735,6 +826,7 @@
       transform: scale(1.08);
       box-shadow: 0 0 0 8px rgba(33, 182, 199, 0.18);
     }
+    .doctors-video__play .ico { width: 36px; height: 36px; }
     .doctors-video__play .material-symbols-rounded {
       font-size: 36px;
       font-variation-settings: 'FILL' 1, 'wght' 600;
@@ -1183,6 +1275,7 @@
       transform: translate(-50%, -50%) scale(1.1);
       box-shadow: 0 0 0 8px rgba(33, 182, 199, 0.20);
     }
+    .video-cinema__play .ico { width: 40px; height: 40px; }
     .video-cinema__play .material-symbols-rounded {
       font-size: 40px;
       font-variation-settings: 'FILL' 1, 'wght' 700;
@@ -1268,6 +1361,7 @@
       color: #2A9D7C;
       --glow-color: rgba(14, 140, 100, 0.17);
     }
+    .guarantee-icon .ico { width: 32px; height: 32px; }
     .guarantee-icon .material-symbols-rounded {
       font-size: 32px;
       font-variation-settings: 'FILL' 0, 'wght' 600;
@@ -1361,20 +1455,29 @@
       position: sticky; top: 100px;
     }
     .margin-note {
-      padding: 20px 24px;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-left: 3px solid var(--accent);
+      position: relative;
+      padding: 18px 22px 20px;
+      background: linear-gradient(180deg, rgba(33, 182, 199, 0.04) 0%, rgba(33, 182, 199, 0.0) 70%), var(--surface);
+      border: 1px solid rgba(33, 182, 199, 0.18);
       border-radius: 12px;
     }
     .margin-note__label {
-      display: block;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
       font-family: var(--font-mono);
       font-size: 11px; font-weight: 500;
       letter-spacing: 1.4px;
       color: var(--accent-deep);
       text-transform: uppercase;
       margin-bottom: 8px;
+    }
+    .margin-note__label::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 3px rgba(33, 182, 199, 0.18);
     }
     .margin-note__text {
       font-family: var(--font-body);
@@ -1714,6 +1817,7 @@
       color: var(--accent-deep);
       margin-bottom: 20px;
     }
+    .step-card__icon .ico { width: 28px; height: 28px; }
     .step-card__icon .material-symbols-rounded {
       font-size: 28px;
       font-variation-settings: 'FILL' 0, 'wght' 500;
@@ -1807,6 +1911,89 @@
       .inline-form__row { flex-direction: column; }
       .inline-form__input { width: 100%; }
       .inline-form__btn { width: 100%; }
+    }
+
+    /* ---- variants: advisory vs booking (different visual language) ---- */
+    .inline-form-strip--advisory { background: var(--surface); }
+
+    .inline-form--advisory {
+      box-shadow: none;
+      border: 1px dashed rgba(33, 182, 199, 0.45);
+      background: linear-gradient(135deg, rgba(33, 182, 199, 0.04) 0%, rgba(33, 182, 199, 0) 60%), var(--surface);
+      animation: none;
+      gap: 18px;
+      padding: 18px 22px;
+    }
+    .inline-form--advisory::before { display: none; }
+    .inline-form--advisory:hover {
+      border-color: var(--accent);
+      transform: none;
+      box-shadow: 0 14px 28px -16px rgba(33, 182, 199, 0.4);
+    }
+    .inline-form__icon {
+      flex-shrink: 0;
+      width: 44px; height: 44px;
+      display: inline-flex; align-items: center; justify-content: center;
+      border-radius: 50%;
+      background: rgba(33, 182, 199, 0.12);
+      color: var(--accent-deep);
+    }
+    .inline-form__icon svg { width: 22px; height: 22px; }
+    .inline-form__copy { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+    .inline-form__kicker {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 1.2px; text-transform: uppercase;
+      color: var(--accent-deep);
+    }
+    .inline-form__kicker--accent { color: var(--accent-deep); }
+    .inline-form__pulse {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 0 rgba(33, 182, 199, 0.6);
+      animation: inline-form-pulse-dot 2s ease-out infinite;
+    }
+    @keyframes inline-form-pulse-dot {
+      0%   { box-shadow: 0 0 0 0 rgba(33, 182, 199, 0.55); }
+      80%  { box-shadow: 0 0 0 9px rgba(33, 182, 199, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(33, 182, 199, 0); }
+    }
+    .inline-form__btn--ghost {
+      background: transparent;
+      color: var(--accent-deep);
+      border: 1.5px solid var(--accent);
+    }
+    .inline-form__btn--ghost:hover {
+      background: var(--accent);
+      color: var(--surface);
+    }
+    @media (max-width: 991px) {
+      .inline-form--advisory { gap: 12px; }
+      .inline-form__icon { align-self: flex-start; }
+    }
+
+    /* ---- field error message (inline validation feedback) ---- */
+    .field__error {
+      display: block;
+      margin-top: 4px;
+      min-height: 0;
+      max-height: 0;
+      overflow: hidden;
+      font-family: var(--font-body);
+      font-size: 12px; font-weight: 500;
+      color: #C0392B;
+      letter-spacing: 0.1px;
+      transition: max-height 200ms ease, margin-top 200ms ease;
+    }
+    .field.has-error .field__error {
+      max-height: 24px;
+      margin-top: 6px;
+    }
+    .field.has-error input,
+    .field.has-error textarea {
+      border-color: #C0392B !important;
     }
 
     /* ============================================================
@@ -2265,6 +2452,7 @@
       .video-cinema__overlay h2 { font-size: 32px; letter-spacing: -0.8px; }
       .video-cinema__overlay p { font-size: 15px; }
       .video-cinema__play { width: 72px; height: 72px; }
+      .video-cinema__play .ico { width: 30px; height: 30px; }
       .video-cinema__play .material-symbols-rounded { font-size: 30px; }
 
       /* lead-form */
@@ -2413,6 +2601,7 @@
       /* doctors video */
       .doctors-video__title { font-size: 18px; }
       .doctors-video__play { width: 64px; height: 64px; }
+      .doctors-video__play .ico { width: 28px; height: 28px; }
       .doctors-video__play .material-symbols-rounded { font-size: 28px; }
       .doctors-video__caption { font-size: 11px; letter-spacing: 1.2px; }
 
@@ -2422,6 +2611,7 @@
       .video-cinema__overlay h2 { font-size: 24px; }
       .video-cinema__overlay p { font-size: 14px; }
       .video-cinema__play { width: 60px; height: 60px; }
+      .video-cinema__play .ico { width: 26px; height: 26px; }
       .video-cinema__play .material-symbols-rounded { font-size: 26px; }
 
       /* scan-story */
@@ -3193,7 +3383,7 @@
       <p class="hero-lead">Конусно-лучевая компьютерная томография в Самаре. Воксель от 0.1 мм, снимок за 14 секунд, DICOM на флешке.</p>
       <div class="hero-cta">
         <a href="booking-placeholder.html" target="_blank" rel="noopener" class="btn-primary">Записаться на исследование</a>
-        <a href="#services" class="btn-secondary">Узнать об услугах</a>
+        <a href="#contacts" class="btn-secondary">Как нас найти</a>
       </div>
     </div>
 
@@ -3334,7 +3524,9 @@
             <div class="doctors-video" role="button" tabindex="0" aria-label="Видео-объяснение процесса для лечащих врачей">
               <div class="doctors-video__inner">
                 <span class="doctors-video__play" aria-hidden="true">
-                  <span class="material-symbols-rounded">play_arrow</span>
+                  <svg class="ico" viewBox="0 0 24 24" width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <polygon points="6 3 20 12 6 21 6 3"/>
+                  </svg>
                 </span>
                 <span class="doctors-video__caption">ВИДЕО · СКОРО</span>
                 <p class="doctors-video__title">Видео-объяснение процесса для лечащих врачей</p>
@@ -3381,7 +3573,12 @@
         <article class="step-card">
           <span class="step-card__num">Шаг 01</span>
           <span class="step-card__icon" aria-hidden="true">
-            <span class="material-symbols-rounded">event</span>
+            <svg class="ico" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M8 2v4"/>
+              <path d="M16 2v4"/>
+              <rect width="18" height="18" x="3" y="4" rx="2"/>
+              <path d="M3 10h18"/>
+            </svg>
           </span>
           <h3>Выбираете время</h3>
           <p>Открываете график на сайте или звоните администратору. Выбираете удобный день и час в рамках работы кабинета.</p>
@@ -3390,7 +3587,14 @@
         <article class="step-card">
           <span class="step-card__num">Шаг 02</span>
           <span class="step-card__icon" aria-hidden="true">
-            <span class="material-symbols-rounded">edit_note</span>
+            <svg class="ico" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect width="8" height="4" x="8" y="2" rx="1" ry="1"/>
+              <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+              <path d="M12 11h4"/>
+              <path d="M12 16h4"/>
+              <path d="M8 11h.01"/>
+              <path d="M8 16h.01"/>
+            </svg>
           </span>
           <h3>Оставляете заявку</h3>
           <p>Имя, телефон и тип исследования. Если есть направление от врача - можно прикрепить или продиктовать по телефону.</p>
@@ -3399,7 +3603,13 @@
         <article class="step-card">
           <span class="step-card__num">Шаг 03</span>
           <span class="step-card__icon" aria-hidden="true">
-            <span class="material-symbols-rounded">support_agent</span>
+            <svg class="ico" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3 11h3a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/>
+              <path d="M17 11h3a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1z"/>
+              <path d="M3 12a9 9 0 0 1 18 0"/>
+              <path d="M21 16v2a4 4 0 0 1-4 4h-3"/>
+              <circle cx="12" cy="22" r="1"/>
+            </svg>
           </span>
           <h3>Подтверждаем запись</h3>
           <p>Администратор перезвонит в течение 15 минут, уточнит детали, ответит на вопросы и закрепит за вами слот.</p>
@@ -3477,17 +3687,28 @@
     </div>
   </section>
 
-  <!-- INLINE-FORM #1 (slim CTA after pricing) -->
-  <section class="inline-form-strip" aria-label="Быстрая консультация">
+  <!-- INLINE-FORM #1 (advisory: помощь в выборе исследования) -->
+  <section class="inline-form-strip inline-form-strip--advisory" aria-label="Быстрая консультация">
     <div class="container">
-      <form class="inline-form" novalidate>
-        <p class="inline-form__text">Не уверены, какой снимок нужен? Оставьте телефон - перезвоним и поможем подобрать подходящее исследование</p>
+      <form class="inline-form inline-form--advisory" novalidate>
+        <span class="inline-form__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+            <path d="M12 17h.01"/>
+          </svg>
+        </span>
+        <div class="inline-form__copy">
+          <span class="inline-form__kicker">Бесплатная консультация</span>
+          <p class="inline-form__text">Подскажем, какой снимок вам нужен.</p>
+        </div>
         <div class="inline-form__row">
           <label class="field">
-            <input type="tel" class="inline-form__input" name="phone" placeholder=" " required data-mask="phone" autocomplete="tel">
-            <span class="field__label">Мобильный телефон*</span>
+            <input type="tel" class="inline-form__input" name="phone" placeholder=" " required data-mask="phone" autocomplete="tel" aria-describedby="adv-phone-err">
+            <span class="field__label">Телефон для&nbsp;звонка*</span>
+            <span class="field__error" id="adv-phone-err" data-field-error></span>
           </label>
-          <button type="submit" class="inline-form__btn">Перезвоните мне</button>
+          <button type="submit" class="inline-form__btn inline-form__btn--ghost">Получить консультацию</button>
         </div>
       </form>
     </div>
@@ -3578,7 +3799,10 @@
 
         <article class="guarantee-card">
           <span class="guarantee-icon guarantee-icon--cyan" aria-hidden="true">
-            <span class="material-symbols-rounded">replay</span>
+            <svg class="ico" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+              <path d="M3 3v5h5"/>
+            </svg>
           </span>
           <h3>Переснимем бесплатно</h3>
           <p>Если снимок получился нечётким по нашей вине - переделаем повторно без доплаты. Это наша ответственность за результат.</p>
@@ -3586,7 +3810,10 @@
 
         <article class="guarantee-card">
           <span class="guarantee-icon guarantee-icon--blue" aria-hidden="true">
-            <span class="material-symbols-rounded">schedule</span>
+            <svg class="ico" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12 6 12 12 16 14"/>
+            </svg>
           </span>
           <h3>Результат в день обращения</h3>
           <p>DICOM-файл и заключение врача-рентгенолога выдаём сразу после исследования. Не нужно ждать или приезжать второй раз.</p>
@@ -3594,7 +3821,10 @@
 
         <article class="guarantee-card">
           <span class="guarantee-icon guarantee-icon--green" aria-hidden="true">
-            <span class="material-symbols-rounded">verified</span>
+            <svg class="ico" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/>
+              <path d="m9 12 2 2 4-4"/>
+            </svg>
           </span>
           <h3>Лицензия Минздрава</h3>
           <p>Работаем по медицинской лицензии №ЛО-63-01-005XXX. Сканеры Sirona/Vatech с поверкой дозиметрии и регулярной калибровкой.</p>
@@ -3640,7 +3870,9 @@
     <div class="video-cinema" role="button" tabindex="0" aria-label="Видео о Smile 3D">
       <div class="video-cinema__poster" style="background-image: url('assets/img/generated-1778319132585.png');"></div>
       <span class="video-cinema__play" aria-hidden="true">
-        <span class="material-symbols-rounded">play_arrow</span>
+        <svg class="ico" viewBox="0 0 24 24" width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polygon points="6 3 20 12 6 21 6 3"/>
+        </svg>
       </span>
       <div class="video-cinema__overlay">
         <p class="kicker">Кабинет в Самаре</p>
@@ -3650,15 +3882,22 @@
     </div>
   </section>
 
-  <!-- INLINE-FORM #2 (slim CTA before FAQ) -->
-  <section class="inline-form-strip" aria-label="Запись на исследование">
+  <!-- INLINE-FORM #2 (booking: prefer time slot) -->
+  <section class="inline-form-strip inline-form-strip--booking" aria-label="Запись на исследование">
     <div class="container">
-      <form class="inline-form" novalidate>
-        <p class="inline-form__text">Готовы записаться? Перезвоним в течение 15 минут и согласуем время.</p>
+      <form class="inline-form inline-form--booking" novalidate>
+        <div class="inline-form__copy">
+          <span class="inline-form__kicker inline-form__kicker--accent">
+            <span class="inline-form__pulse" aria-hidden="true"></span>
+            Свободные слоты сегодня и&nbsp;завтра
+          </span>
+          <p class="inline-form__text">Выберите удобное время - администратор подтвердит запись звонком в&nbsp;течение 15&nbsp;минут.</p>
+        </div>
         <div class="inline-form__row">
           <label class="field">
-            <input type="tel" class="inline-form__input" name="phone" placeholder=" " required data-mask="phone" autocomplete="tel">
+            <input type="tel" class="inline-form__input" name="phone" placeholder=" " required data-mask="phone" autocomplete="tel" aria-describedby="book-phone-err">
             <span class="field__label">Мобильный телефон*</span>
+            <span class="field__error" id="book-phone-err" data-field-error></span>
           </label>
           <button type="submit" class="inline-form__btn">Записаться</button>
         </div>
@@ -3750,12 +3989,14 @@
               <p class="contact-form-sub">Перезвоним в течение 15 минут и подберём удобное время</p>
               <form class="contact-mini-form" novalidate>
                 <label class="field">
-                  <input type="text" name="name" placeholder=" " required autocomplete="name">
+                  <input type="text" name="name" placeholder=" " required autocomplete="name" aria-describedby="contact-name-err">
                   <span class="field__label">Ваше имя</span>
+                  <span class="field__error" id="contact-name-err" data-field-error></span>
                 </label>
                 <label class="field">
-                  <input type="tel" name="phone" placeholder=" " required data-mask="phone" autocomplete="tel">
+                  <input type="tel" name="phone" placeholder=" " required data-mask="phone" autocomplete="tel" aria-describedby="contact-phone-err">
                   <span class="field__label">Мобильный телефон*</span>
+                  <span class="field__error" id="contact-phone-err" data-field-error></span>
                 </label>
                 <button type="submit">Записаться на исследование</button>
               </form>
@@ -4085,6 +4326,78 @@
         });
       });
     })();
+  </script>
+
+  <!-- ============================================================
+       Inline validation для inline-form #1, #2 и contact-form
+       (booking modal имеет свой собственный submit handler)
+  ============================================================ -->
+  <script>
+  (function() {
+    const forms = document.querySelectorAll('.inline-form, .contact-mini-form');
+    if (!forms.length) return;
+
+    const showError = (input, msg) => {
+      const field = input.closest('.field');
+      if (!field) return;
+      field.classList.add('has-error');
+      const errEl = field.querySelector('[data-field-error]');
+      if (errEl) errEl.textContent = msg;
+      input.setAttribute('aria-invalid', 'true');
+    };
+    const clearError = (input) => {
+      const field = input.closest('.field');
+      if (!field) return;
+      field.classList.remove('has-error');
+      const errEl = field.querySelector('[data-field-error]');
+      if (errEl) errEl.textContent = '';
+      input.removeAttribute('aria-invalid');
+    };
+
+    forms.forEach((form) => {
+      form.querySelectorAll('input').forEach((input) => {
+        input.addEventListener('input', () => clearError(input));
+      });
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        let firstInvalid = null;
+
+        const nameInput = form.querySelector('input[name="name"]');
+        if (nameInput) {
+          const v = nameInput.value.trim();
+          if (v.length < 2) {
+            showError(nameInput, 'Укажите имя - минимум 2 буквы');
+            firstInvalid = firstInvalid || nameInput;
+          }
+        }
+
+        const phoneInput = form.querySelector('input[name="phone"]');
+        if (phoneInput) {
+          const digits = phoneInput.value.replace(/\D/g, '');
+          if (digits.length < 11) {
+            showError(phoneInput, 'Введите телефон полностью - 10 цифр после +7');
+            firstInvalid = firstInvalid || phoneInput;
+          }
+        }
+
+        if (firstInvalid) { firstInvalid.focus(); return; }
+
+        const btn = form.querySelector('button[type="submit"]');
+        if (!btn) return;
+        const originalText = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = 'Отправляем...';
+
+        setTimeout(() => {
+          btn.disabled = false;
+          btn.textContent = 'Готово - перезвоним';
+          form.reset();
+          setTimeout(() => { btn.textContent = originalText; btn.disabled = false; }, 3500);
+        }, 700);
+      });
+    });
+  })();
   </script>
 
   <!-- ============================================================
