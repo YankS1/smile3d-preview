@@ -2709,6 +2709,255 @@
       .mobile-nav__footer { padding: 18px; }
       .mobile-nav__phone { font-size: 20px; }
     }
+
+    /* ============================================================
+       BOOKING MODAL (2026-05-10)
+       Попап-форма обратной связи. Открывается по клику на любые
+       CTA "Записаться" (перехватываются через делегирование).
+       Минимум полей: имя + телефон + услуга. Плавные анимации,
+       success-state, focus-trap, escape-to-close.
+    ============================================================ */
+    .book-modal {
+      position: fixed; inset: 0;
+      z-index: 200;
+      display: flex; align-items: center; justify-content: center;
+      padding: 24px 16px;
+      background: rgba(11, 24, 34, 0.55);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition:
+        opacity 320ms cubic-bezier(.4,0,.2,1),
+        visibility 0s linear 320ms;
+    }
+    .book-modal.is-open {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transition:
+        opacity 320ms cubic-bezier(.4,0,.2,1),
+        visibility 0s linear;
+    }
+
+    .book-modal__dialog {
+      position: relative;
+      width: 100%;
+      max-width: 460px;
+      max-height: calc(100vh - 48px);
+      background: #fff;
+      border-radius: 24px;
+      padding: 36px 36px 32px;
+      box-shadow: 0 32px 80px rgba(11, 24, 34, 0.25);
+      transform: translateY(24px) scale(.96);
+      opacity: 0;
+      transition:
+        transform 420ms cubic-bezier(.16,1,.3,1),
+        opacity 320ms cubic-bezier(.16,1,.3,1);
+      overflow-y: auto;
+      overscroll-behavior: contain;
+    }
+    .book-modal.is-open .book-modal__dialog {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+      transition-delay: 60ms;
+    }
+
+    .book-modal__close {
+      position: absolute; top: 16px; right: 16px;
+      width: 36px; height: 36px;
+      display: inline-flex; align-items: center; justify-content: center;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--muted);
+      cursor: pointer;
+      transition: color 200ms ease, background 200ms ease, border-color 200ms ease, transform 240ms ease;
+    }
+    .book-modal__close:hover {
+      color: var(--fg);
+      background: var(--surface-muted);
+      border-color: var(--border-strong);
+      transform: rotate(90deg);
+    }
+
+    .book-modal__kicker {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 1.6px;
+      text-transform: uppercase;
+      color: var(--accent-deep);
+      margin-bottom: 12px;
+    }
+    .book-modal__title {
+      font-family: var(--font-display);
+      font-size: 26px; font-weight: 700;
+      line-height: 1.2; letter-spacing: -0.6px;
+      color: var(--fg);
+      margin-bottom: 8px;
+    }
+    .book-modal__sub {
+      font-family: var(--font-body);
+      font-size: 14.5px; line-height: 1.5;
+      color: var(--text-body);
+      margin-bottom: 24px;
+    }
+
+    .book-form {
+      display: flex; flex-direction: column;
+      gap: 12px;
+    }
+    .book-form .field { width: 100%; }
+    .book-form select {
+      width: 100%;
+      min-height: 56px;
+      padding: 22px 40px 8px 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      font-family: var(--font-body);
+      font-size: 15px; font-weight: 400;
+      color: var(--fg);
+      cursor: pointer;
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'><path d='M4 6l4 4 4-4' stroke='%237E8F9D' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+      background-repeat: no-repeat;
+      background-position: right 16px center;
+      background-size: 16px;
+      transition: border-color 200ms ease, box-shadow 200ms ease;
+    }
+    .book-form select:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(33, 182, 199, 0.16);
+    }
+    .book-form__service-label {
+      position: absolute;
+      left: 14px;
+      top: 0;
+      transform: translateY(-50%) scale(1);
+      pointer-events: none;
+      font-size: 11px;
+      letter-spacing: 1.2px;
+      font-weight: 600;
+      color: var(--accent-deep);
+      text-transform: uppercase;
+      font-family: var(--font-mono);
+      background: var(--surface);
+      padding: 0 4px;
+    }
+
+    .book-form__submit {
+      margin-top: 8px;
+      width: 100%;
+      padding: 16px 24px;
+      background: var(--accent);
+      color: var(--surface);
+      border-radius: 12px;
+      font-family: var(--font-body);
+      font-size: 16px; font-weight: 700;
+      letter-spacing: -0.1px;
+      box-shadow: 0 8px 22px rgba(33, 182, 199, 0.32);
+      transition: background 220ms ease, transform 200ms ease, box-shadow 220ms ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .book-form__submit:hover {
+      background: var(--accent-deep);
+      transform: translateY(-2px);
+      box-shadow: 0 14px 28px rgba(33, 182, 199, 0.4);
+    }
+    .book-form__submit:active { transform: translateY(0); }
+    .book-form__submit[disabled] {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none !important;
+    }
+
+    .book-form__legal {
+      margin-top: 14px;
+      font-family: var(--font-body);
+      font-size: 12px; line-height: 1.5;
+      color: var(--muted);
+      text-align: center;
+    }
+    .book-form__legal a { color: var(--accent-deep); text-decoration: underline; text-underline-offset: 2px; }
+
+    /* success state */
+    .book-modal__success {
+      display: none;
+      flex-direction: column; align-items: center;
+      text-align: center;
+      padding: 8px 0;
+    }
+    .book-modal.is-success .book-form,
+    .book-modal.is-success .book-modal__kicker,
+    .book-modal.is-success .book-modal__title,
+    .book-modal.is-success .book-modal__sub { display: none; }
+    .book-modal.is-success .book-modal__success { display: flex; }
+
+    .book-modal__success-icon {
+      width: 76px; height: 76px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #E5F8FA, #C9EBEF);
+      border: 1px solid #B8E5EA;
+      color: var(--accent-deep);
+      display: inline-flex; align-items: center; justify-content: center;
+      margin-bottom: 22px;
+      box-shadow: 0 12px 32px rgba(33, 182, 199, 0.22);
+      animation: success-pop 520ms cubic-bezier(.16,1,.3,1) both;
+    }
+    .book-modal__success-icon svg { width: 32px; height: 32px; }
+    @keyframes success-pop {
+      0%   { opacity: 0; transform: scale(0.5); }
+      60%  { opacity: 1; transform: scale(1.08); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+    .book-modal__success h3 {
+      font-family: var(--font-display);
+      font-size: 22px; font-weight: 700;
+      letter-spacing: -0.4px;
+      color: var(--fg);
+      margin-bottom: 8px;
+    }
+    .book-modal__success p {
+      font-family: var(--font-body);
+      font-size: 14.5px; line-height: 1.55;
+      color: var(--text-body);
+      margin-bottom: 22px;
+      max-width: 340px;
+    }
+    .book-modal__success-close {
+      padding: 12px 24px;
+      background: var(--surface-muted);
+      border: 1px solid var(--border);
+      color: var(--fg);
+      border-radius: 10px;
+      font-family: var(--font-body);
+      font-size: 14px; font-weight: 600;
+      cursor: pointer;
+      transition: background 200ms ease, border-color 200ms ease;
+    }
+    .book-modal__success-close:hover {
+      background: var(--bg);
+      border-color: var(--border-strong);
+    }
+
+    /* lock body when open */
+    body.has-book-modal { overflow: hidden; }
+
+    /* mobile */
+    @media (max-width: 540px) {
+      .book-modal { padding: 16px 12px; align-items: flex-end; }
+      .book-modal__dialog { padding: 28px 22px 24px; border-radius: 20px; max-width: 100%; }
+      .book-modal__title { font-size: 22px; }
+      .book-modal__kicker { font-size: 10px; }
+      .book-form__submit { padding: 14px 20px; font-size: 15px; }
+      .book-modal__close { top: 12px; right: 12px; width: 32px; height: 32px; }
+    }
   </style>
 </head>
 <body>
@@ -2866,6 +3115,56 @@
       <a href="booking-placeholder.html" target="_blank" rel="noopener" class="mobile-nav__cta" data-mobile-link>Записаться на исследование</a>
     </div>
   </aside>
+
+  <!-- BOOKING MODAL -->
+  <div class="book-modal" data-book-modal aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="book-modal-title">
+    <div class="book-modal__dialog">
+      <button type="button" class="book-modal__close" data-book-close aria-label="Закрыть">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M5 5l8 8M13 5l-8 8"/>
+        </svg>
+      </button>
+
+      <span class="book-modal__kicker">Запись на исследование</span>
+      <h2 class="book-modal__title" id="book-modal-title">Перезвоним за&nbsp;15&nbsp;минут</h2>
+      <p class="book-modal__sub">Оставьте номер - подтвердим удобное время и&nbsp;ответим на&nbsp;вопросы.</p>
+
+      <form class="book-form" data-book-form novalidate>
+        <label class="field">
+          <input type="text" name="name" placeholder=" " autocomplete="name">
+          <span class="field__label">Как к вам обращаться</span>
+        </label>
+        <label class="field">
+          <input type="tel" name="phone" placeholder="+7" required inputmode="tel" autocomplete="tel" data-phone-mask>
+          <span class="field__label">Телефон*</span>
+        </label>
+        <div class="field" style="position: relative;">
+          <select name="service" data-book-service>
+            <option value="klkt">КЛКТ - конусно-лучевая КТ</option>
+            <option value="optg">ОПТГ - панорамный снимок</option>
+            <option value="trg">ТРГ - телерентгенограмма</option>
+            <option value="unknown">Не знаю - подскажите</option>
+          </select>
+          <span class="book-form__service-label">Тип исследования</span>
+        </div>
+        <button type="submit" class="book-form__submit" data-book-submit>Записаться</button>
+        <p class="book-form__legal">
+          Нажимая кнопку, вы соглашаетесь с <a href="privacy.html" target="_blank" rel="noopener">политикой конфиденциальности</a>
+        </p>
+      </form>
+
+      <div class="book-modal__success">
+        <span class="book-modal__success-icon" aria-hidden="true">
+          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M7 16l6 6 12-12"/>
+          </svg>
+        </span>
+        <h3>Заявка отправлена</h3>
+        <p>Администратор перезвонит в&nbsp;течение 15&nbsp;минут, уточнит детали и&nbsp;подтвердит время визита.</p>
+        <button type="button" class="book-modal__success-close" data-book-close>Закрыть</button>
+      </div>
+    </div>
+  </div>
 
   <!-- HERO (MiCSw) -->
   <section class="hero" aria-label="Hero">
@@ -3120,7 +3419,7 @@
             <li>Снимок за 14 секунд</li>
             <li>DICOM на флешке</li>
           </ul>
-          <a href="booking-placeholder.html" target="_blank" rel="noopener" class="pricing-cta pricing-cta--secondary">Записаться</a>
+          <a href="booking-placeholder.html" target="_blank" rel="noopener" data-book-service="optg" class="pricing-cta pricing-cta--secondary">Записаться</a>
         </article>
 
         <article class="pricing-card is-featured">
@@ -3139,7 +3438,7 @@
             <li>Цефалометрический расчёт</li>
             <li>Diagnocat AI анализ</li>
           </ul>
-          <a href="booking-placeholder.html" target="_blank" rel="noopener" class="pricing-cta pricing-cta--primary">Записаться</a>
+          <a href="booking-placeholder.html" target="_blank" rel="noopener" data-book-service="klkt" class="pricing-cta pricing-cta--primary">Записаться</a>
         </article>
 
         <article class="pricing-card">
@@ -3157,7 +3456,7 @@
             <li>Снимок за 18 секунд</li>
             <li>Расчёт по 17 точкам</li>
           </ul>
-          <a href="booking-placeholder.html" target="_blank" rel="noopener" class="pricing-cta pricing-cta--secondary">Записаться</a>
+          <a href="booking-placeholder.html" target="_blank" rel="noopener" data-book-service="trg" class="pricing-cta pricing-cta--secondary">Записаться</a>
         </article>
 
       </div>
@@ -3868,6 +4167,151 @@
       } else if (!e.shiftKey && document.activeElement === last) {
         e.preventDefault(); first.focus();
       }
+    });
+  })();
+  </script>
+
+  <!-- ============================================================
+       BOOKING MODAL controller (2026-05-10)
+       Перехват кликов по всем CTA "Записаться" → открывает modal.
+       Submit без backend - пока эмулируем delay + success state.
+       Реальная отправка хука позже (Telegram bot / mail / CRM).
+  ============================================================ -->
+  <script>
+  (function() {
+    const modal = document.querySelector('[data-book-modal]');
+    const form = document.querySelector('[data-book-form]');
+    if (!modal || !form) return;
+
+    const dialog = modal.querySelector('.book-modal__dialog');
+    const submit = modal.querySelector('[data-book-submit]');
+    const serviceSelect = modal.querySelector('[data-book-service]');
+    let lastFocus = null;
+
+    function open(trigger) {
+      lastFocus = document.activeElement;
+      // если триггер указал тип исследования (data-book-service="klkt") - подставим
+      if (trigger && trigger.dataset && trigger.dataset.bookService) {
+        const val = trigger.dataset.bookService;
+        if ([...serviceSelect.options].some(o => o.value === val)) {
+          serviceSelect.value = val;
+        }
+      }
+      modal.classList.remove('is-success');
+      modal.classList.add('is-open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('has-book-modal');
+      // focus first input после анимации
+      setTimeout(() => {
+        const phone = form.querySelector('input[name="phone"]');
+        const name = form.querySelector('input[name="name"]');
+        // сначала имя если пустое, иначе телефон
+        if (name && !name.value) name.focus({ preventScroll: true });
+        else if (phone) phone.focus({ preventScroll: true });
+      }, 380);
+    }
+
+    function close() {
+      modal.classList.remove('is-open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('has-book-modal');
+      // reset success state после fade-out
+      setTimeout(() => {
+        modal.classList.remove('is-success');
+        // не сбрасываем форму - вдруг хочет открыть снова
+      }, 360);
+      if (lastFocus && typeof lastFocus.focus === 'function') {
+        lastFocus.focus({ preventScroll: true });
+      }
+    }
+
+    // Делегирование кликов: любой <a href="booking-placeholder.html"> или [data-open-booking]
+    document.addEventListener('click', (e) => {
+      const trigger = e.target.closest(
+        'a[href$="booking-placeholder.html"], [data-open-booking]'
+      );
+      if (!trigger) return;
+      // позволим Ctrl/Cmd+Click открыть в новой вкладке (для прямой ссылки)
+      if (e.ctrlKey || e.metaKey || e.shiftKey || e.button === 1) return;
+      e.preventDefault();
+      open(trigger);
+    });
+
+    // Backdrop click → close (только если кликнули НЕ внутрь dialog)
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) close();
+    });
+
+    // Close buttons
+    modal.querySelectorAll('[data-book-close]').forEach(btn => {
+      btn.addEventListener('click', close);
+    });
+
+    // Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('is-open')) close();
+    });
+
+    // Phone mask - reuse существующий механизм через [data-phone-mask]
+    // (он уже инициализируется на странице - но input в modal появился dynamically?
+    //  Нет, он в DOM с самого начала. Проверим.)
+    const phoneInput = form.querySelector('input[name="phone"]');
+    if (phoneInput) {
+      phoneInput.addEventListener('input', () => {
+        let v = phoneInput.value.replace(/\D/g, '');
+        if (v.startsWith('8')) v = '7' + v.slice(1);
+        if (!v.startsWith('7')) v = '7' + v;
+        v = v.slice(0, 11);
+        let out = '+7';
+        if (v.length > 1)  out += ' (' + v.slice(1, 4);
+        if (v.length >= 4) out += ') ' + v.slice(4, 7);
+        if (v.length >= 7) out += '-' + v.slice(7, 9);
+        if (v.length >= 9) out += '-' + v.slice(9, 11);
+        phoneInput.value = out;
+      });
+      phoneInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Backspace' && phoneInput.value.length <= 3) {
+          e.preventDefault();
+          phoneInput.value = '';
+        }
+      });
+    }
+
+    // Form submit
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const phone = form.querySelector('input[name="phone"]').value.trim();
+      // минимальная валидация: должно быть 11 цифр
+      const digits = phone.replace(/\D/g, '');
+      if (digits.length < 11) {
+        const phoneField = form.querySelector('input[name="phone"]');
+        phoneField.focus();
+        phoneField.style.borderColor = '#d23a3a';
+        phoneField.style.boxShadow = '0 0 0 3px rgba(210, 58, 58, 0.16)';
+        setTimeout(() => {
+          phoneField.style.borderColor = '';
+          phoneField.style.boxShadow = '';
+        }, 2400);
+        return;
+      }
+
+      // эмулируем отправку
+      submit.disabled = true;
+      const originalText = submit.textContent;
+      submit.textContent = 'Отправляем...';
+
+      // в будущем здесь будет fetch на endpoint
+      // const data = new FormData(form);
+      // fetch('/api/booking', { method:'POST', body: data })
+      setTimeout(() => {
+        submit.disabled = false;
+        submit.textContent = originalText;
+        modal.classList.add('is-success');
+        // прокрутим dialog в начало чтобы success-icon был виден
+        if (dialog) dialog.scrollTop = 0;
+        // сбросим форму в фоне
+        form.reset();
+      }, 700);
     });
   })();
   </script>
