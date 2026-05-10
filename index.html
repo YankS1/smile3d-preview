@@ -617,14 +617,28 @@
     }
     @media (max-width: 640px) {
       .svc-modal { padding: 16px 12px; }
-      .svc-modal__dialog { padding: 40px 24px 32px; border-radius: 20px; }
-      .svc-modal__title { font-size: 24px; }
-      .svc-modal__meta { flex-direction: column; gap: 16px; }
+      .svc-modal__dialog { padding: 36px 22px 28px; border-radius: 20px; }
+      .svc-modal__close { top: 14px; right: 14px; width: 34px; height: 34px; }
+      .svc-modal__close svg { width: 16px; height: 16px; }
+      .svc-modal__kicker { font-size: 10.5px; letter-spacing: 1.4px; margin-bottom: 10px; }
+      .svc-modal__title { font-size: 22px; letter-spacing: -0.4px; margin-bottom: 16px; }
+      .svc-modal__body { font-size: 14px; line-height: 1.55; }
+      .svc-modal__body p { margin-bottom: 10px; }
+      .svc-modal__meta { flex-direction: column; gap: 14px; margin-top: 22px; padding-top: 16px; }
+      .svc-modal__meta-item { padding-right: 0; }
       .svc-modal__meta-item + .svc-modal__meta-item {
         padding-left: 0; border-left: 0;
-        padding-top: 16px; border-top: 1px solid var(--border);
+        padding-top: 14px; border-top: 1px solid var(--border);
       }
-      .svc-modal__cta { width: 100%; justify-content: center; }
+      .svc-modal__meta-label { font-size: 9.5px; letter-spacing: 1.2px; }
+      .svc-modal__meta-value { font-size: 15.5px; }
+      .svc-modal__cta { width: 100%; justify-content: center; margin-top: 24px; padding: 12px 22px; font-size: 14px; }
+    }
+    @media (max-width: 440px) {
+      .svc-modal__dialog { padding: 32px 18px 26px; }
+      .svc-modal__title { font-size: 20px; }
+      .svc-modal__body { font-size: 13.5px; }
+      .svc-modal__meta-value { font-size: 14.5px; }
     }
 
     /* Patients panel (kHbbz) */
