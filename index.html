@@ -1,47 +1,3314 @@
 <!doctype html>
+<!--
+  Smile 3D Landing - source: smile3d.pen up7cs (Smile3D Landing 2-2-2-3, 1920)
+  16 sections, total height ~11869px, container 1840px
+-->
 <html lang="ru">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Smile3D - варианты первого экрана</title>
-    <meta name="description" content="Три варианта первого экрана Smile3D">
-    <meta http-equiv="refresh" content="0; url=./html-variants/variant-1-clear-route.html">
-    <style>
-      :root {
-        color-scheme: light;
-        font-family: Arial, sans-serif;
-        color: #08263a;
-        background: #f4fbfc;
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Smile 3D - 3D-рентгенодиагностика стоматологии · Самара</title>
+  <meta name="description" content="Конусно-лучевая компьютерная томография (КЛКТ), ортопантомография (ОПТГ), телерентгенография (ТРГ) в Самаре. Воксель от 0.1 мм, снимок за 14 секунд." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Symbols+Rounded">
+  <style>
+    /* ============================================================
+       Tokens (mirror smile3d.pen variables, verbatim)
+    ============================================================ */
+    :root {
+      --accent: #21B6C7;
+      --accent-deep: #0E8C9D;
+      --accent-soft: #C9EBEF;
+      --accent-glow: #5EE7F0;
+      --accent-secondary: #1E78D8;
+
+      --bg: #F5F9FB;
+      --surface: #FFFFFF;
+      --surface-muted: #EEF4F7;
+      --surface-cyan: #E5F5F7;
+      --surface-inverse: #0B1822;
+
+      --fg: #0E1B26;
+      --text-body: #3F5160;
+      --muted: #7E8F9D;
+      --text-faint: #A7B5BF;
+      --text-inverse: #FFFFFF;
+
+      --border: #E2EAF0;
+      --border-strong: #CCD8E0;
+
+      --font-display: 'Geist', system-ui, sans-serif;
+      --font-body: 'Inter', system-ui, sans-serif;
+      --font-mono: 'Geist Mono', ui-monospace, monospace;
+    }
+
+    /* ============================================================
+       Reset & base
+    ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text-body);
+      font-family: var(--font-body);
+      font-size: 17px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    img, svg { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; cursor: pointer; background: none; border: 0; color: inherit; padding: 0; }
+    p, h1, h2, h3, h4, ul { margin: 0; }
+    ul { padding: 0; list-style: none; }
+
+    /* layout */
+    .container {
+      width: 1840px;
+      max-width: calc(100% - 80px);
+      margin-inline: auto;
+    }
+    @media (max-width: 1280px) {
+      .container { max-width: calc(100% - 40px); }
+    }
+
+    /* section heading (kicker + h2 + lead) - reused */
+    .section-heading {
+      display: flex; flex-direction: column; align-items: center;
+      text-align: center; gap: 8px;
+    }
+    .advantages .section-heading { align-items: flex-start; text-align: left; }
+    .advantages .section-heading h2 { text-align: left; }
+    .section-heading .kicker { color: var(--accent-deep); }
+    .section-heading h2 {
+      font-family: var(--font-display);
+      font-size: 48px; font-weight: 700;
+      line-height: 1.1; letter-spacing: -1.4px;
+      color: var(--fg);
+      max-width: 900px;
+    }
+    .section-heading .lead {
+      font-family: var(--font-body);
+      font-size: 18px; font-weight: 400;
+      line-height: 1.55; color: var(--text-body);
+      max-width: 760px;
+    }
+
+    .kicker {
+      font-family: var(--font-mono);
+      font-size: 13px; font-weight: 500;
+      letter-spacing: 1.4px;
+      color: var(--accent-deep);
+      text-transform: none;
+    }
+
+    /* ============================================================
+       Topbar (obqp9, h=72, fill=#FFFFFF)
+    ============================================================ */
+    .topbar {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--surface);
+      height: 72px;
+    }
+    .topbar-inner {
+      width: 1840px; max-width: calc(100% - 80px);
+      margin-inline: auto;
+      height: 72px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 32px;
+    }
+    .logo-mark-header { display: inline-flex; align-items: center; gap: 6px; }
+    .logo-icon {
+      width: 48px; height: 42px; flex-shrink: 0;
+      position: relative;
+    }
+    .logo-icon svg { width: 100%; height: 100%; overflow: visible; }
+    .logo-text {
+      display: inline-flex; align-items: baseline; gap: 5px;
+      font-family: var(--font-display);
+      font-size: 28px; font-weight: 700;
+      letter-spacing: -0.7px;
+      line-height: 1;
+    }
+    .logo-text .smile { color: var(--fg); }
+    .logo-text .three-d { color: #6AB9BD; }
+
+    .topbar-nav {
+      display: flex; align-items: center; gap: 32px;
+      font-family: var(--font-body);
+      font-size: 14px; font-weight: 500;
+    }
+    .topbar-nav a {
+      position: relative;
+      color: var(--text-body);
+      padding: 6px 0;
+      transition: color 200ms ease;
+    }
+    .topbar-nav a::after {
+      content: '';
+      position: absolute;
+      left: 0; bottom: 0;
+      width: 100%; height: 2px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition: transform 280ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .topbar-nav a:hover { color: var(--accent-deep); }
+    .topbar-nav a:hover::after { transform: scaleX(1); }
+
+    .topbar-contact {
+      display: inline-flex; flex-direction: column;
+      gap: 2px; line-height: 1.2;
+      text-align: right;
+    }
+    .topbar-contact__phone {
+      font-family: var(--font-display);
+      font-size: 16px; font-weight: 700;
+      color: var(--fg);
+      letter-spacing: -0.2px;
+      transition: color 200ms ease;
+    }
+    .topbar-contact__phone:hover { color: var(--accent-deep); }
+    .topbar-contact__hours {
+      font-family: var(--font-mono);
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 0.6px;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    .topbar-right {
+      display: inline-flex; align-items: center;
+      gap: 20px;
+    }
+    .topbar-cta {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 10px 20px;
+      background: var(--accent);
+      color: var(--surface);
+      font-family: var(--font-body);
+      font-size: 15px; font-weight: 600;
+      border-radius: 12px;
+      transition: background 200ms ease, transform 150ms ease;
+    }
+    .topbar-cta:hover { background: var(--accent-deep); transform: translateY(-1px); }
+
+    @media (max-width: 1280px) {
+      .topbar-contact__hours { display: none; }
+    }
+    @media (max-width: 1100px) {
+      .topbar-nav { display: none; }
+    }
+    @media (max-width: 767px) {
+      .topbar-contact { display: none; }
+    }
+
+    /* ============================================================
+       Hero (MiCSw, h=840)
+    ============================================================ */
+    .hero {
+      position: relative; overflow: hidden;
+      height: 700px;
+      width: 100%;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: radial-gradient(circle at 50% 50%, #E5F5F7 0%, #F5F9FB 100%);
+    }
+    .hero-bg__image {
+      position: absolute; inset: 0;
+      background: url('assets/img/generated-1778318895975.png') center/cover no-repeat;
+    }
+    .hero-bg__wash {
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(245, 249, 251, 0.9) 0%, rgba(245, 249, 251, 0.6) 50%, rgba(245, 249, 251, 0.9) 100%);
+    }
+    .hero-center {
+      position: absolute;
+      left: 50%; top: 50%;
+      transform: translate(-50%, -50%);
+      width: 880px;
+      display: flex; flex-direction: column; align-items: center;
+      gap: 20px;
+      text-align: center;
+    }
+    .hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 13px; font-weight: 500;
+      letter-spacing: 1.4px;
+      color: var(--accent-deep);
+    }
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: 72px; font-weight: 700;
+      line-height: 1.05; letter-spacing: -2.2px;
+      color: var(--fg);
+      width: 880px;
+    }
+    .hero-lead {
+      font-family: var(--font-body);
+      font-size: 21px; font-weight: 400;
+      line-height: 1.5; color: var(--text-body);
+      width: 780px;
+    }
+    .hero-cta {
+      display: inline-flex; gap: 12px;
+      margin-top: 8px;
+    }
+    .btn-primary {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 15px 30px;
+      background: var(--accent);
+      color: var(--surface);
+      font-family: var(--font-body);
+      font-size: 17px; font-weight: 700;
+      border-radius: 14px;
+      box-shadow: 0 0 24px rgba(94, 231, 240, 0.4);
+      transition: background 200ms ease, transform 150ms ease;
+    }
+    .btn-primary:hover { background: var(--accent-deep); transform: translateY(-1px); }
+    .btn-secondary {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 15px 30px;
+      background: rgba(255, 255, 255, 0.85);
+      color: var(--fg);
+      font-family: var(--font-body);
+      font-size: 17px; font-weight: 700;
+      border: 1px solid var(--fg);
+      border-radius: 14px;
+      transition: background 200ms ease, border-color 200ms ease, color 200ms ease;
+    }
+    .btn-secondary:hover { background: var(--fg); color: var(--surface); }
+
+    .hero-ruler {
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 1920px; max-width: 100%;
+      padding: 18px 80px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 24px;
+    }
+    .hero-ruler__item {
+      display: inline-flex; align-items: center; gap: 12px;
+      font-family: var(--font-mono);
+      font-size: 12px; font-weight: 500;
+      letter-spacing: 1.5px;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+    .hero-ruler__dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+    .hero-ruler__sep {
+      flex: 0 0 96px; height: 1px;
+      background: var(--border-strong);
+    }
+    @media (max-width: 1100px) {
+      .hero-ruler { flex-wrap: wrap; gap: 12px; padding: 16px 24px; }
+      .hero-ruler__sep { display: none; }
+      .hero h1 { font-size: 56px; width: 100%; letter-spacing: -1.5px; }
+      .hero-center { width: calc(100% - 48px); top: 120px; }
+      .hero-lead { width: 100%; font-size: 18px; }
+    }
+
+    /* ============================================================
+       Tabs section (Услуги/Пациентам/Врачам merged into one)
+       Source: s2wipL + kHbbz + K32OVs
+       Backgrounds vary by tab: Услуги=#FFFFFF, Пациентам=#F5F9FB, Врачам=#FFFFFF
+    ============================================================ */
+    .tabs-section {
+      padding: 56px 0;
+      background: var(--surface);
+      transition: background 600ms cubic-bezier(.4,0,.2,1);
+    }
+    .tabs-section[data-active="patients"] { background: var(--bg); }
+    .tabs-section[data-active="doctors"]  { background: var(--surface); }
+
+    .section-tabs {
+      display: flex; align-items: flex-start; justify-content: center;
+      gap: 48px;
+      margin-bottom: 36px;
+    }
+    .section-tab {
+      display: inline-flex; flex-direction: column; align-items: center;
+      gap: 10px; padding: 0 6px;
+      font-family: var(--font-display);
+      font-size: 15px; font-weight: 500;
+      color: var(--muted);
+      cursor: pointer;
+      transition: color 200ms ease;
+    }
+    .section-tab:hover { color: var(--fg); }
+    .section-tab__underline {
+      width: 80px; height: 2px;
+      background: var(--border);
+      transition: background 240ms ease;
+    }
+    .section-tab.is-active { color: var(--fg); font-weight: 600; }
+    .section-tab.is-active .section-tab__underline { background: var(--accent); }
+
+    .tab-panel .section-heading { align-items: center; text-align: center; }
+    .tab-panel .section-heading h2 { text-align: center; margin-inline: auto; }
+    .tab-panel .section-heading .lead { text-align: center; margin-inline: auto; }
+    .tab-panels {
+      position: relative;
+      display: grid;
+      grid-template-areas: "stack";
+    }
+    .tab-panel {
+      grid-area: stack;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(14px) scale(0.985);
+      pointer-events: none;
+      transition:
+        opacity 420ms cubic-bezier(.16,1,.3,1),
+        transform 420ms cubic-bezier(.16,1,.3,1),
+        visibility 0s linear 420ms;
+    }
+    .tab-panel.is-active {
+      opacity: 1;
+      visibility: visible;
+      transform: none;
+      pointer-events: auto;
+      transition:
+        opacity 480ms cubic-bezier(.16,1,.3,1) 60ms,
+        transform 480ms cubic-bezier(.16,1,.3,1) 60ms,
+        visibility 0s linear;
+    }
+    /* Stagger reveal у внутренних блоков активной панели */
+    .tab-panel > * {
+      opacity: 0;
+      transform: translateY(10px);
+      transition:
+        opacity 520ms cubic-bezier(.16,1,.3,1),
+        transform 520ms cubic-bezier(.16,1,.3,1);
+    }
+    .tab-panel.is-active > * {
+      opacity: 1;
+      transform: none;
+    }
+    .tab-panel.is-active > *:nth-child(1) { transition-delay: 120ms; }
+    .tab-panel.is-active > *:nth-child(2) { transition-delay: 200ms; }
+    .tab-panel.is-active > *:nth-child(3) { transition-delay: 280ms; }
+    .tab-panel.is-active > *:nth-child(4) { transition-delay: 360ms; }
+    .tab-panel.is-active > *:nth-child(5) { transition-delay: 440ms; }
+    .tab-panel.is-active > *:nth-child(n+6) { transition-delay: 520ms; }
+
+    /* shared spacer (56 + 64 px) */
+    .tab-spacer-top { height: 0; } /* uses heading + spacer below */
+    .tab-spacer-mid { height: 40px; }
+
+    /* Services (s2wipL) panel */
+    .services-grid {
+      display: flex; gap: 28px; justify-content: stretch;
+      align-items: stretch;
+      flex-wrap: nowrap;
+    }
+    .service-card {
+      display: flex; flex-direction: column; gap: 28px;
+      flex: 1 1 0; min-width: 0;
+      max-width: 640px; padding: 44px 40px 36px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      cursor: pointer;
+      position: relative;
+      transition: transform 240ms ease, box-shadow 240ms ease, border-color 240ms ease, background 240ms ease;
+    }
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(14, 27, 38, 0.08);
+      border-color: var(--accent);
+    }
+    .service-card.is-active {
+      border-color: var(--accent);
+      background: var(--surface-cyan, #eef9fb);
+      box-shadow: 0 12px 32px rgba(33, 182, 199, 0.18);
+    }
+    .service-card__visual {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      max-height: 360px;
+      border-radius: 16px;
+      background: var(--surface-cyan) center/cover no-repeat;
+      overflow: hidden;
+    }
+    .service-card .service-meta {
+      font-family: var(--font-mono);
+      font-size: 13px; font-weight: 500;
+      letter-spacing: 1.6px;
+      color: var(--accent-deep);
+      text-transform: uppercase;
+    }
+    .service-card h3 {
+      font-family: var(--font-display);
+      font-size: 38px; font-weight: 700;
+      line-height: 1.05; letter-spacing: -1px;
+      color: var(--fg);
+      margin-top: -4px;
+    }
+    .service-card__features {
+      display: flex; flex-direction: column; gap: 14px;
+      font-family: var(--font-body);
+      font-size: 16px; font-weight: 400;
+      color: var(--text-body); line-height: 1.55;
+    }
+    .service-card__more {
+      display: inline-flex; align-items: center; gap: 10px;
+      margin-top: auto; padding-top: 20px;
+      font-family: var(--font-mono);
+      font-size: 12px; font-weight: 600;
+      letter-spacing: 1.8px; text-transform: uppercase;
+      color: var(--accent-deep);
+      border-top: 1px dashed var(--border);
+    }
+    .service-card__more svg {
+      width: 14px; height: 14px;
+      transition: transform 240ms ease;
+    }
+    .service-card.is-active .service-card__more svg { transform: rotate(45deg); }
+    .service-card.is-active .service-card__more::after { content: " - закрыть"; opacity: 0.55; }
+
+    /* Service Modal - попап с информацией об услуге */
+    .svc-modal {
+      position: fixed; inset: 0;
+      z-index: 100;
+      display: flex; align-items: center; justify-content: center;
+      padding: 32px 16px;
+      background: rgba(11, 24, 34, 0.55);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 240ms ease;
+    }
+    .svc-modal.is-open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .svc-modal__dialog {
+      position: relative;
+      width: 100%;
+      max-width: 720px;
+      max-height: calc(100vh - 64px);
+      overflow-y: auto;
+      background: var(--surface, #fff);
+      border-radius: 24px;
+      padding: 56px 56px 48px;
+      box-shadow: 0 32px 80px rgba(11, 24, 34, 0.25);
+      transform: translateY(16px) scale(.98);
+      transition: transform 280ms cubic-bezier(.4,0,.2,1);
+    }
+    .svc-modal.is-open .svc-modal__dialog { transform: translateY(0) scale(1); }
+    .svc-modal__dialog::-webkit-scrollbar { width: 6px; }
+    .svc-modal__dialog::-webkit-scrollbar-thumb { background: rgba(14, 27, 38, 0.18); border-radius: 999px; }
+
+    .svc-modal__close {
+      position: absolute; top: 20px; right: 20px;
+      width: 40px; height: 40px;
+      display: inline-flex; align-items: center; justify-content: center;
+      background: transparent; border: 0;
+      color: var(--muted);
+      cursor: pointer;
+      border-radius: 50%;
+      transition: background 200ms ease, color 200ms ease;
+    }
+    .svc-modal__close:hover { background: rgba(14, 27, 38, 0.06); color: var(--fg); }
+    .svc-modal__close svg { width: 18px; height: 18px; }
+
+    .svc-modal__kicker {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 12px; font-weight: 600;
+      letter-spacing: 1.8px; text-transform: uppercase;
+      color: var(--accent-deep);
+      margin-bottom: 14px;
+    }
+    .svc-modal__title {
+      font-family: var(--font-display);
+      font-size: 32px; font-weight: 700;
+      line-height: 1.15; letter-spacing: -0.7px;
+      color: var(--fg);
+      margin: 0 0 24px;
+    }
+    .svc-modal__body {
+      font-family: var(--font-body);
+      font-size: 15.5px; line-height: 1.65;
+      color: var(--text-body);
+    }
+    .svc-modal__body p { margin: 0 0 14px; }
+    .svc-modal__body p:last-child { margin-bottom: 0; }
+    .svc-modal__body strong { color: var(--fg); font-weight: 600; }
+
+    .svc-modal__meta {
+      display: flex; gap: 0;
+      margin: 28px 0 0;
+      padding: 18px 0 0;
+      border-top: 1px solid var(--border);
+    }
+    .svc-modal__meta-item {
+      flex: 1;
+      padding-right: 16px;
+    }
+    .svc-modal__meta-item + .svc-modal__meta-item {
+      padding-left: 24px;
+      border-left: 1px solid var(--border);
+    }
+    .svc-modal__meta-label {
+      font-family: var(--font-mono);
+      font-size: 10.5px; font-weight: 600;
+      letter-spacing: 1.4px; text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+    .svc-modal__meta-value {
+      font-family: var(--font-display);
+      font-size: 18px; font-weight: 600;
+      color: var(--fg);
+      letter-spacing: -0.2px;
+    }
+
+    .svc-modal__cta {
+      display: inline-flex; align-items: center; gap: 10px;
+      margin-top: 32px;
+      padding: 14px 28px;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 999px;
+      font-family: var(--font-display);
+      font-size: 15px; font-weight: 600;
+      text-decoration: none;
+      transition: background 200ms ease, transform 200ms ease;
+    }
+    .svc-modal__cta:hover { background: var(--accent-deep); transform: translateY(-2px); }
+    .svc-modal__cta svg { width: 16px; height: 16px; }
+
+    body.svc-modal-open { overflow: hidden; }
+
+    @media (max-width: 1280px) {
+      .services-grid { flex-wrap: wrap; gap: 24px; }
+      .service-card { flex: 1 1 100%; max-width: 640px; padding: 36px 32px; }
+      .service-card__visual { aspect-ratio: 16 / 9; }
+      .service-card h3 { font-size: 32px; }
+    }
+    @media (max-width: 640px) {
+      .svc-modal { padding: 16px 12px; }
+      .svc-modal__dialog { padding: 40px 24px 32px; border-radius: 20px; }
+      .svc-modal__title { font-size: 24px; }
+      .svc-modal__meta { flex-direction: column; gap: 16px; }
+      .svc-modal__meta-item + .svc-modal__meta-item {
+        padding-left: 0; border-left: 0;
+        padding-top: 16px; border-top: 1px solid var(--border);
+      }
+      .svc-modal__cta { width: 100%; justify-content: center; }
+    }
+
+    /* Patients panel (kHbbz) */
+    .patients-grid {
+      display: flex; gap: 24px; justify-content: center;
+      flex-wrap: wrap;
+    }
+    .patient-card {
+      display: flex; flex-direction: column; gap: 16px;
+      width: 420px; padding: 32px 28px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      transition: transform 240ms ease, border-color 240ms ease;
+    }
+    .patient-card:hover {
+      transform: translateY(-2px); border-color: var(--accent);
+    }
+    .patient-card__badge {
+      width: 48px; height: 48px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent-deep);
+      display: inline-flex; align-items: center; justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 16px; font-weight: 600;
+    }
+    .patient-card h3 {
+      font-family: var(--font-display);
+      font-size: 22px; font-weight: 600;
+      line-height: 1.25;
+      color: var(--fg);
+    }
+    .patient-card p {
+      font-family: var(--font-body);
+      font-size: 15px; font-weight: 400;
+      line-height: 1.55;
+      color: var(--text-body);
+    }
+
+    /* Doctors panel (K32OVs) */
+    .doctors-row {
+      display: flex; gap: 48px; justify-content: center;
+      align-items: stretch;
+    }
+    .doctors-text {
+      flex: 1 1 0; min-width: 0; max-width: 620px;
+      display: flex; flex-direction: column; justify-content: center; gap: 24px;
+    }
+    .doctors-bullet {
+      display: flex; align-items: flex-start; gap: 14px;
+      font-family: var(--font-body);
+      font-size: 17px; font-weight: 400;
+      line-height: 1.55; color: var(--text-body);
+    }
+    .doctors-bullet::before {
+      content: ''; flex-shrink: 0;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      margin-top: 9px;
+    }
+    .doctors-video {
+      flex: 1 1 0; min-width: 0; max-width: 720px;
+      aspect-ratio: 16 / 10;
+      border-radius: 20px;
+      background: var(--surface-inverse);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 20px;
+      cursor: pointer;
+      position: relative; overflow: hidden;
+      transition: transform 240ms ease;
+    }
+    .doctors-video::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(circle at 30% 35%, rgba(33, 182, 199, 0.14), transparent 50%),
+                  radial-gradient(circle at 75% 70%, rgba(94, 231, 240, 0.10), transparent 45%);
+    }
+    .doctors-video:hover { transform: translateY(-2px); }
+    .doctors-video__inner {
+      position: relative; z-index: 1;
+      display: flex; flex-direction: column; align-items: center;
+      gap: 20px;
+    }
+    .doctors-video__play {
+      width: 88px; height: 88px;
+      border-radius: 999px;
+      background: var(--accent);
+      color: var(--surface);
+      display: inline-flex; align-items: center; justify-content: center;
+      transition: transform 240ms ease;
+    }
+    .doctors-video:hover .doctors-video__play {
+      transform: scale(1.08);
+      box-shadow: 0 0 0 8px rgba(33, 182, 199, 0.18);
+    }
+    .doctors-video__play .material-symbols-rounded {
+      font-size: 36px;
+      font-variation-settings: 'FILL' 1, 'wght' 600;
+    }
+    .doctors-video__caption {
+      font-family: var(--font-mono);
+      font-size: 13px; font-weight: 500;
+      letter-spacing: 1.6px;
+      color: rgba(255, 255, 255, 0.6);
+    }
+    .doctors-video__title {
+      width: 560px;
+      font-family: var(--font-display);
+      font-size: 24px; font-weight: 600;
+      color: var(--surface);
+      text-align: center;
+    }
+    @media (max-width: 991px) {
+      .doctors-row { flex-direction: column; align-items: center; gap: 32px; }
+      .doctors-text { max-width: 720px; }
+      .doctors-video { max-width: 720px; width: 100%; }
+    }
+
+    /* ============================================================
+       Pricing (jEoIy, h=821, fill #FFFFFF)
+    ============================================================ */
+    .pricing {
+      padding: 56px 0;
+      background: var(--surface);
+    }
+    .pricing-grid {
+      display: flex; gap: 32px; justify-content: center;
+      flex-wrap: nowrap; align-items: stretch;
+    }
+    .pricing-card {
+      flex: 1 1 0; min-width: 0; max-width: 592px;
+      display: flex; flex-direction: column; gap: 24px;
+      padding: 36px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      transition: transform 240ms ease, box-shadow 240ms ease, border-color 240ms ease;
+    }
+    .pricing-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(14, 27, 38, 0.08);
+    }
+    .pricing-card.is-featured {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px var(--accent);
+    }
+    .pricing-card .kicker {
+      font-family: var(--font-mono);
+      font-size: 13px; font-weight: 500;
+      letter-spacing: 1.4px;
+      color: var(--accent-deep);
+    }
+    .pricing-card h3 {
+      font-family: var(--font-display);
+      font-size: 32px; font-weight: 700;
+      line-height: 1.05; letter-spacing: -0.8px;
+      color: var(--fg);
+    }
+    .pricing-price {
+      display: flex; align-items: baseline; gap: 6px;
+      font-family: var(--font-display);
+    }
+    .pricing-price__value {
+      font-size: 56px; font-weight: 700;
+      line-height: 1; letter-spacing: -1.5px;
+      color: var(--fg);
+    }
+    .pricing-price__currency {
+      font-size: 20px; font-weight: 500;
+      color: var(--text-body);
+    }
+    .pricing-price__period {
+      font-size: 14px; font-weight: 400;
+      color: var(--muted);
+      font-family: var(--font-body);
+      margin-left: 4px;
+    }
+    .pricing-features {
+      display: flex; flex-direction: column; gap: 10px;
+      width: 100%;
+      font-family: var(--font-body);
+      font-size: 15px; font-weight: 400;
+      line-height: 1.5;
+      color: var(--text-body);
+    }
+    .pricing-features li {
+      display: flex; align-items: flex-start; gap: 10px;
+    }
+    .pricing-features li::before {
+      content: ''; flex-shrink: 0;
+      width: 16px; height: 16px;
+      margin-top: 4px;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'><path d='M3 8.5l3.5 3.5L13 5' stroke='%2321B6C7' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+    }
+    .pricing-cta {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 100%; padding: 15px 28px;
+      margin-top: auto;
+      border-radius: 14px;
+      font-family: var(--font-body);
+      font-size: 17px; font-weight: 700;
+      transition: all 200ms ease;
+    }
+    .pricing-cta--secondary {
+      background: transparent;
+      color: var(--fg);
+      border: 1px solid var(--border-strong);
+    }
+    .pricing-cta--secondary:hover {
+      background: var(--surface-muted); border-color: var(--fg);
+    }
+    .pricing-cta--primary {
+      background: var(--accent);
+      color: var(--surface);
+      border: 1px solid var(--accent);
+    }
+    .pricing-cta--primary:hover {
+      background: var(--accent-deep); border-color: var(--accent-deep);
+    }
+    @media (max-width: 1280px) {
+      .pricing-grid { flex-wrap: wrap; }
+      .pricing-card { width: 100%; max-width: 592px; }
+      .pricing-features { width: 100%; }
+      .pricing-cta { width: 100%; }
+    }
+
+    /* ============================================================
+       Lead-form-strip (Joy5b, h=398, fill #F5F9FB)
+    ============================================================ */
+    .lead-strip {
+      padding: 80px 0;
+      background: var(--bg);
+    }
+    .lead-form {
+      display: flex; flex-direction: column;
+      width: 560px; max-width: calc(100% - 40px);
+      margin-inline: auto;
+      padding: 40px 40px 32px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      box-shadow: 0 20px 44px rgba(14, 27, 38, 0.06);
+      text-align: center;
+    }
+    .lead-form__kicker {
+      font-family: var(--font-mono);
+      font-size: 12px; font-weight: 500;
+      letter-spacing: 1.6px;
+      color: var(--accent-deep);
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .lead-form__title {
+      font-family: var(--font-display);
+      font-size: 28px; font-weight: 700;
+      line-height: 1.15; letter-spacing: -0.6px;
+      color: var(--fg);
+      margin-bottom: 10px;
+    }
+    .lead-form__desc {
+      font-family: var(--font-body);
+      font-size: 15px; font-weight: 400;
+      line-height: 1.5;
+      color: var(--text-body);
+      margin-bottom: 24px;
+    }
+    .lead-form__fields {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .lead-input { display: block; }
+    .lead-input input {
+      width: 100%;
+      height: 52px;
+      padding: 0 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      font-family: var(--font-body);
+      font-size: 15px; font-weight: 400;
+      color: var(--fg);
+      text-align: left;
+      transition: border-color 200ms ease, box-shadow 200ms ease;
+    }
+    .lead-input input::placeholder { color: var(--muted); }
+    .lead-input input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(33, 182, 199, 0.16);
+    }
+    .lead-submit {
+      width: 100%;
+      height: 54px; padding: 0 24px;
+      background: var(--accent);
+      color: var(--surface);
+      border-radius: 12px;
+      font-family: var(--font-body);
+      font-size: 16px; font-weight: 700;
+      white-space: nowrap;
+      transition: background 200ms ease, transform 150ms ease;
+    }
+    .lead-submit:hover { background: var(--accent-deep); transform: translateY(-1px); }
+    .lead-form__note {
+      margin-top: 14px;
+      font-family: var(--font-body);
+      font-size: 12px; font-weight: 400;
+      line-height: 1.45;
+      color: var(--muted);
+    }
+    .lead-form__note a { color: var(--accent-deep); text-decoration: underline; text-underline-offset: 2px; }
+    @media (max-width: 540px) {
+      .lead-form { padding: 32px 24px 24px; }
+      .lead-form__title { font-size: 24px; }
+      .lead-form__fields { grid-template-columns: 1fr; }
+    }
+
+    /* ============================================================
+       Advantages (uCQn9, h=647, fill #F5F9FB)
+    ============================================================ */
+    .advantages {
+      padding: 40px 0;
+      background: var(--bg);
+    }
+    .advantages .section-heading h2 { font-size: 36px; }
+    .dashboard-stats {
+      margin-top: 32px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+    .stat-item {
+      padding: 22px 22px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      display: flex; flex-direction: column; gap: 10px;
+      transition: transform 240ms ease, box-shadow 240ms ease, border-color 240ms ease;
+    }
+    .stat-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 18px rgba(14, 27, 38, 0.06);
+      border-color: var(--accent);
+    }
+    .stat-item__value {
+      font-family: var(--font-display);
+      font-size: 42px; font-weight: 700;
+      line-height: 1; letter-spacing: -1.4px;
+      color: var(--fg);
+      font-variant-numeric: tabular-nums;
+    }
+    .stat-item__value sup {
+      font-size: 16px; font-weight: 500;
+      color: var(--accent-deep);
+      margin-left: 4px;
+      vertical-align: super;
+    }
+    .stat-item__label {
+      font-family: var(--font-mono);
+      font-size: 10.5px; font-weight: 500;
+      letter-spacing: 1.2px;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+    @media (max-width: 991px) {
+      .dashboard-stats { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 540px) {
+      .dashboard-stats { grid-template-columns: 1fr; }
+      .stat-item { padding: 28px 24px; }
+      .stat-item__value { font-size: 48px; }
+    }
+
+    /* ============================================================
+       Equipment (MaVnN, h=845, fill default white)
+    ============================================================ */
+    .equipment {
+      padding: 56px 0;
+      background: var(--surface);
+    }
+    .equipment-grid {
+      display: flex; gap: 32px; justify-content: center;
+      flex-wrap: nowrap; margin-top: 56px;
+    }
+    .equipment-card {
+      flex: 1 1 0; min-width: 0;
+      max-width: 904px;
+      display: flex; flex-direction: column;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: transform 240ms ease, box-shadow 240ms ease, border-color 240ms ease;
+    }
+    @media (max-width: 991px) {
+      .equipment-grid { flex-wrap: wrap; }
+      .equipment-card { flex: 1 1 100%; max-width: 904px; }
+    }
+    .equipment-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(14, 27, 38, 0.08);
+      border-color: var(--accent);
+    }
+    .equipment-visual {
+      width: 100%; height: 340px;
+      background: var(--surface-cyan) center/cover no-repeat;
+    }
+    .equipment-content {
+      padding: 36px;
+      display: flex; flex-direction: column; gap: 16px;
+    }
+    .equipment-content h3 {
+      font-family: var(--font-display);
+      font-size: 24px; font-weight: 700;
+      line-height: 1.2; letter-spacing: -0.5px;
+      color: var(--fg);
+    }
+    .equipment-content p {
+      font-family: var(--font-body);
+      font-size: 15px; font-weight: 400;
+      line-height: 1.55;
+      color: var(--text-body);
+    }
+    .equipment-specs {
+      display: flex; gap: 12px; flex-wrap: wrap;
+      margin-top: 8px;
+    }
+    .equipment-spec {
+      padding: 6px 14px;
+      background: var(--surface-muted);
+      border-radius: 8px;
+      font-family: var(--font-mono);
+      font-size: 12px; font-weight: 500;
+      letter-spacing: 0.4px;
+      color: var(--fg);
+    }
+
+    /* ============================================================
+       Scan-story (yQYw8, h=640, fill #0B1822 dark)
+    ============================================================ */
+    .scan-story {
+      padding: 56px 0;
+      background: var(--surface-inverse);
+      color: var(--text-inverse);
+    }
+    .scan-story__container {
+      display: flex; gap: 64px; align-items: center; justify-content: center;
+      width: 1280px; max-width: calc(100% - 40px);
+      margin-inline: auto;
+    }
+    .scan-story__visual {
+      flex-shrink: 0;
+      width: 600px; height: 420px;
+      border-radius: 20px;
+      border: 1px solid var(--gradient-dark-3, #1A3845);
+      background: var(--surface-inverse) center/cover no-repeat;
+      overflow: hidden;
+      position: relative;
+    }
+    .scan-story__content {
+      flex: 0 1 560px;
+      display: flex; flex-direction: column; gap: 24px;
+    }
+    .scan-story__head {
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .scan-story .kicker { color: var(--accent-glow); }
+    .scan-story h2 {
+      font-family: var(--font-display);
+      font-size: 48px; font-weight: 700;
+      line-height: 1.1; letter-spacing: -1.4px;
+      color: var(--text-inverse);
+    }
+    .scan-story__lead {
+      font-family: var(--font-body);
+      font-size: 18px; font-weight: 400;
+      line-height: 1.5;
+      color: var(--text-faint);
+      max-width: 1016px;
+    }
+    .scan-chips {
+      display: flex; gap: 12px; flex-wrap: wrap;
+    }
+    .scan-chip {
+      padding: 8px 16px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(94, 231, 240, 0.20);
+      border-radius: 999px;
+      font-family: var(--font-mono);
+      font-size: 12px; font-weight: 500;
+      letter-spacing: 0.6px;
+      color: var(--accent-glow);
+    }
+    .scan-story .btn-primary { align-self: flex-start; }
+    @media (max-width: 1280px) {
+      .scan-story__container { flex-direction: column; gap: 32px; }
+      .scan-story__visual { width: 100%; max-width: 600px; height: auto; aspect-ratio: 600/420; }
+    }
+
+    /* ============================================================
+       Video / О нас (cS6FH, h=980, fill #FFFFFF)
+    ============================================================ */
+    .video {
+      padding: 56px 0;
+      background: var(--surface);
+    }
+    .video-cinema {
+      position: relative;
+      width: 1840px; max-width: calc(100% - 80px);
+      height: 820px;
+      margin-inline: auto;
+      background: var(--surface-inverse);
+      border-radius: 24px;
+      overflow: hidden;
+    }
+    .video-cinema__poster {
+      position: absolute; inset: 0;
+      background: center/cover no-repeat;
+      opacity: 0.72;
+    }
+    .video-cinema__poster::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(180deg,
+        rgba(11, 24, 34, 0.4) 0%,
+        rgba(11, 24, 34, 0.6) 50%,
+        rgba(11, 24, 34, 0.95) 100%);
+    }
+    .video-cinema__play {
+      position: absolute; left: 50%; top: 50%;
+      transform: translate(-50%, -50%);
+      width: 96px; height: 96px;
+      background: var(--accent);
+      color: var(--surface);
+      border-radius: 50%;
+      display: inline-flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: transform 240ms ease, box-shadow 240ms ease;
+    }
+    .video-cinema__play:hover {
+      transform: translate(-50%, -50%) scale(1.1);
+      box-shadow: 0 0 0 8px rgba(33, 182, 199, 0.20);
+    }
+    .video-cinema__play .material-symbols-rounded {
+      font-size: 40px;
+      font-variation-settings: 'FILL' 1, 'wght' 700;
+    }
+    .video-cinema__overlay {
+      position: absolute; left: 41px; right: 41px; bottom: 56px;
+      display: flex; flex-direction: column; gap: 12px;
+      color: var(--text-inverse);
+      z-index: 1;
+    }
+    .video-cinema__overlay .kicker {
+      color: var(--accent-glow);
+    }
+    .video-cinema__overlay h2 {
+      font-family: var(--font-display);
+      font-size: 56px; font-weight: 700;
+      line-height: 1.05; letter-spacing: -1.6px;
+      color: var(--text-inverse);
+    }
+    .video-cinema__overlay p {
+      font-family: var(--font-body);
+      font-size: 18px; font-weight: 400;
+      line-height: 1.5;
+      color: var(--text-faint);
+      max-width: 1200px;
+    }
+    @media (max-width: 1100px) {
+      .video-cinema { height: 600px; }
+      .video-cinema__overlay { left: 24px; right: 24px; bottom: 32px; }
+      .video-cinema__overlay h2 { font-size: 40px; }
+    }
+
+    /* ============================================================
+       Guarantees (PMTxx, h=582, fill #F5F9FB)
+    ============================================================ */
+    .guarantees {
+      padding: 56px 0;
+      background: var(--bg);
+    }
+    .guarantees-grid {
+      display: flex; gap: 32px; justify-content: center;
+      flex-wrap: nowrap; margin-top: 56px;
+    }
+    .guarantee-card {
+      flex: 1 1 0; min-width: 0;
+      max-width: 592px;
+      display: flex; flex-direction: column; gap: 20px;
+      padding: 48px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      transition: transform 240ms ease, box-shadow 240ms ease;
+    }
+    .guarantee-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(14, 27, 38, 0.06);
+    }
+    @media (max-width: 991px) {
+      .guarantees-grid { flex-wrap: wrap; }
+      .guarantee-card { flex: 1 1 100%; max-width: 592px; }
+    }
+    .guarantee-icon {
+      width: 64px; height: 64px;
+      border-radius: 18px;
+      display: inline-flex; align-items: center; justify-content: center;
+      box-shadow: 0 10px 24px var(--glow-color, rgba(33, 182, 199, 0.2));
+    }
+    .guarantee-icon--cyan {
+      background: linear-gradient(135deg, #E5F8FA, #C9EBEF);
+      border: 1px solid #B8E5EA;
+      color: var(--accent-deep);
+      --glow-color: rgba(33, 182, 199, 0.20);
+    }
+    .guarantee-icon--blue {
+      background: linear-gradient(135deg, #EAF4FF, #D3E8FF);
+      border: 1px solid #BDD9F6;
+      color: var(--accent-secondary);
+      --glow-color: rgba(30, 120, 216, 0.20);
+    }
+    .guarantee-icon--green {
+      background: linear-gradient(135deg, #EAFBF5, #D4F0E5);
+      border: 1px solid #BFE4D6;
+      color: #2A9D7C;
+      --glow-color: rgba(14, 140, 100, 0.17);
+    }
+    .guarantee-icon .material-symbols-rounded {
+      font-size: 32px;
+      font-variation-settings: 'FILL' 0, 'wght' 600;
+    }
+    .guarantee-card h3 {
+      font-family: var(--font-display);
+      font-size: 24px; font-weight: 700;
+      line-height: 1.2; letter-spacing: -0.6px;
+      color: var(--fg);
+    }
+    .guarantee-card p {
+      font-family: var(--font-body);
+      font-size: 15px; font-weight: 400;
+      line-height: 1.6;
+      color: var(--text-body);
+      max-width: 496px;
+    }
+
+    /* ============================================================
+       FAQ (j94AgP, h=1101)
+    ============================================================ */
+    .faq {
+      padding: 56px 0;
+      background: var(--surface);
+    }
+    .faq .section-heading { align-items: flex-start; text-align: left; }
+    .faq .section-heading h2 { text-align: left; }
+    .faq-grid {
+      display: flex; gap: 24px; align-items: flex-start;
+      margin-top: 56px;
+    }
+    .faq-main {
+      flex: 1; min-width: 0;
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .faq-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      transition: border-color 200ms ease;
+    }
+    .faq-item:hover { border-color: var(--accent); }
+    .faq-item[open] { border-color: var(--accent); background: var(--surface-cyan); }
+    .faq-item summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 20px 28px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px;
+      font-family: var(--font-display);
+      font-size: 18px; font-weight: 600;
+      line-height: 1.4;
+      color: var(--fg);
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::after {
+      content: ''; flex-shrink: 0;
+      width: 24px; height: 24px;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'><path d='M7 10l5 5 5-5' stroke='%237E8F9D' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+      transition: transform 200ms ease;
+    }
+    .faq-item[open] summary::after { transform: rotate(180deg); }
+    .faq-item__answer {
+      margin: 0;
+      padding: 0 28px 22px;
+      font-family: var(--font-body);
+      font-size: 15px; font-weight: 400;
+      line-height: 1.6;
+      color: var(--text-body);
+    }
+    .margin-notes {
+      width: 320px; flex-shrink: 0;
+      display: flex; flex-direction: column; gap: 16px;
+      position: sticky; top: 100px;
+    }
+    .margin-note {
+      padding: 20px 24px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 12px;
+    }
+    .margin-note__label {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 1.4px;
+      color: var(--accent-deep);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .margin-note__text {
+      font-family: var(--font-body);
+      font-size: 14px; font-weight: 400;
+      line-height: 1.55;
+      color: var(--text-body);
+    }
+    @media (max-width: 1280px) {
+      .faq-grid { flex-direction: column; }
+      .margin-notes { position: static; width: 100%; flex-direction: row; flex-wrap: wrap; }
+      .margin-note { flex: 1 1 280px; }
+    }
+
+    /* ============================================================
+       Trust (L6iwo0, h=752, fill #FFFFFF)
+    ============================================================ */
+    .trust {
+      padding: 56px 0;
+      background: var(--surface);
+    }
+    .trust-grid {
+      display: flex; gap: 32px; justify-content: center;
+      flex-wrap: nowrap; margin-top: 56px;
+    }
+    .trust-card {
+      flex: 1 1 0; min-width: 0;
+      max-width: 592px;
+      display: flex; flex-direction: column; gap: 20px;
+      padding: 36px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      transition: transform 240ms ease, box-shadow 240ms ease, border-color 240ms ease;
+    }
+    .trust-card:hover {
+      transform: translateY(-2px); border-color: var(--accent);
+      box-shadow: 0 4px 12px rgba(14, 27, 38, 0.04);
+    }
+    @media (max-width: 991px) {
+      .trust-grid { flex-wrap: wrap; }
+      .trust-card { flex: 1 1 100%; max-width: 592px; }
+    }
+    .trust-card__visual {
+      width: 100%; height: 260px;
+      border-radius: 12px;
+      background: var(--surface-cyan) center/cover no-repeat;
+    }
+    .trust-card h3 {
+      font-family: var(--font-display);
+      font-size: 22px; font-weight: 700;
+      line-height: 1.25; letter-spacing: -0.4px;
+      color: var(--fg);
+    }
+    .trust-card p {
+      font-family: var(--font-body);
+      font-size: 15px; font-weight: 400;
+      line-height: 1.6;
+      color: var(--text-body);
+    }
+
+    /* ============================================================
+       Contacts (uiLup, h=1061, fill #FFFFFF)
+    ============================================================ */
+    .contacts {
+      padding: 56px 0;
+      background: var(--surface);
+    }
+    .contacts-inner {
+      display: flex; flex-direction: column; gap: 32px;
+    }
+    .contacts-head {
+      display: flex; gap: 32px; justify-content: space-between; align-items: flex-end;
+      flex-wrap: wrap;
+    }
+    .contacts-heading {
+      display: flex; flex-direction: column; gap: 8px;
+      max-width: 760px;
+    }
+    .contacts-heading h2 {
+      font-family: var(--font-display);
+      font-size: 48px; font-weight: 700;
+      line-height: 1.1; letter-spacing: -1.4px;
+      color: var(--fg);
+    }
+    .contacts-heading p {
+      font-family: var(--font-body);
+      font-size: 17px; font-weight: 400;
+      line-height: 1.5;
+      color: var(--text-body);
+    }
+    .contacts-help {
+      display: flex; flex-direction: column; gap: 8px;
+      align-items: flex-end;
+      text-align: right;
+    }
+    .contacts-help__kicker {
+      font-family: var(--font-mono);
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 1.6px;
+      color: var(--accent-deep);
+      text-transform: uppercase;
+    }
+    .contacts-help__value {
+      font-family: var(--font-body);
+      font-size: 14px; font-weight: 400;
+      color: var(--text-body);
+    }
+    .contacts-row {
+      display: flex; gap: 32px; align-items: stretch;
+    }
+    .contact-card {
+      width: 420px; flex-shrink: 0;
+      display: flex; flex-direction: column;
+      padding: 32px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      box-shadow: 0 24px 48px rgba(14, 27, 38, 0.08);
+    }
+    .contact-info {
+      display: flex; flex-direction: column; gap: 12px;
+      list-style: none; margin: 0; padding: 0;
+    }
+    .contact-info li {
+      display: flex; align-items: flex-start; gap: 10px;
+    }
+    .contact-info li > .material-symbols-rounded {
+      flex-shrink: 0;
+      color: var(--accent-deep);
+      font-size: 20px;
+      line-height: 1;
+      margin-top: 2px;
+    }
+    .contact-info li > div {
+      display: flex; flex-direction: column; gap: 2px;
+      min-width: 0;
+    }
+    .contact-info__label {
+      font-family: var(--font-mono);
+      font-size: 10.5px; font-weight: 500;
+      letter-spacing: 1.2px;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+    .contact-info__value {
+      font-family: var(--font-display);
+      font-size: 16px; font-weight: 600;
+      line-height: 1.35; letter-spacing: -0.2px;
+      color: var(--fg);
+      transition: color 200ms ease;
+    }
+    a.contact-info__value:hover { color: var(--accent-deep); }
+    .contact-divider { height: 1px; background: var(--border); }
+    .contact-form-block {
+      display: flex; flex-direction: column; gap: 12px;
+      flex: 1; height: 100%;
+    }
+    .contact-form-head {
+      font-family: var(--font-display);
+      font-size: 28px; font-weight: 700;
+      line-height: 1.15; letter-spacing: -0.6px;
+      color: var(--fg);
+      margin: 0;
+    }
+    .contact-form-sub {
+      font-family: var(--font-body);
+      font-size: 15px; line-height: 1.5;
+      color: var(--text-body);
+      margin: 0 0 12px;
+    }
+    .contact-form-legal {
+      font-family: var(--font-body);
+      font-size: 12px; line-height: 1.5;
+      color: var(--muted);
+      margin: 14px 0 0;
+    }
+    .contact-form-legal a { color: var(--accent-deep); text-decoration: underline; }
+    .contact-mini-form {
+      display: flex; flex-direction: column; gap: 14px;
+      flex: 1;
+    }
+    .contact-mini-form button {
+      width: 100%; height: 56px;
+      margin-top: auto;
+      background: var(--accent);
+      color: var(--surface);
+      border-radius: 12px;
+      font-family: var(--font-body);
+      font-size: 15px; font-weight: 700;
+      letter-spacing: -0.1px;
+      transition: background 200ms ease, transform 150ms ease;
+    }
+    .contact-mini-form button:active { transform: translateY(1px); }
+    .contact-mini-form button:hover { background: var(--accent-deep); }
+    .contacts-map {
+      flex: 1; min-width: 0;
+      min-height: 420px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: #EAF3F6;
+      overflow: hidden;
+    }
+    .contacts-map iframe {
+      width: 100%; height: 100%; border: 0; display: block;
+    }
+    .clinic-photo {
+      width: 100%;
+      height: 420px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: center/cover no-repeat;
+      overflow: hidden;
+    }
+    @media (max-width: 1100px) {
+      .contacts-row { flex-direction: column; }
+      .contact-card { width: 100%; }
+      .contacts-map { min-height: 360px; }
+      .clinic-photo { height: 320px; }
+      .contacts-help { align-items: flex-start; text-align: left; }
+    }
+
+    /* ============================================================
+       Footer (Q2P6mJ, h=374, dark)
+    ============================================================ */
+    .footer {
+      padding: 48px 0 24px;
+      background: #0E1B26;
+      color: #D6DEE3;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr 1fr 1fr;
+      gap: 56px;
+      margin-bottom: 48px;
+      align-items: start;
+    }
+    .footer-col { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+    .footer-col--brand { gap: 24px; }
+    .footer .logo-text .smile { color: #F4F7FB; }
+    @media (max-width: 991px) {
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 540px) {
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+    .footer-col h4,
+    .footer-col__kicker {
+      font-family: var(--font-mono);
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 1.8px;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin: 0;
+    }
+    .footer-tagline {
+      font-family: var(--font-body);
+      font-size: 14px; font-weight: 400;
+      line-height: 1.55;
+      color: var(--text-faint);
+    }
+    .footer-col ul { display: flex; flex-direction: column; gap: 12px; }
+    .footer-col a {
+      font-family: var(--font-body);
+      font-size: 14px; font-weight: 400;
+      color: #D6DEE3;
+      transition: color 200ms ease;
+    }
+    .footer-col a:hover { color: var(--accent); }
+    .footer-social {
+      display: flex; gap: 12px;
+    }
+    .footer-social a {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.06);
+      display: inline-flex; align-items: center; justify-content: center;
+      transition: background 200ms ease, transform 150ms ease;
+    }
+    .footer-social a:hover {
+      background: var(--accent);
+      transform: translateY(-1px);
+    }
+    .footer-social a { color: #D6DEE3; }
+    .footer-social a:hover { color: var(--surface); }
+    .footer-social svg { display: block; }
+    .footer-bottom {
+      padding-top: 24px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 16px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-faint);
+      letter-spacing: 0.4px;
+    }
+
+
+    /* ============================================================
+       Steps - Как проходит исследование (NEW)
+    ============================================================ */
+    .steps {
+      padding: var(--section-pad-y, 80px) 0;
+      background: var(--bg);
+    }
+    .steps-grid {
+      display: flex; gap: 24px; justify-content: center;
+      flex-wrap: nowrap; margin-top: 56px;
+      counter-reset: step;
+    }
+    .step-card {
+      flex: 1 1 0; min-width: 0; max-width: 460px;
+      position: relative;
+      padding: 36px 32px 32px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      transition: transform 240ms ease, box-shadow 240ms ease, border-color 240ms ease;
+    }
+    .step-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent);
+      box-shadow: 0 4px 12px rgba(14, 27, 38, 0.04);
+    }
+    .step-card__num {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 13px; font-weight: 500;
+      letter-spacing: 1.6px;
+      color: var(--accent-deep);
+      margin-bottom: 20px;
+    }
+    .step-card__icon {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 56px; height: 56px;
+      border-radius: 14px;
+      background: var(--surface-cyan, rgba(33, 182, 199, 0.08));
+      color: var(--accent-deep);
+      margin-bottom: 20px;
+    }
+    .step-card__icon .material-symbols-rounded {
+      font-size: 28px;
+      font-variation-settings: 'FILL' 0, 'wght' 500;
+    }
+    .step-card h3 {
+      font-family: var(--font-display);
+      font-size: 22px; font-weight: 700;
+      line-height: 1.25; letter-spacing: -0.4px;
+      color: var(--fg);
+      margin-bottom: 12px;
+    }
+    .step-card p {
+      font-family: var(--font-body);
+      font-size: 15px; font-weight: 400;
+      line-height: 1.6;
+      color: var(--text-body);
+    }
+    @media (max-width: 991px) {
+      .steps-grid { flex-wrap: wrap; }
+      .step-card { flex: 1 1 100%; max-width: 600px; }
+    }
+
+    /* ============================================================
+       Inline-form (slim CTA bar by scroll)
+    ============================================================ */
+    .inline-form-strip {
+      padding: 28px 0;
+      background: var(--bg);
+    }
+    .inline-form {
+      position: relative;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 20px;
+      width: 100%; max-width: 980px;
+      margin-inline: auto;
+      padding: 14px 22px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: 0 12px 28px rgba(14, 27, 38, 0.05);
+      transition: transform 320ms ease, box-shadow 320ms ease, border-color 320ms ease;
+      animation: inline-form-pulse 3.6s ease-in-out infinite;
+    }
+    .inline-form::before {
+      content: ''; position: absolute; inset: -2px;
+      border-radius: 18px;
+      border: 1.5px solid var(--accent);
+      opacity: 0;
+      pointer-events: none;
+      animation: inline-form-ring 3.6s ease-in-out infinite;
+    }
+    .inline-form:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 40px rgba(33, 182, 199, 0.18);
+      border-color: var(--accent);
+      animation-play-state: paused;
+    }
+    .inline-form:hover::before { animation-play-state: paused; opacity: 0; }
+    @keyframes inline-form-pulse {
+      0%, 100%   { box-shadow: 0 12px 28px rgba(14, 27, 38, 0.05); }
+      50%        { box-shadow: 0 16px 36px rgba(33, 182, 199, 0.18); }
+    }
+    @keyframes inline-form-ring {
+      0%, 100%   { opacity: 0; transform: scale(1); }
+      50%        { opacity: 0.55; transform: scale(1.005); }
+    }
+    .inline-form__text {
+      flex: 1; min-width: 0;
+      font-family: var(--font-body);
+      font-size: 15px; font-weight: 500;
+      line-height: 1.4;
+      color: var(--fg);
+    }
+    .inline-form__row {
+      display: flex; gap: 12px; flex-shrink: 0; align-items: stretch;
+    }
+    .inline-form__row > .field { width: 280px; }
+    .inline-form__btn {
+      height: 56px; padding: 0 26px;
+      background: var(--accent);
+      color: var(--surface);
+      border-radius: 10px;
+      font-family: var(--font-body);
+      font-size: 15px; font-weight: 700;
+      white-space: nowrap;
+      transition: background 200ms ease, transform 150ms ease;
+    }
+    .inline-form__btn:hover { background: var(--accent-deep); transform: translateY(-1px); }
+    @media (max-width: 991px) {
+      .inline-form { flex-direction: column; align-items: stretch; padding: 24px; }
+      .inline-form__row { flex-direction: column; }
+      .inline-form__input { width: 100%; }
+      .inline-form__btn { width: 100%; }
+    }
+
+    /* ============================================================
+       Floating-label field (банковский паттерн: label плывёт вверх)
+       Применяется к input + textarea внутри .field
+    ============================================================ */
+    .field {
+      position: relative;
+      display: block;
+      width: 100%;
+    }
+    .field > input,
+    .field > textarea {
+      width: 100%;
+      min-height: 56px;
+      padding: 22px 16px 8px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      font-family: var(--font-body);
+      font-size: 15px; font-weight: 400;
+      color: var(--fg);
+      outline: none;
+      transition: border-color 200ms ease, box-shadow 200ms ease;
+      appearance: none;
+    }
+    .field > textarea { padding-top: 26px; resize: vertical; min-height: 110px; }
+    .field > input::placeholder,
+    .field > textarea::placeholder {
+      color: transparent;
+      transition: color 160ms ease;
+    }
+    .field > input:focus::placeholder,
+    .field > textarea:focus::placeholder {
+      color: rgba(120, 138, 152, 0.45);
+    }
+    .field > input:focus,
+    .field > textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(33, 182, 199, 0.16);
+    }
+    .field__label {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+      font-family: var(--font-body);
+      font-size: 15px; font-weight: 400;
+      color: var(--muted);
+      background: var(--surface);
+      padding: 0 4px;
+      transition: top 200ms cubic-bezier(.4,0,.2,1),
+                  font-size 200ms cubic-bezier(.4,0,.2,1),
+                  color 200ms ease,
+                  letter-spacing 200ms ease,
+                  font-weight 200ms ease;
+    }
+    .field > textarea ~ .field__label { top: 22px; transform: none; }
+    .field > input:focus ~ .field__label,
+    .field > input:not(:placeholder-shown) ~ .field__label,
+    .field > textarea:focus ~ .field__label,
+    .field > textarea:not(:placeholder-shown) ~ .field__label {
+      top: 0;
+      transform: translateY(-50%) scale(1);
+      font-size: 11px;
+      letter-spacing: 1.2px;
+      font-weight: 600;
+      color: var(--accent-deep);
+      text-transform: uppercase;
+      font-family: var(--font-mono);
+    }
+    /* Если поле инвалид - акцент красный (для будущего) */
+    .field > input:user-invalid ~ .field__label,
+    .field > textarea:user-invalid ~ .field__label {
+      color: #d23a3a;
+    }
+    .field > input:user-invalid,
+    .field > textarea:user-invalid {
+      border-color: rgba(210, 58, 58, 0.6);
+    }
+    /* Совместимость: внутри .field оверрайдим узкий .inline-form__input */
+    .field > .inline-form__input { width: 100%; height: auto; min-height: 56px; padding: 22px 16px 8px; border-radius: 12px; }
+
+    /* ============================================================
+       PRELOADER - Wordmark + spinner ring + linear progress bar
+       Референс: SPARK MOTORSPORTS-стиль (wordmark / caption / ring / bar / %)
+    ============================================================ */
+    .preloader {
+      position: fixed; inset: 0;
+      z-index: 9999;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 36px;
+      background: #f7fbfc;
+      transition: opacity 520ms cubic-bezier(.4,0,.2,1), visibility 0s 520ms;
+    }
+    .preloader.is-done { opacity: 0; visibility: hidden; }
+
+    /* Wordmark block */
+    .preloader__wordmark {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 14px;
+    }
+    .preloader__brand-name {
+      font-family: var(--font-display, 'Geist', sans-serif);
+      font-size: 64px; font-weight: 600;
+      letter-spacing: 14px;
+      color: var(--fg, #0e1b26);
+      line-height: 1;
+      padding-left: 14px; /* compensate trailing letter-spacing */
+      text-transform: uppercase;
+    }
+    .preloader__brand-name span { color: var(--accent, #21B6C7); }
+    .preloader__caption {
+      font-family: var(--font-mono, 'Geist Mono', ui-monospace, monospace);
+      font-size: 13px; font-weight: 500;
+      letter-spacing: 6px; text-transform: uppercase;
+      color: var(--muted, #788a98);
+      padding-left: 6px;
+    }
+
+    /* Spinner ring (decorative, always animating) */
+    .preloader__spinner {
+      width: 78px; height: 78px;
+      position: relative;
+      border-radius: 50%;
+      border: 3px solid rgba(14, 140, 157, 0.14);
+    }
+    .preloader__spinner::before {
+      content: "";
+      position: absolute;
+      inset: -3px;
+      border-radius: 50%;
+      border: 3px solid transparent;
+      border-top-color: var(--accent, #21B6C7);
+      border-right-color: var(--accent, #21B6C7);
+      filter: drop-shadow(0 0 8px rgba(33, 182, 199, 0.45));
+      animation: preloader-spin 1.1s linear infinite;
+      transform-origin: 50% 50%;
+    }
+    @keyframes preloader-spin {
+      0%   { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Linear progress bar */
+    .preloader__bar {
+      width: 320px; max-width: 70vw;
+      height: 4px;
+      background: rgba(14, 140, 157, 0.14);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .preloader__bar-fill {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, var(--accent, #21B6C7) 0%, var(--accent-deep, #0e8c9d) 100%);
+      border-radius: 2px;
+      transition: width 240ms cubic-bezier(.4,0,.2,1);
+      box-shadow: 0 0 8px rgba(33, 182, 199, 0.45);
+    }
+
+    /* Percentage */
+    .preloader__percent {
+      font-family: var(--font-mono, 'Geist Mono', ui-monospace, monospace);
+      font-size: 14px; font-weight: 600;
+      letter-spacing: 4px;
+      color: var(--accent-deep, #0e8c9d);
+      font-variant-numeric: tabular-nums;
+      padding-left: 4px;
+    }
+
+
+    @media (max-width: 767px) {
+      .preloader { gap: 28px; }
+      .preloader__brand-name { font-size: 48px; letter-spacing: 10px; padding-left: 10px; }
+      .preloader__caption { font-size: 11px; letter-spacing: 4.5px; }
+      .preloader__spinner { width: 64px; height: 64px; }
+    }
+    @media (max-width: 441px) {
+      .preloader__brand-name { font-size: 36px; letter-spacing: 8px; padding-left: 8px; }
+      .preloader__caption { font-size: 10px; letter-spacing: 3.5px; }
+    }
+
+    /* ============================================================
+       MICRO-ANIMATIONS LAYER (added 2026-05-10)
+       Сдержанный медицинский wow: scroll reveal, counter-up,
+       hover-lift, shimmer, parallax, pulse - всё subtle.
+    ============================================================ */
+    html { scroll-behavior: smooth; }
+
+    /* Universal scroll reveal */
+    [data-reveal] {
+      opacity: 0;
+      transform: translateY(28px);
+      transition:
+        opacity 760ms cubic-bezier(.16,1,.3,1),
+        transform 760ms cubic-bezier(.16,1,.3,1);
+      transition-delay: var(--reveal-delay, 0ms);
+      will-change: opacity, transform;
+    }
+    [data-reveal="fade"] { transform: none; }
+    [data-reveal="left"]  { transform: translateX(-32px); }
+    [data-reveal="right"] { transform: translateX(32px); }
+    [data-reveal="zoom"]  { transform: scale(.96); }
+    [data-reveal].is-visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* Number counter (visual only, JS animates the textContent) */
+    [data-counter] { font-variant-numeric: tabular-nums; }
+
+    /* Card lift+tilt - применяем к карточкам услуг/оборудования/прайса/гарантий */
+    .svc-card,
+    .equipment-card,
+    .pricing-card,
+    .guarantee-card,
+    .trust-card,
+    .review-card,
+    .doctor-card,
+    .scan-card,
+    .advantage-card,
+    .step-card {
+      transition:
+        transform 380ms cubic-bezier(.16,1,.3,1),
+        box-shadow 380ms cubic-bezier(.16,1,.3,1),
+        border-color 380ms cubic-bezier(.16,1,.3,1) !important;
+    }
+    .svc-card:hover,
+    .equipment-card:hover,
+    .pricing-card:hover,
+    .guarantee-card:hover,
+    .trust-card:hover,
+    .review-card:hover,
+    .doctor-card:hover,
+    .scan-card:hover,
+    .advantage-card:hover,
+    .step-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 22px 44px -22px rgba(14, 27, 38, 0.22), 0 0 0 1px rgba(33, 182, 199, 0.18);
+    }
+
+    /* CTA shimmer sweep - только у primary buttons */
+    .btn-primary,
+    .btn--primary,
+    button[type="submit"] {
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
+    .btn-primary::after,
+    .btn--primary::after,
+    button[type="submit"]::after {
+      content: "";
+      position: absolute;
+      top: 0; left: -150%;
+      width: 70%; height: 100%;
+      background: linear-gradient(
+        90deg,
+        rgba(255,255,255,0)   0%,
+        rgba(255,255,255,.32) 50%,
+        rgba(255,255,255,0)   100%
+      );
+      transform: skewX(-20deg);
+      pointer-events: none;
+      z-index: 1;
+      animation: cta-shimmer 4.6s ease-in-out infinite;
+    }
+    @keyframes cta-shimmer {
+      0%, 60%   { left: -150%; }
+      85%, 100% { left: 150%; }
+    }
+
+    /* Topbar phone: subtle pulse halo (мы онлайн) */
+    .topbar-contact__phone {
+      position: relative;
+    }
+    .topbar-contact__phone::before {
+      content: "";
+      position: absolute;
+      left: -8px; top: 50%;
+      width: 6px; height: 6px;
+      margin-top: -3px;
+      border-radius: 50%;
+      background: #2dbf6e;
+      box-shadow: 0 0 0 0 rgba(45, 191, 110, 0.5);
+      animation: phone-pulse 2.4s cubic-bezier(.4,0,.2,1) infinite;
+      opacity: 0;
+    }
+    .topbar-contact:hover .topbar-contact__phone::before,
+    .topbar-contact__phone:hover::before { opacity: 1; }
+    @keyframes phone-pulse {
+      0%   { box-shadow: 0 0 0 0   rgba(45,191,110,0.55); }
+      70%  { box-shadow: 0 0 0 10px rgba(45,191,110,0); }
+      100% { box-shadow: 0 0 0 0   rgba(45,191,110,0); }
+    }
+    /* Зелёный dot всегда виден если topbar внутри есть phone */
+    .topbar-contact__phone { padding-left: 14px; }
+    .topbar-contact__phone::before { opacity: 1; }
+
+    /* Hero parallax helper - класс .has-parallax + JS подкладывает --py */
+    .has-parallax {
+      will-change: transform;
+      transform: translate3d(0, var(--py, 0px), 0);
+    }
+
+    /* Scan-story image: zoom on enter view */
+    .scan-story__image,
+    .scan-image,
+    .scan-card img {
+      transition: transform 1400ms cubic-bezier(.16,1,.3,1);
+    }
+    [data-reveal].is-visible .scan-story__image,
+    [data-reveal].is-visible .scan-image,
+    [data-reveal].is-visible img.zoom-in,
+    .is-visible.zoom-in img {
+      transform: scale(1.0);
+    }
+    .scan-story__image,
+    .scan-image,
+    img.zoom-in {
+      transform: scale(1.04);
+    }
+
+    /* Section headings: subtle gradient accent на hover */
+    h1, h2, h3 { transition: color 280ms ease; }
+
+    /* FAQ chevron - upgrade rotation easing если есть */
+    [data-faq-toggle] svg,
+    .faq-item svg,
+    details summary::after { transition: transform 420ms cubic-bezier(.16,1,.3,1) !important; }
+
+    /* Disable shimmer on small mobile to keep CPU cool */
+    @media (max-width: 540px) {
+      .btn-primary::after,
+      .btn--primary::after,
+      button[type="submit"]::after { animation: none; opacity: 0; }
+    }
+
+    /* ---- Universal smoothness (низкая специфичность через :where) ----
+       Дефолтный плавный переход у всего интерактива - если конкретное
+       правило задаёт свой transition, оно перебивает. Если нет - этот
+       срабатывает фоном. */
+    :where(a, button, summary, label, input, textarea, select,
+           .section-tab, .pricing-cta, .topbar-cta, .topbar-nav a,
+           .topbar-contact__phone, .btn-primary, .btn-secondary,
+           .btn--primary, .btn--secondary, .svc-modal__cta,
+           .scan-chip, .chip, .slot, .faq-item, details summary) {
+      transition:
+        color 260ms cubic-bezier(.16,1,.3,1),
+        background-color 260ms cubic-bezier(.16,1,.3,1),
+        border-color 260ms cubic-bezier(.16,1,.3,1),
+        transform 260ms cubic-bezier(.16,1,.3,1),
+        box-shadow 260ms cubic-bezier(.16,1,.3,1),
+        opacity 260ms cubic-bezier(.16,1,.3,1);
+    }
+
+    /* Tactile click feedback - press effect */
+    a:active:not(.topbar-contact__phone):not(.back),
+    button:not([disabled]):active,
+    .pricing-cta:active,
+    .topbar-cta:active,
+    .btn-primary:active,
+    .btn-secondary:active,
+    .btn--primary:active,
+    .btn--secondary:active,
+    .svc-modal__cta:active,
+    .section-tab:active,
+    .scan-chip:active,
+    .service-card:active,
+    .pricing-card:active {
+      transform: translateY(1px) scale(0.985) !important;
+      transition-duration: 90ms !important;
+    }
+
+    /* Focus ring - плавная подсветка вместо браузерного */
+    :where(a, button, input, textarea, select):focus-visible {
+      outline: 2px solid rgba(33,182,199,0.55);
+      outline-offset: 3px;
+      border-radius: 6px;
+      transition: outline-offset 180ms cubic-bezier(.16,1,.3,1);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       PRELOADER - Wordmark + spinner + linear bar
+  ============================================================ -->
+  <div class="preloader" data-preloader role="status" aria-live="polite" aria-label="Загрузка сайта">
+    <div class="preloader__wordmark" aria-hidden="true">
+      <span class="preloader__brand-name">Smile<span>3D</span></span>
+      <span class="preloader__caption">3D - диагностика</span>
+    </div>
+
+    <div class="preloader__spinner" aria-hidden="true"></div>
+
+    <div class="preloader__bar" aria-hidden="true">
+      <div class="preloader__bar-fill" data-preloader-bar></div>
+    </div>
+
+    <span class="preloader__percent" data-preloader-percent>0 %</span>
+  </div>
+
+  <script>
+    // Preloader controller - linear bar + percent
+    (function() {
+      const root = document.querySelector('[data-preloader]');
+      if (!root) return;
+      const bar = root.querySelector('[data-preloader-bar]');
+      const pctEl = root.querySelector('[data-preloader-percent]');
+
+      let pct = 0;
+      let target = 0;
+      let domReady = false;
+      let allReady = false;
+      const minDuration = 1200;
+      const startedAt = performance.now();
+
+      function update() {
+        const diff = target - pct;
+        if (Math.abs(diff) > 0.3) pct += diff * 0.12;
+        else pct = target;
+        const display = Math.round(pct);
+        if (bar) bar.style.width = display + '%';
+        if (pctEl) pctEl.textContent = display + ' %';
+        if (display < 100 || pct < 100) requestAnimationFrame(update);
+        else finish();
       }
 
-      body {
-        display: grid;
-        min-height: 100vh;
-        margin: 0;
-        place-items: center;
+      function bumpTarget() {
+        if (!domReady) target = Math.min(target + 0.6, 70);
+        else if (!allReady) target = Math.min(target + 1.2, 92);
+        else target = 100;
+      }
+      const ticker = setInterval(bumpTarget, 80);
+
+      let finished = false;
+      function finish() {
+        if (finished) return;
+        finished = true;
+        clearInterval(ticker);
+        setTimeout(() => {
+          root.classList.add('is-done');
+          document.body.style.overflow = '';
+          setTimeout(() => { if (root.parentNode) root.parentNode.removeChild(root); }, 560);
+        }, 240);
       }
 
-      main {
-        display: grid;
-        gap: 16px;
-        text-align: center;
+      document.body.style.overflow = 'hidden';
+
+      document.addEventListener('DOMContentLoaded', () => { domReady = true; });
+      window.addEventListener('load', () => {
+        domReady = true;
+        const elapsed = performance.now() - startedAt;
+        const wait = Math.max(0, minDuration - elapsed);
+        setTimeout(() => { allReady = true; target = 100; }, wait);
+      });
+      // safety
+      setTimeout(() => { allReady = true; domReady = true; target = 100; }, 6000);
+
+      requestAnimationFrame(update);
+    })();
+  </script>
+
+  <!-- TOPBAR (obqp9) -->
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a href="#" class="logo-mark-header">
+        <span class="logo-icon" aria-hidden="true">
+          <svg viewBox="0 0 48 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19 6c-3 0-6 2.5-6 7 0 3 0.5 7 1.5 11 0.6 2.4 1 4 1.8 5.5 0.7 1.4 1.4 2.5 2.4 2.5 0.8 0 1.4-0.7 2-1.8 0.5-0.9 1.1-2.2 1.5-3.6 0.3-1 0.5-1.6 1-1.6 0.5 0 0.7 0.6 1 1.6 0.4 1.4 1 2.7 1.5 3.6 0.6 1.1 1.2 1.8 2 1.8 1 0 1.7-1.1 2.4-2.5 0.8-1.5 1.2-3.1 1.8-5.5 1-4 1.5-8 1.5-11 0-4.5-3-7-6-7-2 0-3.5 0.7-4.2 1-0.8 0.3-1.6 0.3-2.4 0-0.7-0.3-2.2-1-4.2-1z" fill="#DFF8FA" stroke="#67B8C3" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+            <path d="M22 16c0 4 0 8-1 12" stroke="#8BD3DA" stroke-width="2" stroke-linecap="round"/>
+            <path d="M37 5l1.5 3 3 1.5-3 1.5L37 14l-1.5-3-3-1.5 3-1.5z" fill="#BFEFF2"/>
+          </svg>
+        </span>
+        <span class="logo-text">
+          <span class="smile">Smile</span><span class="three-d">3D</span>
+        </span>
+      </a>
+
+      <nav class="topbar-nav" aria-label="Главная навигация">
+        <a href="#services">Услуги</a>
+        <a href="#pricing">Цены</a>
+        <a href="#advantages">Преимущества</a>
+        <a href="#video">Видео</a>
+        <a href="#guarantees">Гарантии</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contacts">Контакты</a>
+      </nav>
+
+      <div class="topbar-right">
+        <div class="topbar-contact">
+          <a href="tel:+79934731010" class="topbar-contact__phone">8 (993) 473-10-10</a>
+          <span class="topbar-contact__hours">Пн-Сб · 09:00-20:00</span>
+        </div>
+        <a href="booking-placeholder.html" target="_blank" rel="noopener" class="topbar-cta">Записаться</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO (MiCSw) -->
+  <section class="hero" aria-label="Hero">
+    <div class="hero-bg" aria-hidden="true">
+      <div class="hero-bg__image"></div>
+      <div class="hero-bg__wash"></div>
+    </div>
+
+    <div class="hero-center">
+      <p class="hero-eyebrow">3D-диагностика</p>
+      <h1>Точный 3D-снимок зубов в&nbsp;удобное время</h1>
+      <p class="hero-lead">Конусно-лучевая компьютерная томография в Самаре. Воксель от 0.1 мм, снимок за 14 секунд, DICOM на флешке.</p>
+      <div class="hero-cta">
+        <a href="booking-placeholder.html" target="_blank" rel="noopener" class="btn-primary">Записаться на исследование</a>
+        <a href="#services" class="btn-secondary">Узнать об услугах</a>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- TABS SECTION (s2wipL + kHbbz + K32OVs merged) -->
+  <section class="tabs-section" id="services" data-active="services">
+    <div class="container">
+
+      <!-- Tab buttons -->
+      <div class="section-tabs" role="tablist">
+        <button type="button" class="section-tab is-active" role="tab" aria-selected="true" data-tab="services">
+          <span>Услуги</span>
+          <span class="section-tab__underline"></span>
+        </button>
+        <button type="button" class="section-tab" role="tab" aria-selected="false" data-tab="patients">
+          <span>Пациентам</span>
+          <span class="section-tab__underline"></span>
+        </button>
+        <button type="button" class="section-tab" role="tab" aria-selected="false" data-tab="doctors">
+          <span>Врачам</span>
+          <span class="section-tab__underline"></span>
+        </button>
+      </div>
+
+      <!-- Tab panels -->
+      <div class="tab-panels">
+
+        <!-- Услуги panel (s2wipL) -->
+        <div class="tab-panel is-active" data-panel="services" role="tabpanel">
+          <div class="section-heading">
+            <h2>Виды исследований</h2>
+          </div>
+          <div class="tab-spacer-mid"></div>
+          <div class="services-grid">
+
+            <article class="service-card" data-service="klkt" role="button" tabindex="0" aria-expanded="false" aria-controls="service-detail">
+              <div class="service-card__visual" style="background-image: url('assets/img/generated-1778318886127.png');"></div>
+              <p class="service-meta">Конусно-лучевая КТ</p>
+              <h3>КЛКТ</h3>
+              <ul class="service-card__features">
+                <li>• 3D реконструкция челюсти</li>
+                <li>• FOV 5×5 – 16×10 см</li>
+                <li>• Воксель от 0.1 мм</li>
+                <li>• Аксиальные срезы</li>
+                <li>• Цефалометрический расчёт</li>
+                <li>• Diagnocat AI анализ</li>
+              </ul>
+              <span class="service-card__more">
+                <span>Подробнее об исследовании</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              </span>
+            </article>
+
+            <article class="service-card" data-service="optg" role="button" tabindex="0" aria-expanded="false" aria-controls="service-detail">
+              <div class="service-card__visual" style="background-image: url('assets/img/generated-1778318892889.png');"></div>
+              <p class="service-meta">Ортопантомография</p>
+              <h3>ОПТГ</h3>
+              <ul class="service-card__features">
+                <li>• Панорамный снимок челюстей</li>
+                <li>• FOV до 15×8 см</li>
+                <li>• Воксель 0.15 мм</li>
+                <li>• Снимок за 14 секунд</li>
+                <li>• DICOM на флешке</li>
+              </ul>
+              <span class="service-card__more">
+                <span>Подробнее об исследовании</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              </span>
+            </article>
+
+            <article class="service-card" data-service="trg" role="button" tabindex="0" aria-expanded="false" aria-controls="service-detail">
+              <div class="service-card__visual" style="background-image: url('assets/img/generated-1778318890785.png');"></div>
+              <p class="service-meta">Телерентгенография</p>
+              <h3>ТРГ</h3>
+              <ul class="service-card__features">
+                <li>• Боковая проекция</li>
+                <li>• Цефалометрический анализ</li>
+                <li>• Воксель 0.2 мм</li>
+                <li>• Снимок за 18 секунд</li>
+                <li>• Расчёт по 17 точкам</li>
+              </ul>
+              <span class="service-card__more">
+                <span>Подробнее об исследовании</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              </span>
+            </article>
+
+          </div>
+
+        </div>
+
+        <!-- Пациентам panel (kHbbz) -->
+        <div class="tab-panel" data-panel="patients" role="tabpanel">
+          <div class="section-heading">
+            <h2>Как проходит исследование</h2>
+            <p class="lead">Коротко: как подготовиться, что взять с собой и что вы получите на выходе</p>
+          </div>
+          <div class="tab-spacer-mid"></div>
+          <div class="patients-grid">
+            <article class="patient-card">
+              <div class="patient-card__badge">01</div>
+              <h3>Что взять с собой</h3>
+              <p>Направление от лечащего врача — если есть. Предыдущие снимки на флешке или диске, если нужно сравнение.</p>
+            </article>
+            <article class="patient-card">
+              <div class="patient-card__badge">02</div>
+              <h3>Как подготовиться</h3>
+              <p>Снять серьги, заколки, пирсинг и металлические украшения в области головы. Есть и пить можно как обычно.</p>
+            </article>
+            <article class="patient-card">
+              <div class="patient-card__badge">03</div>
+              <h3>Как проходит снимок</h3>
+              <p>Сам снимок — 14–20 секунд. Весь визит — около 15–20 минут вместе с подготовкой и записью на флешку.</p>
+            </article>
+            <article class="patient-card">
+              <div class="patient-card__badge">04</div>
+              <h3>Что вы получите</h3>
+              <p>DICOM-файл на флешке + текстовое заключение врача-рентгенолога. Готово в день обращения.</p>
+            </article>
+          </div>
+        </div>
+
+        <!-- Врачам panel (K32OVs) -->
+        <div class="tab-panel" data-panel="doctors" role="tabpanel">
+          <div class="section-heading">
+            <h2>Работаем с лечащими врачами</h2>
+            <p class="lead">Приём пациентов по направлению, DICOM для собственного анализа, консультации по сложным клиническим случаям.</p>
+          </div>
+          <div class="tab-spacer-mid"></div>
+          <div class="doctors-row">
+            <div class="doctors-text">
+              <div class="doctors-bullet">Приём пациентов по Направлению от лечащего врача или по самозаписи.</div>
+              <div class="doctors-bullet">DICOM на флешке для вашего собственного анализа в Anatomage, Invivo, Diagnocat и другом ПО.</div>
+              <div class="doctors-bullet">Готовое заключение врача-рентгенолога вместе со снимком — без доплаты.</div>
+              <div class="doctors-bullet">Поддержка по сложным клиническим случаям — обсуждение, повторный анализ, второе мнение.</div>
+            </div>
+            <div class="doctors-video" role="button" tabindex="0" aria-label="Видео-объяснение процесса для лечащих врачей">
+              <div class="doctors-video__inner">
+                <span class="doctors-video__play" aria-hidden="true">
+                  <span class="material-symbols-rounded">play_arrow</span>
+                </span>
+                <span class="doctors-video__caption">ВИДЕО · СКОРО</span>
+                <p class="doctors-video__title">Видео-объяснение процесса для лечащих врачей</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SCAN-STORY (yQYw8) -->
+  <section class="scan-story" id="scan-story">
+    <div class="scan-story__container">
+      <div class="scan-story__visual" style="background-image: url('assets/img/generated-1778319124732.png');"></div>
+      <div class="scan-story__content">
+        <div class="scan-story__head">
+          <p class="kicker">3D · цветной снимок</p>
+          <h2>Снимок за 14 секунд</h2>
+        </div>
+        <p class="scan-story__lead">Современное оборудование Sirona/Vatech обеспечивает высокую точность при комфортном для пациента исследовании.</p>
+        <div class="scan-chips">
+          <span class="scan-chip">DICOM v3</span>
+          <span class="scan-chip">Diagnocat AI</span>
+          <span class="scan-chip">PDF-отчёт</span>
+          <span class="scan-chip">USB · Email · Облако</span>
+        </div>
+        <a href="booking-placeholder.html" target="_blank" rel="noopener" class="btn-primary">Записаться на исследование</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEPS / Как мы работаем -->
+  <section class="steps" id="how-we-work">
+    <div class="container">
+      <div class="section-heading">
+        <p class="kicker">Запись и приём</p>
+        <h2>Как мы работаем</h2>
+        <p class="lead">Прозрачный процесс записи - от выбора времени до подтверждения за 15 минут.</p>
+      </div>
+      <div class="steps-grid">
+
+        <article class="step-card">
+          <span class="step-card__num">Шаг 01</span>
+          <span class="step-card__icon" aria-hidden="true">
+            <span class="material-symbols-rounded">event</span>
+          </span>
+          <h3>Выбираете время</h3>
+          <p>Открываете график на сайте или звоните администратору. Выбираете удобный день и час в рамках работы кабинета.</p>
+        </article>
+
+        <article class="step-card">
+          <span class="step-card__num">Шаг 02</span>
+          <span class="step-card__icon" aria-hidden="true">
+            <span class="material-symbols-rounded">edit_note</span>
+          </span>
+          <h3>Оставляете заявку</h3>
+          <p>Имя, телефон и тип исследования. Если есть направление от врача - можно прикрепить или продиктовать по телефону.</p>
+        </article>
+
+        <article class="step-card">
+          <span class="step-card__num">Шаг 03</span>
+          <span class="step-card__icon" aria-hidden="true">
+            <span class="material-symbols-rounded">support_agent</span>
+          </span>
+          <h3>Подтверждаем запись</h3>
+          <p>Администратор перезвонит в течение 15 минут, уточнит детали, ответит на вопросы и закрепит за вами слот.</p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+  <!-- PRICING (jEoIy) -->
+  <section class="pricing" id="pricing">
+    <div class="container">
+      <div class="section-heading">
+        <p class="kicker">Цены на исследования</p>
+        <h2>Прозрачное ценообразование</h2>
+      </div>
+      <div style="height: 56px;"></div>
+      <div class="pricing-grid">
+
+        <article class="pricing-card">
+          <p class="kicker">Базовый</p>
+          <h3>ОПТГ</h3>
+          <div class="pricing-price">
+            <span class="pricing-price__currency">от</span>
+            <span class="pricing-price__value num">1 200</span>
+            <span class="pricing-price__period">₽ / снимок</span>
+          </div>
+          <ul class="pricing-features">
+            <li>Панорамный снимок челюстей</li>
+            <li>FOV до 15×8 см</li>
+            <li>Воксель 0.15 мм</li>
+            <li>Снимок за 14 секунд</li>
+            <li>DICOM на флешке</li>
+          </ul>
+          <a href="booking-placeholder.html" target="_blank" rel="noopener" class="pricing-cta pricing-cta--secondary">Записаться</a>
+        </article>
+
+        <article class="pricing-card is-featured">
+          <p class="kicker">Популярный</p>
+          <h3>КЛКТ</h3>
+          <div class="pricing-price">
+            <span class="pricing-price__currency">от</span>
+            <span class="pricing-price__value num">2 500</span>
+            <span class="pricing-price__period">₽ / исследование</span>
+          </div>
+          <ul class="pricing-features">
+            <li>3D реконструкция челюсти</li>
+            <li>FOV 5×5 — 16×10 см</li>
+            <li>Воксель от 0.1 мм</li>
+            <li>Аксиальные срезы</li>
+            <li>Цефалометрический расчёт</li>
+            <li>Diagnocat AI анализ</li>
+          </ul>
+          <a href="booking-placeholder.html" target="_blank" rel="noopener" class="pricing-cta pricing-cta--primary">Записаться</a>
+        </article>
+
+        <article class="pricing-card">
+          <p class="kicker">Расширенный</p>
+          <h3>ТРГ</h3>
+          <div class="pricing-price">
+            <span class="pricing-price__currency">от</span>
+            <span class="pricing-price__value num">1 500</span>
+            <span class="pricing-price__period">₽ / снимок</span>
+          </div>
+          <ul class="pricing-features">
+            <li>Боковая проекция</li>
+            <li>Цефалометрический анализ</li>
+            <li>Воксель 0.2 мм</li>
+            <li>Снимок за 18 секунд</li>
+            <li>Расчёт по 17 точкам</li>
+          </ul>
+          <a href="booking-placeholder.html" target="_blank" rel="noopener" class="pricing-cta pricing-cta--secondary">Записаться</a>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- INLINE-FORM #1 (slim CTA after pricing) -->
+  <section class="inline-form-strip" aria-label="Быстрая консультация">
+    <div class="container">
+      <form class="inline-form" novalidate>
+        <p class="inline-form__text">Не уверены, какой снимок нужен? Оставьте телефон - перезвоним и поможем подобрать подходящее исследование</p>
+        <div class="inline-form__row">
+          <label class="field">
+            <input type="tel" class="inline-form__input" name="phone" placeholder=" " required data-mask="phone" autocomplete="tel">
+            <span class="field__label">Мобильный телефон*</span>
+          </label>
+          <button type="submit" class="inline-form__btn">Перезвоните мне</button>
+        </div>
+      </form>
+    </div>
+  </section>
+  <!-- ADVANTAGES (uCQn9) -->
+  <section class="advantages" id="advantages">
+    <div class="container">
+      <div class="section-heading">
+        <p class="kicker">Почему выбирают нас</p>
+        <h2>Технологические преимущества</h2>
+      </div>
+      <div class="dashboard-stats">
+        <div class="stat-item">
+          <div class="stat-item__value num">0.1<sup>мм</sup></div>
+          <div class="stat-item__label">Минимальный воксель</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-item__value num">14<sup>сек</sup></div>
+          <div class="stat-item__label">Время снимка</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-item__value num">150<sup>+</sup></div>
+          <div class="stat-item__label">Исследований в месяц</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-item__value num">16×10<sup>см</sup></div>
+          <div class="stat-item__label">Максимальный FOV</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-item__value num">14<sup>мкЗв</sup></div>
+          <div class="stat-item__label">Минимальная доза</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-item__value">DICOM<sup>v3</sup></div>
+          <div class="stat-item__label">Стандарт экспорта</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EQUIPMENT (MaVnN) -->
+  <section class="equipment" id="equipment">
+    <div class="container">
+      <div class="section-heading">
+        <p class="kicker">Оборудование</p>
+        <h2>Современные сканеры</h2>
+      </div>
+      <div class="equipment-grid">
+
+        <article class="equipment-card">
+          <div class="equipment-visual" style="background-image: url('assets/img/generated-1778319132323.png');"></div>
+          <div class="equipment-content">
+            <h3>Sirona Orthophos XG 3D</h3>
+            <p>Высокоточный конусно-лучевой сканер для КЛКТ-исследований с панорамным и цефалометрическим режимами.</p>
+            <div class="equipment-specs">
+              <span class="equipment-spec">FOV 16×10 см</span>
+              <span class="equipment-spec">Воксель 0.1 мм</span>
+              <span class="equipment-spec">SmartPad</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="equipment-card">
+          <div class="equipment-visual" style="background-image: url('assets/img/generated-1778319135575.png');"></div>
+          <div class="equipment-content">
+            <h3>Vatech Pax-i3D</h3>
+            <p>Панорамный сканер с возможностью 3D-реконструкции. Идеально подходит для ортодонтии и имплантологии.</p>
+            <div class="equipment-specs">
+              <span class="equipment-spec">FOV 15×8 см</span>
+              <span class="equipment-spec">Воксель 0.15 мм</span>
+              <span class="equipment-spec">Auto-focus</span>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- GUARANTEES (PMTxx) -->
+  <section class="guarantees" id="guarantees">
+    <div class="container">
+      <div class="section-heading">
+        <p class="kicker">Гарантии</p>
+        <h2>Качество и надёжность</h2>
+      </div>
+      <div class="guarantees-grid">
+
+        <article class="guarantee-card">
+          <span class="guarantee-icon guarantee-icon--cyan" aria-hidden="true">
+            <span class="material-symbols-rounded">replay</span>
+          </span>
+          <h3>Переснимем бесплатно</h3>
+          <p>Если снимок получился нечётким по нашей вине - переделаем повторно без доплаты. Это наша ответственность за результат.</p>
+        </article>
+
+        <article class="guarantee-card">
+          <span class="guarantee-icon guarantee-icon--blue" aria-hidden="true">
+            <span class="material-symbols-rounded">schedule</span>
+          </span>
+          <h3>Результат в день обращения</h3>
+          <p>DICOM-файл и заключение врача-рентгенолога выдаём сразу после исследования. Не нужно ждать или приезжать второй раз.</p>
+        </article>
+
+        <article class="guarantee-card">
+          <span class="guarantee-icon guarantee-icon--green" aria-hidden="true">
+            <span class="material-symbols-rounded">verified</span>
+          </span>
+          <h3>Лицензия Минздрава</h3>
+          <p>Работаем по медицинской лицензии №ЛО-63-01-005XXX. Сканеры Sirona/Vatech с поверкой дозиметрии и регулярной калибровкой.</p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST / Доверие (L6iwo0) -->
+  <section class="trust" id="trust">
+    <div class="container">
+      <div class="section-heading">
+        <p class="kicker">Доверие</p>
+        <h2>Почему нам доверяют</h2>
+      </div>
+      <div class="trust-grid">
+
+        <article class="trust-card">
+          <div class="trust-card__visual" style="background-image: url('assets/img/generated-1778319126540.png');"></div>
+          <h3>Сертифицированное оборудование</h3>
+          <p>Сканеры Sirona и Vatech с регулярным техническим обслуживанием и калибровкой. Производственные сертификаты, поверка дозиметрии.</p>
+        </article>
+
+        <article class="trust-card">
+          <div class="trust-card__visual" style="background-image: url('assets/img/generated-1778319134095.png');"></div>
+          <h3>Опыт работы</h3>
+          <p>Более 5 000 исследований проведено за время работы кабинета. Точность установки FOV и качество снимков — стабильно высокие.</p>
+        </article>
+
+        <article class="trust-card">
+          <div class="trust-card__visual" style="background-image: url('assets/img/generated-1778319130772.png');"></div>
+          <h3>Партнёры</h3>
+          <p>Сотрудничаем с ведущими стоматологическими клиниками Самары. Принимаем направления, отдаём DICOM в любом формате под нужное ПО.</p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- VIDEO / О НАС (cS6FH) -->
+  <section class="video" id="video">
+    <div class="video-cinema" role="button" tabindex="0" aria-label="Видео о Smile 3D">
+      <div class="video-cinema__poster" style="background-image: url('assets/img/generated-1778319132585.png');"></div>
+      <span class="video-cinema__play" aria-hidden="true">
+        <span class="material-symbols-rounded">play_arrow</span>
+      </span>
+      <div class="video-cinema__overlay">
+        <p class="kicker">Кабинет в Самаре</p>
+        <h2>О нас</h2>
+        <p>Smile 3D — современный кабинет 3D-рентгенодиагностики в Самаре. Делаем КЛКТ, ОПТГ и ТРГ исследования на оборудовании Sirona и Vatech с точностью до 0.1 мм и выдачей результата в формате DICOM за 14 секунд.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- INLINE-FORM #2 (slim CTA before FAQ) -->
+  <section class="inline-form-strip" aria-label="Запись на исследование">
+    <div class="container">
+      <form class="inline-form" novalidate>
+        <p class="inline-form__text">Готовы записаться? Перезвоним в течение 15 минут и согласуем время.</p>
+        <div class="inline-form__row">
+          <label class="field">
+            <input type="tel" class="inline-form__input" name="phone" placeholder=" " required data-mask="phone" autocomplete="tel">
+            <span class="field__label">Мобильный телефон*</span>
+          </label>
+          <button type="submit" class="inline-form__btn">Записаться</button>
+        </div>
+      </form>
+    </div>
+  </section>
+  <!-- FAQ (j94AgP) -->
+  <section class="faq" id="faq">
+    <div class="container">
+      <div class="section-heading">
+        <p class="kicker">Частые вопросы</p>
+        <h2>Ответы на вопросы</h2>
+      </div>
+      <div class="faq-grid">
+        <div class="faq-main">
+
+          <details class="faq-item">
+            <summary>Нужно ли готовиться к исследованию?</summary>
+            <p class="faq-item__answer">Специальная подготовка не требуется. Снимите серьги, заколки, пирсинг и металлические украшения в области головы и шеи — они могут давать артефакты на снимке. Есть и пить можно как обычно.</p>
+          </details>
+
+          <details class="faq-item">
+            <summary>Какова лучевая нагрузка при КЛКТ?</summary>
+            <p class="faq-item__answer">Доза при конусно-лучевой КТ — 14–50 мкЗв в зависимости от FOV. Это в 10–20 раз меньше обычной медицинской КТ и сопоставимо с 2–4 ОПТГ-снимками.</p>
+          </details>
+
+          <details class="faq-item">
+            <summary>Как получить снимок после исследования?</summary>
+            <p class="faq-item__answer">Снимок записывается на флешку в формате DICOM v3. По запросу — отправка по электронной почте или выгрузка в облако. Готово в день обращения.</p>
+          </details>
+
+          <details class="faq-item">
+            <summary>Можно ли сделать КТ при беременности?</summary>
+            <p class="faq-item__answer">Конусно-лучевая КТ имеет минимальную лучевую нагрузку, но беременным исследование проводится только по строгим показаниям и по направлению лечащего врача.</p>
+          </details>
+
+          <details class="faq-item">
+            <summary>Что такое Diagnocat AI?</summary>
+            <p class="faq-item__answer">Diagnocat — система искусственного интеллекта для автоматического анализа КТ-снимков. Выявляет кариес, периапикальные изменения, патологии пародонта; строит зубную формулу и измеряет плотность кости.</p>
+          </details>
+
+          <details class="faq-item">
+            <summary>Можно ли прийти без направления?</summary>
+            <p class="faq-item__answer">Да, мы работаем по самозаписи. Если есть направление от лечащего врача — возьмите его с собой, передадим заключение по нему. Если нет — результат всё равно получите.</p>
+          </details>
+
+        </div>
+
+        <aside class="margin-notes">
+          <div class="margin-note">
+            <span class="margin-note__label">Факт</span>
+            <p class="margin-note__text">Воксель 0.1 мм позволяет визуализировать тонкие корневые каналы и микротрещины эмали.</p>
+          </div>
+          <div class="margin-note">
+            <span class="margin-note__label">Справка</span>
+            <p class="margin-note__text">DICOM v3 — международный стандарт хранения медицинских изображений. Открывается во всех профессиональных вьюверах.</p>
+          </div>
+          <div class="margin-note">
+            <span class="margin-note__label">Примечание</span>
+            <p class="margin-note__text">FOV (Field of View) — поле зрения сканера. Определяет, какая область челюсти попадает на снимок.</p>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTS (uiLup) -->
+  <section class="contacts" id="contacts">
+    <div class="container">
+      <div class="contacts-inner">
+
+        <div class="contacts-head">
+          <div class="contacts-heading">
+            <p class="kicker">Контакты</p>
+            <h2>Smile 3D в Самаре</h2>
+            <p>Запишитесь на КЛКТ, ОПТГ или ТРГ. Администратор уточнит задачу, подскажет подготовку и поможет выбрать удобное время.</p>
+          </div>
+          <div class="contacts-help">
+            <span class="contacts-help__kicker">Администратор на связи</span>
+            <span class="contacts-help__value">Пн–Сб - в часы работы кабинета</span>
+          </div>
+        </div>
+
+        <div class="contacts-row">
+
+          <aside class="contact-card">
+            <div class="contact-form-block">
+              <h3 class="contact-form-head">Оставьте заявку</h3>
+              <p class="contact-form-sub">Перезвоним в течение 15 минут и подберём удобное время</p>
+              <form class="contact-mini-form" novalidate>
+                <label class="field">
+                  <input type="text" name="name" placeholder=" " required autocomplete="name">
+                  <span class="field__label">Ваше имя</span>
+                </label>
+                <label class="field">
+                  <input type="tel" name="phone" placeholder=" " required data-mask="phone" autocomplete="tel">
+                  <span class="field__label">Мобильный телефон*</span>
+                </label>
+                <button type="submit">Записаться на исследование</button>
+              </form>
+              <p class="contact-form-legal">Нажимая «Записаться», вы соглашаетесь с <a href="#">политикой конфиденциальности</a></p>
+            </div>
+          </aside>
+
+          <div class="contacts-map">
+            <iframe src="https://yandex.ru/map-widget/v1/?text=Самара,%20улица%20Стара-Загора&amp;z=15"
+              loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Карта расположения Smile 3D"></iframe>
+          </div>
+
+        </div>
+
+        <div class="clinic-photo" style="background-image: url('assets/img/generated-1778319557238.png');" aria-label="Фото кабинета Smile 3D"></div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER (Q2P6mJ) -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+
+        <div class="footer-col footer-col--brand">
+          <a href="#" class="logo-mark-header" style="text-decoration: none;">
+            <span class="logo-icon" aria-hidden="true">
+              <svg viewBox="0 0 48 42" fill="none" xmlns="http://www.w3.org/2000/svg" width="36" height="32">
+                <path d="M19 6c-3 0-6 2.5-6 7 0 3 0.5 7 1.5 11 0.6 2.4 1 4 1.8 5.5 0.7 1.4 1.4 2.5 2.4 2.5 0.8 0 1.4-0.7 2-1.8 0.5-0.9 1.1-2.2 1.5-3.6 0.3-1 0.5-1.6 1-1.6 0.5 0 0.7 0.6 1 1.6 0.4 1.4 1 2.7 1.5 3.6 0.6 1.1 1.2 1.8 2 1.8 1 0 1.7-1.1 2.4-2.5 0.8-1.5 1.2-3.1 1.8-5.5 1-4 1.5-8 1.5-11 0-4.5-3-7-6-7-2 0-3.5 0.7-4.2 1-0.8 0.3-1.6 0.3-2.4 0-0.7-0.3-2.2-1-4.2-1z" fill="#DFF8FA" stroke="#67B8C3" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+                <path d="M22 16c0 4 0 8-1 12" stroke="#8BD3DA" stroke-width="2" stroke-linecap="round"/>
+                <path d="M37 5l1.5 3 3 1.5-3 1.5L37 14l-1.5-3-3-1.5 3-1.5z" fill="#BFEFF2"/>
+              </svg>
+            </span>
+            <span class="logo-text" style="color: #F4F7FB;">
+              <span class="smile">Smile</span><span class="three-d" style="color: var(--accent);">3D</span>
+            </span>
+          </a>
+          <p class="footer-tagline">Кабинет 3D-рентгенодиагностики стоматологии в Самаре. КЛКТ, ОПТГ, ТРГ на оборудовании Sirona и Vatech. Воксель от 0.1 мм, выдача DICOM в день обращения.</p>
+          <div class="footer-social">
+            <a href="#" aria-label="Facebook">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+                <path d="M13.5 22v-9h3l.5-4h-3.5V6.5c0-1.1.3-1.9 2-1.9H17V1.1C16.5 1 15.4 1 14.2 1c-2.6 0-4.4 1.6-4.4 4.5V9H7v4h2.8v9h3.7z"/>
+              </svg>
+            </a>
+            <a href="#" aria-label="Telegram">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+                <path d="M21.9 4.3c-.3-.2-.7-.2-1 0L2.7 11.4c-.5.2-.7.7-.7 1.2 0 .5.4.9.9 1l4.4 1.4 2 6.3c.1.4.5.7.9.7.3 0 .5-.1.7-.3l2.6-2.5 4.6 3.4c.2.1.4.2.6.2.1 0 .3 0 .4-.1.3-.1.6-.4.6-.8L22 5.2c.1-.4-.1-.7-.1-.9zM9.4 14.5l-.6 4 1.6-4.6 8.4-7-9.4 7.6z"/>
+              </svg>
+            </a>
+            <a href="#" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+                <path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.9.9 1.4.2.4.4 1 .4 2.2.1 1.2.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.9.7-1.4.9-.4.2-1 .4-2.2.4-1.2.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.9-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.9-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2M12 0C8.7 0 8.3 0 7.1.1 5.8.1 4.9.3 4.1.6c-.8.3-1.5.7-2.2 1.4-.7.7-1.1 1.4-1.4 2.2-.3.8-.5 1.7-.6 3C0 8.3 0 8.7 0 12s0 3.7.1 4.9c.1 1.3.3 2.2.6 3 .3.8.7 1.5 1.4 2.2.7.7 1.4 1.1 2.2 1.4.8.3 1.7.5 3 .6 1.2.1 1.6.1 4.9.1s3.7 0 4.9-.1c1.3-.1 2.2-.3 3-.6.8-.3 1.5-.7 2.2-1.4.7-.7 1.1-1.4 1.4-2.2.3-.8.5-1.7.6-3 .1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.1-1.3-.3-2.2-.6-3-.3-.8-.7-1.5-1.4-2.2-.7-.7-1.4-1.1-2.2-1.4-.8-.3-1.7-.5-3-.6C15.7 0 15.3 0 12 0zm0 5.8c-3.4 0-6.2 2.8-6.2 6.2s2.8 6.2 6.2 6.2 6.2-2.8 6.2-6.2-2.8-6.2-6.2-6.2zm0 10.2c-2.2 0-4-1.8-4-4s1.8-4 4-4 4 1.8 4 4-1.8 4-4 4zm6.4-11.8c-.8 0-1.4.6-1.4 1.4s.6 1.4 1.4 1.4 1.4-.6 1.4-1.4-.6-1.4-1.4-1.4z"/>
+              </svg>
+            </a>
+            <a href="https://wa.me/79934731010" aria-label="WhatsApp">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+                <path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.2-.7.2-.2.3-.8.9-.9 1.1-.2.2-.3.2-.6.1-.3-.2-1.2-.5-2.4-1.5-.9-.8-1.5-1.8-1.6-2.1-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.1-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.3 5.2 4.6.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.7-.7 2-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.4zM12 0C5.4 0 0 5.4 0 12c0 2.1.6 4.1 1.6 5.9L0 24l6.3-1.6c1.7.9 3.7 1.5 5.7 1.5 6.6 0 12-5.4 12-12S18.6 0 12 0zm0 22c-1.9 0-3.7-.5-5.3-1.4l-.4-.2-3.7.9.9-3.6-.2-.4C2.4 15.7 2 13.9 2 12c0-5.5 4.5-10 10-10s10 4.5 10 10-4.5 10-10 10z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <span class="footer-col__kicker">Услуги</span>
+          <ul>
+            <li><a href="#services">КЛКТ — компьютерная томография</a></li>
+            <li><a href="#services">ОПТГ — панорамный снимок</a></li>
+            <li><a href="#services">ТРГ — телерентгенограмма</a></li>
+            <li><a href="#pricing">Цены на исследования</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <span class="footer-col__kicker">Информация</span>
+          <ul>
+            <li><a href="#advantages">Преимущества</a></li>
+            <li><a href="#equipment">Оборудование</a></li>
+            <li><a href="#video">О нас</a></li>
+            <li><a href="#faq">Частые вопросы</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <span class="footer-col__kicker">Контакты</span>
+          <ul>
+            <li><a href="tel:+79934731010">+7 (993) 473-10-10</a></li>
+            <li><a href="mailto:hello@smile-3d.ru">hello@smile-3d.ru</a></li>
+            <li>г. Самара, ул. Стара-Загора</li>
+            <li>Пн–Сб · 09:00–20:00</li>
+          </ul>
+        </div>
+
+      </div>
+      <div class="footer-bottom">
+        <span>© Smile 3D · 2026 · ИП Шавкун Юлия Владимировна · ИНН 000000000000</span>
+        <span><a href="#">Политика конфиденциальности</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Service Modal (singleton) -->
+  <div class="svc-modal" data-svc-modal aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="svc-modal-title">
+    <div class="svc-modal__dialog" role="document">
+      <button type="button" class="svc-modal__close" data-svc-close aria-label="Закрыть">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+      <span class="svc-modal__kicker" data-svc-kicker>—</span>
+      <h3 class="svc-modal__title" id="svc-modal-title" data-svc-title>—</h3>
+      <div class="svc-modal__body" data-svc-body></div>
+      <div class="svc-modal__meta">
+        <div class="svc-modal__meta-item">
+          <div class="svc-modal__meta-label">Время съёмки</div>
+          <div class="svc-modal__meta-value" data-svc-time>—</div>
+        </div>
+        <div class="svc-modal__meta-item">
+          <div class="svc-modal__meta-label">Лучевая нагрузка</div>
+          <div class="svc-modal__meta-value" data-svc-dose>—</div>
+        </div>
+        <div class="svc-modal__meta-item">
+          <div class="svc-modal__meta-label">Что получите</div>
+          <div class="svc-modal__meta-value" data-svc-output>—</div>
+        </div>
+      </div>
+      <a href="booking-placeholder.html" target="_blank" rel="noopener" class="svc-modal__cta" data-svc-cta>
+        <span data-svc-cta-text>Записаться</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       JS: tabs toggle + service detail modal
+  ============================================================ -->
+  <script>
+    (function() {
+      const section = document.querySelector('.tabs-section');
+      if (!section) return;
+      const tabs = section.querySelectorAll('.section-tab');
+      const panels = section.querySelectorAll('.tab-panel');
+      tabs.forEach((tab) => {
+        tab.addEventListener('click', () => {
+          const target = tab.dataset.tab;
+          tabs.forEach((t) => {
+            const active = t.dataset.tab === target;
+            t.classList.toggle('is-active', active);
+            t.setAttribute('aria-selected', active ? 'true' : 'false');
+          });
+          panels.forEach((p) => {
+            const active = p.dataset.panel === target;
+            p.classList.toggle('is-active', active);
+            // Не используем hidden атрибут (он бы перебил display:grid stack
+            // и убил cross-fade анимацию). Видимость управляется только классом.
+            p.removeAttribute('hidden');
+          });
+          section.dataset.active = target;
+        });
+      });
+    })();
+
+    // Service modal popup
+    (function() {
+      const modal = document.querySelector('[data-svc-modal]');
+      if (!modal) return;
+      const dialog = modal.querySelector('.svc-modal__dialog');
+      const closeBtn = modal.querySelector('[data-svc-close]');
+      const cards = document.querySelectorAll('.service-card[data-service]');
+
+      const SERVICES = {
+        klkt: {
+          kicker: 'Конусно-лучевая компьютерная томография',
+          title: 'КЛКТ - объёмная 3D-диагностика зубов и челюстно-лицевой области',
+          body: `
+            <p>Компьютерная томография позволяет на основе лучевого обследования создать трёхмерную цифровую модель сканируемой области. Особый тип КТ - <strong>конусно-лучевая компьютерная томография (КЛКТ)</strong> - обладает большими преимуществами при диагностике зубов и челюстей.</p>
+            <p>От традиционной спиральной томографии (МСКТ) эту технологию отличает <strong>низкая лучевая нагрузка</strong> (до 10 раз ниже), <strong>высокая разрешающая способность</strong> (до 0,1 мм против 0,5-1 мм у обычной КТ) и <strong>удобное программное обеспечение трёхмерной визуализации</strong>, которое исключает наложение объектов на снимке друг на друга.</p>
+            <p>КЛКТ применяется в <strong>имплантологии</strong> - для оценки объёма костной ткани; в <strong>эндодонтии</strong> - для диагностики корней и периодонтальных поражений; в <strong>хирургической стоматологии</strong> - при удалении ретинированных зубов; в <strong>ортодонтии</strong> - для планирования лечения; а также для оценки придаточных пазух носа, ВНЧС и височных костей.</p>
+          `,
+          time: '~20 секунд',
+          dose: 'до 85 мкЗв',
+          output: 'DICOM + PDF',
+          cta: 'Записаться на КЛКТ'
+        },
+        optg: {
+          kicker: 'Ортопантомография',
+          title: 'ОПТГ - панорамный снимок зубных рядов',
+          body: `
+            <p><strong>Ортопантомограмма</strong> - панорамная томограмма зубных рядов. Это обзорный двухмерный снимок зубочелюстной области, на котором в выделенный слой попадают все зубы полностью, альвеолярные части обеих челюстей, тело и ветви нижней челюсти.</p>
+            <p>ОПТГ - <strong>базовое исследование</strong> для первичного осмотра у стоматолога, ортодонтической диагностики, оценки заболеваний пародонта и контроля корней зубов перед удалением. Минимальная лучевая нагрузка среди методов рентгенодиагностики делает его наиболее безопасным.</p>
+            <p>Венечный и суставной отросток челюсти на снимке могут отклоняться от прямой проекции, поэтому для детальной оценки ВНЧС или сильно дистопированных зубов дополнительно может потребоваться зонография или КЛКТ.</p>
+          `,
+          time: '~15 секунд',
+          dose: 'до 10 мкЗв',
+          output: 'PDF + JPG',
+          cta: 'Записаться на ОПТГ'
+        },
+        trg: {
+          kicker: 'Телерентгенография',
+          title: 'ТРГ - рентгенография черепа для цефалометрического анализа',
+          body: `
+            <p><strong>Телерентгенография черепа</strong> позволяет специалисту оценить размеры, пропорции и положение челюстных костей, определить направление роста, выявить наличие аномалий и определить их характер.</p>
+            <p>На основе снимка определяют наклон вертикальных осей зубов относительно черепа, их параллельность относительно друг друга, положение окклюзионной плоскости, межальвеолярную высоту и другие параметры. Измерение этих величин позволяет оценить степень их отличия от <strong>усреднённой возрастной нормы</strong> и определить степень необходимой коррекции в процессе лечения.</p>
+            <p>Применяется в <strong>ортодонтии</strong> при планировании брекетов и элайнеров, при <strong>челюстно-лицевой хирургии</strong>, для оценки роста и развития лицевого скелета у детей.</p>
+          `,
+          time: '~15 секунд',
+          dose: 'до 10 мкЗв',
+          output: 'PDF + JPG',
+          cta: 'Записаться на ТРГ'
+        }
+      };
+
+      const $ = (sel) => modal.querySelector(sel);
+      let lastFocus = null;
+
+      function render(key) {
+        const s = SERVICES[key];
+        if (!s) return;
+        $('[data-svc-kicker]').textContent = s.kicker;
+        $('[data-svc-title]').textContent = s.title;
+        $('[data-svc-body]').innerHTML = s.body;
+        $('[data-svc-time]').textContent = s.time;
+        $('[data-svc-dose]').textContent = s.dose;
+        $('[data-svc-output]').textContent = s.output;
+        $('[data-svc-cta-text]').textContent = s.cta;
       }
 
-      a {
-        color: #0b8f92;
-        font-weight: 700;
+      function open(key) {
+        render(key);
+        lastFocus = document.activeElement;
+        modal.classList.add('is-open');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('svc-modal-open');
+        dialog.scrollTop = 0;
+        // фокус на close для accessibility
+        setTimeout(() => closeBtn.focus(), 60);
       }
-    </style>
-  </head>
-  <body>
-    <main>
-      <h1>Smile3D - варианты первого экрана</h1>
-      <p>Открывается вариант 1. Если переход не сработал, используйте ссылки ниже.</p>
-      <p>
-        <a href="./html-variants/variant-1-clear-route.html">Вариант 1</a>
-        <a href="./html-variants/variant-2-scan-depth.html">Вариант 2</a>
-        <a href="./html-variants/variant-3-glass-table.html">Вариант 3</a>
-      </p>
-    </main>
-  </body>
+      function close() {
+        modal.classList.remove('is-open');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('svc-modal-open');
+        if (lastFocus && lastFocus.focus) lastFocus.focus();
+      }
+
+      cards.forEach(card => {
+        const handler = (e) => {
+          if (e.target.closest('a')) return;
+          open(card.dataset.service);
+        };
+        card.addEventListener('click', handler);
+        card.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handler(e); }
+        });
+      });
+
+      closeBtn.addEventListener('click', close);
+      // Клик по overlay (не по dialog)
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) close();
+      });
+      // Esc
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('is-open')) close();
+      });
+      // Клик по CTA - закрывает модалку перед скроллом к форме
+      modal.querySelector('[data-svc-cta]').addEventListener('click', () => {
+        close();
+      });
+    })();
+
+    // Phone mask: +7 999 999 99 99
+    // Применяется ко всем input[type="tel"] и [data-mask="phone"]
+    (function() {
+      const format = (raw) => {
+        let d = String(raw || '').replace(/\D/g, '');
+        // Авто-преобразование: 8XXX -> 7XXX, голые цифры -> добавляем 7
+        if (d.length && (d[0] === '8' || d[0] === '9')) {
+          if (d[0] === '8') d = '7' + d.slice(1);
+          else d = '7' + d;
+        }
+        if (d.length && d[0] !== '7') d = '7' + d;
+        d = d.slice(0, 11);
+        if (!d) return '';
+        let out = '+7';
+        if (d.length > 1) out += ' ' + d.slice(1, 4);
+        if (d.length > 4) out += ' ' + d.slice(4, 7);
+        if (d.length > 7) out += ' ' + d.slice(7, 9);
+        if (d.length > 9) out += ' ' + d.slice(9, 11);
+        return out;
+      };
+
+      const inputs = document.querySelectorAll('input[type="tel"], input[data-mask="phone"]');
+      inputs.forEach((input) => {
+        if (input.dataset.maskBound === '1') return;
+        input.dataset.maskBound = '1';
+        input.setAttribute('inputmode', 'tel');
+        input.setAttribute('autocomplete', input.getAttribute('autocomplete') || 'tel');
+        input.setAttribute('maxlength', '18');
+
+        input.addEventListener('input', (e) => {
+          const before = input.value;
+          const caretPos = input.selectionStart;
+          const formatted = format(before);
+          input.value = formatted;
+          // мягкий курсор - в конец после форматирования
+          try {
+            const end = formatted.length;
+            // если был ввод в середине - сохранить относительную позицию справа
+            const tail = before.length - caretPos;
+            const newPos = Math.max(0, end - tail);
+            input.setSelectionRange(newPos, newPos);
+          } catch (err) {}
+        });
+
+        // На focus не префиксим - чтобы при наборе '8' маска корректно перевела
+        // в '+7' без конфликта с уже стоящим префиксом
+        // обработка вставки (paste) - сразу форматируем
+        input.addEventListener('paste', (e) => {
+          e.preventDefault();
+          const text = (e.clipboardData || window.clipboardData).getData('text');
+          input.value = format(text);
+        });
+        // запретить удаление "+7 " если только префикс
+        input.addEventListener('keydown', (e) => {
+          if (e.key === 'Backspace' && input.value.length <= 3 && input.selectionStart <= 3) {
+            e.preventDefault();
+            input.value = '';
+          }
+        });
+      });
+    })();
+  </script>
+
+  <!-- ============================================================
+       MICRO-ANIMATIONS CONTROLLER (added 2026-05-10)
+       - Auto-tags secondary blocks with [data-reveal]
+       - IntersectionObserver fade/slide reveal with stagger
+       - Counter-up для чисел c [data-counter]
+       - Lightweight parallax для [data-parallax]
+  ============================================================ -->
+  <script>
+  (function() {
+    if (typeof window === 'undefined') return;
+    const doc = document;
+
+    /* -------- 1. Auto-tag elements with [data-reveal] --------
+       Чтобы не править руками 50 мест в разметке - проставим
+       data-reveal автоматически по смысловым селекторам.
+       Уже размеченные [data-reveal] не трогаем. */
+    const autoSelectors = [
+      'section h2',
+      'section h3',
+      '.section-title',
+      '.section-eyebrow',
+      '.intro__item',
+      '.svc-card',
+      '.pricing-card',
+      '.equipment-card',
+      '.advantage-card',
+      '.guarantee-card',
+      '.trust-card',
+      '.review-card',
+      '.doctor-card',
+      '.scan-card',
+      '.step-card',
+      '.faq-item',
+      '.video__frame',
+      '.contact-card',
+      '.inline-form',
+      '.hero__stats',
+      '.hero__cta',
+      '.hero__title',
+      '.hero__lead',
+      '.hero__chips',
+      '.scan-story__image',
+      '.scan-story__text'
+    ];
+    autoSelectors.forEach(sel => {
+      doc.querySelectorAll(sel).forEach(el => {
+        if (!el.hasAttribute('data-reveal')) el.setAttribute('data-reveal', '');
+      });
+    });
+
+    /* Stagger - применяем к детям контейнеров с .grid / .cards-row / .row-cards */
+    const staggerParents = doc.querySelectorAll(
+      '.svc-grid, .pricing-grid, .equipment-grid, .advantages-grid, .guarantees-grid, ' +
+      '.trust-grid, .reviews-grid, .doctor-grid, .steps-grid, .faq-list, ' +
+      '.intro__list, .hero__chips, .hero__stats'
+    );
+    staggerParents.forEach(parent => {
+      const kids = parent.querySelectorAll(':scope > *');
+      kids.forEach((kid, i) => {
+        if (!kid.hasAttribute('data-reveal')) kid.setAttribute('data-reveal', '');
+        const baseDelay = parseInt(kid.style.getPropertyValue('--reveal-delay')) || 0;
+        kid.style.setProperty('--reveal-delay', (baseDelay + i * 90) + 'ms');
+      });
+    });
+
+    /* -------- 2. IntersectionObserver -------- */
+    if (!('IntersectionObserver' in window)) {
+      doc.querySelectorAll('[data-reveal]').forEach(el => el.classList.add('is-visible'));
+    } else {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+
+      doc.querySelectorAll('[data-reveal]').forEach(el => io.observe(el));
+    }
+
+    /* -------- 3. Counter-up для [data-counter] --------
+       Использование: <span data-counter="98">98</span>
+       или с суффиксом:  <span data-counter="15" data-counter-suffix="+">15+</span>
+       JS поднимет от 0 до значения когда элемент попадёт в viewport. */
+    const counters = doc.querySelectorAll('[data-counter]');
+    if (counters.length && 'IntersectionObserver' in window) {
+      const animateCounter = (el) => {
+        const target = parseFloat(el.getAttribute('data-counter')) || 0;
+        const suffix = el.getAttribute('data-counter-suffix') || '';
+        const prefix = el.getAttribute('data-counter-prefix') || '';
+        const duration = parseInt(el.getAttribute('data-counter-duration')) || 1600;
+        const decimals = (target % 1 !== 0) ? 1 : 0;
+        const start = performance.now();
+        function tick(now) {
+          const t = Math.min(1, (now - start) / duration);
+          const eased = 1 - Math.pow(1 - t, 3); // easeOutCubic
+          const value = (target * eased).toFixed(decimals);
+          el.textContent = prefix + value + suffix;
+          if (t < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+      };
+      const cio = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            animateCounter(entry.target);
+            cio.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.4 });
+      counters.forEach(c => cio.observe(c));
+    }
+
+    /* -------- 4. Parallax: [data-parallax="0.15"] -------- */
+    const parallaxEls = doc.querySelectorAll('[data-parallax]');
+    if (parallaxEls.length) {
+      let ticking = false;
+      function applyParallax() {
+        parallaxEls.forEach(el => {
+          const speed = parseFloat(el.getAttribute('data-parallax')) || 0.15;
+          const rect = el.getBoundingClientRect();
+          const viewport = window.innerHeight;
+          if (rect.bottom < 0 || rect.top > viewport) return;
+          const center = rect.top + rect.height / 2;
+          const offset = (center - viewport / 2) * speed * -0.6;
+          el.style.setProperty('--py', offset.toFixed(1) + 'px');
+          if (!el.classList.contains('has-parallax')) el.classList.add('has-parallax');
+        });
+        ticking = false;
+      }
+      function onScroll() {
+        if (!ticking) { requestAnimationFrame(applyParallax); ticking = true; }
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll, { passive: true });
+      applyParallax();
+    }
+  })();
+  </script>
+
+</body>
 </html>
