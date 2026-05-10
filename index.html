@@ -466,11 +466,15 @@
     .tab-panel .section-heading .lead { text-align: center; margin-inline: auto; }
     .tab-panels {
       position: relative;
-      display: grid;
-      grid-template-areas: "stack";
+      /* активная панель - in-flow (определяет высоту), остальные absolute */
+      transition: height 420ms cubic-bezier(.16,1,.3,1);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .tab-panels { transition: none; }
     }
     .tab-panel {
-      grid-area: stack;
+      position: absolute;
+      inset: 0;
       opacity: 0;
       visibility: hidden;
       transform: translateY(14px) scale(0.985);
@@ -481,6 +485,7 @@
         visibility 0s linear 420ms;
     }
     .tab-panel.is-active {
+      position: relative;
       opacity: 1;
       visibility: visible;
       transform: none;
@@ -4137,9 +4142,36 @@
       if (!section) return;
       const tabs = section.querySelectorAll('.section-tab');
       const panels = section.querySelectorAll('.tab-panel');
+      const stack = section.querySelector('.tab-panels');
+
+      // Плавная анимация смены высоты контейнера при переключении табов:
+      // фиксируем текущую height, ждём пока новый активный panel станет
+      // in-flow (position:relative), измеряем его высоту, анимируем height.
+      const animateHeightTo = (targetEl) => {
+        if (!stack || !targetEl) return;
+        const fromH = stack.getBoundingClientRect().height;
+        // зафиксировать стартовую высоту
+        stack.style.height = fromH + 'px';
+        // в следующем кадре - измерить целевую высоту и применить
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            const toH = targetEl.scrollHeight;
+            stack.style.height = toH + 'px';
+            // после завершения transition - сбросить height (auto)
+            const onEnd = (e) => {
+              if (e.propertyName !== 'height') return;
+              stack.style.height = '';
+              stack.removeEventListener('transitionend', onEnd);
+            };
+            stack.addEventListener('transitionend', onEnd);
+          });
+        });
+      };
+
       tabs.forEach((tab) => {
         tab.addEventListener('click', () => {
           const target = tab.dataset.tab;
+          const newActive = section.querySelector('[data-panel="' + target + '"]');
           tabs.forEach((t) => {
             const active = t.dataset.tab === target;
             t.classList.toggle('is-active', active);
@@ -4148,11 +4180,10 @@
           panels.forEach((p) => {
             const active = p.dataset.panel === target;
             p.classList.toggle('is-active', active);
-            // Не используем hidden атрибут (он бы перебил display:grid stack
-            // и убил cross-fade анимацию). Видимость управляется только классом.
             p.removeAttribute('hidden');
           });
           section.dataset.active = target;
+          animateHeightTo(newActive);
         });
       });
     })();
