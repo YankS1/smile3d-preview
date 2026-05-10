@@ -2286,10 +2286,23 @@
       .doctors-row { gap: 24px; }
 
       /* faq */
-      .faq-grid { flex-direction: column; gap: 24px; margin-top: 32px; }
+      .faq .section-heading { align-items: flex-start; text-align: left; }
+      .faq-grid { flex-direction: column; gap: 20px; margin-top: 28px; align-items: stretch; }
+      .faq-main { width: 100%; flex: 1 1 auto; }
       .faq-item summary { padding: 18px 20px; font-size: 16px; gap: 12px; }
       .faq-item__answer { padding: 0 20px 18px; font-size: 14px; }
-      .margin-notes { width: 100%; flex-direction: column; gap: 12px; }
+      .margin-notes {
+        width: 100%; flex-direction: column;
+        gap: 10px;
+        position: static;
+      }
+      .margin-note {
+        flex: 0 0 auto;
+        padding: 14px 18px;
+        border-radius: 10px;
+      }
+      .margin-note__label { font-size: 10px; letter-spacing: 1.2px; margin-bottom: 4px; }
+      .margin-note__text { font-size: 13px; line-height: 1.5; }
 
       /* contacts */
       .contacts-head { flex-direction: column; align-items: flex-start; gap: 12px; }
@@ -2444,6 +2457,258 @@
       .section-tab { font-size: 13px; }
       .pricing-price__value { font-size: 32px; }
     }
+
+    /* ============================================================
+       MOBILE BURGER + DRAWER (2026-05-10)
+       Hamburger button (3 lines → X) + slide-in drawer справа +
+       fade backdrop. Появляется только на ≤1100px (там где
+       десктопная nav уже скрыта). Плавные анимации, focus-trap,
+       body-scroll-lock, escape-to-close.
+    ============================================================ */
+
+    /* Hamburger button */
+    .burger {
+      display: none;
+      width: 44px; height: 44px;
+      align-items: center; justify-content: center;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      cursor: pointer;
+      padding: 0;
+      flex-direction: column; gap: 5px;
+      transition: border-color 220ms ease, background 220ms ease;
+      position: relative;
+    }
+    .burger:hover { border-color: var(--accent); }
+    .burger__line {
+      display: block;
+      width: 18px; height: 2px;
+      background: var(--fg);
+      border-radius: 2px;
+      transform-origin: center;
+      transition:
+        transform 360ms cubic-bezier(.16,1,.3,1),
+        opacity 220ms ease,
+        background 220ms ease;
+    }
+    .burger.is-open .burger__line:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+    .burger.is-open .burger__line:nth-child(2) {
+      opacity: 0; transform: scaleX(0.3);
+    }
+    .burger.is-open .burger__line:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+    .burger.is-open { border-color: var(--accent); }
+
+    @media (max-width: 1100px) {
+      .burger { display: inline-flex; }
+    }
+
+    /* Backdrop */
+    .mobile-nav-backdrop {
+      position: fixed; inset: 0;
+      z-index: 110;
+      background: rgba(11, 24, 34, 0.45);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 320ms cubic-bezier(.4,0,.2,1);
+    }
+    .mobile-nav-backdrop.is-open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Drawer */
+    .mobile-nav {
+      position: fixed;
+      top: 0; right: 0; bottom: 0;
+      z-index: 120;
+      width: min(380px, 86vw);
+      max-width: 100%;
+      background: var(--surface);
+      box-shadow: -32px 0 64px -24px rgba(11, 24, 34, 0.28);
+      transform: translateX(100%);
+      transition:
+        transform 460ms cubic-bezier(.16,1,.3,1),
+        visibility 0s linear 460ms;
+      visibility: hidden;
+      display: flex; flex-direction: column;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      -webkit-overflow-scrolling: touch;
+    }
+    .mobile-nav.is-open {
+      transform: translateX(0);
+      visibility: visible;
+      transition:
+        transform 520ms cubic-bezier(.16,1,.3,1),
+        visibility 0s linear;
+    }
+
+    .mobile-nav__header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 22px;
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .mobile-nav__brand .logo-text {
+      font-family: var(--font-display);
+      font-size: 24px; font-weight: 700;
+      letter-spacing: -0.6px;
+    }
+    .mobile-nav__brand .logo-text .smile { color: var(--fg); }
+    .mobile-nav__brand .logo-text .three-d { color: var(--accent); }
+    .mobile-nav__close {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      color: var(--muted);
+      background: transparent;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: color 200ms ease, background 200ms ease, border-color 200ms ease;
+    }
+    .mobile-nav__close:hover {
+      color: var(--fg);
+      background: var(--surface-muted);
+      border-color: var(--border-strong);
+    }
+
+    .mobile-nav__list {
+      display: flex; flex-direction: column;
+      padding: 18px 14px;
+      gap: 2px;
+      flex: 1;
+    }
+    .mobile-nav__list a {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 16px;
+      font-family: var(--font-display);
+      font-size: 18px; font-weight: 500;
+      color: var(--fg);
+      border-radius: 12px;
+      gap: 12px;
+      opacity: 0;
+      transform: translateX(20px);
+      transition:
+        background 220ms ease,
+        color 220ms ease,
+        opacity 480ms cubic-bezier(.16,1,.3,1),
+        transform 480ms cubic-bezier(.16,1,.3,1);
+    }
+    .mobile-nav__list a:hover,
+    .mobile-nav__list a:focus-visible {
+      background: var(--surface-cyan, rgba(33, 182, 199, 0.08));
+      color: var(--accent-deep);
+    }
+    .mobile-nav__list a:active {
+      background: rgba(33, 182, 199, 0.14);
+    }
+    .mobile-nav__arrow {
+      font-family: var(--font-mono);
+      font-size: 16px;
+      color: var(--muted);
+      transition: transform 280ms cubic-bezier(.16,1,.3,1), color 220ms ease;
+    }
+    .mobile-nav__list a:hover .mobile-nav__arrow {
+      transform: translateX(4px);
+      color: var(--accent);
+    }
+
+    /* stagger-in анимация ссылок drawer */
+    .mobile-nav.is-open .mobile-nav__list a {
+      opacity: 1;
+      transform: none;
+    }
+    .mobile-nav.is-open .mobile-nav__list a:nth-child(1) { transition-delay: 80ms; }
+    .mobile-nav.is-open .mobile-nav__list a:nth-child(2) { transition-delay: 130ms; }
+    .mobile-nav.is-open .mobile-nav__list a:nth-child(3) { transition-delay: 180ms; }
+    .mobile-nav.is-open .mobile-nav__list a:nth-child(4) { transition-delay: 230ms; }
+    .mobile-nav.is-open .mobile-nav__list a:nth-child(5) { transition-delay: 280ms; }
+    .mobile-nav.is-open .mobile-nav__list a:nth-child(6) { transition-delay: 330ms; }
+    .mobile-nav.is-open .mobile-nav__list a:nth-child(7) { transition-delay: 380ms; }
+
+    .mobile-nav__footer {
+      display: flex; flex-direction: column;
+      gap: 10px;
+      padding: 22px;
+      border-top: 1px solid var(--border);
+      background: var(--bg, #f5f9fb);
+      flex-shrink: 0;
+      opacity: 0;
+      transform: translateY(8px);
+      transition:
+        opacity 480ms cubic-bezier(.16,1,.3,1) 420ms,
+        transform 480ms cubic-bezier(.16,1,.3,1) 420ms;
+    }
+    .mobile-nav.is-open .mobile-nav__footer {
+      opacity: 1; transform: none;
+    }
+    .mobile-nav__phone {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-family: var(--font-display);
+      font-size: 22px; font-weight: 700;
+      letter-spacing: -0.4px;
+      color: var(--fg);
+      transition: color 200ms ease;
+    }
+    .mobile-nav__phone:hover { color: var(--accent-deep); }
+    .mobile-nav__phone-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #2dbf6e;
+      box-shadow: 0 0 0 0 rgba(45,191,110,0.6);
+      animation: phone-pulse 2.4s cubic-bezier(.4,0,.2,1) infinite;
+      flex-shrink: 0;
+    }
+    .mobile-nav__hours {
+      font-family: var(--font-mono);
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 1px;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+    .mobile-nav__cta {
+      display: inline-flex; align-items: center; justify-content: center;
+      margin-top: 8px;
+      padding: 14px 20px;
+      background: var(--accent);
+      color: var(--surface);
+      font-family: var(--font-body);
+      font-size: 16px; font-weight: 700;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(33, 182, 199, 0.3);
+      transition: background 220ms ease, transform 200ms ease, box-shadow 220ms ease;
+    }
+    .mobile-nav__cta:hover {
+      background: var(--accent-deep);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px rgba(33, 182, 199, 0.4);
+    }
+    .mobile-nav__cta:active { transform: translateY(0); }
+
+    /* lock body scroll */
+    body.has-mobile-nav { overflow: hidden; }
+
+    /* hide menu region when bigger viewport - safety на случай resize */
+    @media (min-width: 1101px) {
+      .mobile-nav,
+      .mobile-nav-backdrop { display: none !important; }
+    }
+
+    /* small screens - tighten paddings */
+    @media (max-width: 540px) {
+      .mobile-nav__header { padding: 16px 18px; }
+      .mobile-nav__list { padding: 14px 10px; }
+      .mobile-nav__list a { padding: 14px 14px; font-size: 17px; }
+      .mobile-nav__footer { padding: 18px; }
+      .mobile-nav__phone { font-size: 20px; }
+    }
   </style>
 </head>
 <body>
@@ -2559,9 +2824,48 @@
           <span class="topbar-contact__hours">Пн-Сб · 09:00-20:00</span>
         </div>
         <a href="booking-placeholder.html" target="_blank" rel="noopener" class="topbar-cta">Записаться</a>
+        <button type="button" class="burger" data-burger aria-label="Открыть меню" aria-expanded="false" aria-controls="mobile-nav">
+          <span class="burger__line"></span>
+          <span class="burger__line"></span>
+          <span class="burger__line"></span>
+        </button>
       </div>
     </div>
   </header>
+
+  <!-- MOBILE NAV DRAWER -->
+  <div class="mobile-nav-backdrop" data-burger-backdrop aria-hidden="true"></div>
+  <aside class="mobile-nav" id="mobile-nav" data-mobile-nav aria-hidden="true" aria-label="Мобильное меню">
+    <div class="mobile-nav__header">
+      <span class="mobile-nav__brand">
+        <span class="logo-text">
+          <span class="smile">Smile</span><span class="three-d">3D</span>
+        </span>
+      </span>
+      <button type="button" class="mobile-nav__close" data-burger-close aria-label="Закрыть меню">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M5 5l10 10M15 5L5 15"/>
+        </svg>
+      </button>
+    </div>
+    <nav class="mobile-nav__list" aria-label="Главная навигация (мобильная)">
+      <a href="#services" data-mobile-link><span>Услуги</span><span class="mobile-nav__arrow">→</span></a>
+      <a href="#pricing" data-mobile-link><span>Цены</span><span class="mobile-nav__arrow">→</span></a>
+      <a href="#advantages" data-mobile-link><span>Преимущества</span><span class="mobile-nav__arrow">→</span></a>
+      <a href="#video" data-mobile-link><span>Видео</span><span class="mobile-nav__arrow">→</span></a>
+      <a href="#guarantees" data-mobile-link><span>Гарантии</span><span class="mobile-nav__arrow">→</span></a>
+      <a href="#faq" data-mobile-link><span>FAQ</span><span class="mobile-nav__arrow">→</span></a>
+      <a href="#contacts" data-mobile-link><span>Контакты</span><span class="mobile-nav__arrow">→</span></a>
+    </nav>
+    <div class="mobile-nav__footer">
+      <a href="tel:+79934731010" class="mobile-nav__phone">
+        <span class="mobile-nav__phone-dot" aria-hidden="true"></span>
+        8 (993) 473-10-10
+      </a>
+      <span class="mobile-nav__hours">Пн-Сб · 09:00-20:00 · Самара</span>
+      <a href="booking-placeholder.html" target="_blank" rel="noopener" class="mobile-nav__cta" data-mobile-link>Записаться на исследование</a>
+    </div>
+  </aside>
 
   <!-- HERO (MiCSw) -->
   <section class="hero" aria-label="Hero">
@@ -3468,6 +3772,104 @@
         });
       });
     })();
+  </script>
+
+  <!-- ============================================================
+       MOBILE BURGER + DRAWER controller
+       Open/close, focus-trap, body-scroll-lock, escape-to-close,
+       link-click closes drawer, resize cleanup.
+  ============================================================ -->
+  <script>
+  (function() {
+    const burger = document.querySelector('[data-burger]');
+    const drawer = document.querySelector('[data-mobile-nav]');
+    const backdrop = document.querySelector('[data-burger-backdrop]');
+    const closeBtn = document.querySelector('[data-burger-close]');
+    if (!burger || !drawer || !backdrop) return;
+
+    const links = drawer.querySelectorAll('[data-mobile-link]');
+    let lastFocus = null;
+
+    function open() {
+      lastFocus = document.activeElement;
+      document.body.classList.add('has-mobile-nav');
+      burger.classList.add('is-open');
+      burger.setAttribute('aria-expanded', 'true');
+      drawer.classList.add('is-open');
+      drawer.setAttribute('aria-hidden', 'false');
+      backdrop.classList.add('is-open');
+      // focus first link after open animation
+      setTimeout(() => {
+        const first = drawer.querySelector('a, button');
+        if (first) first.focus({ preventScroll: true });
+      }, 320);
+    }
+
+    function close() {
+      document.body.classList.remove('has-mobile-nav');
+      burger.classList.remove('is-open');
+      burger.setAttribute('aria-expanded', 'false');
+      drawer.classList.remove('is-open');
+      drawer.setAttribute('aria-hidden', 'true');
+      backdrop.classList.remove('is-open');
+      if (lastFocus && typeof lastFocus.focus === 'function') {
+        lastFocus.focus({ preventScroll: true });
+      }
+    }
+
+    function toggle() {
+      if (drawer.classList.contains('is-open')) close();
+      else open();
+    }
+
+    burger.addEventListener('click', toggle);
+    backdrop.addEventListener('click', close);
+    if (closeBtn) closeBtn.addEventListener('click', close);
+
+    // Close on link click (but only after small delay so anchor scroll initiates)
+    links.forEach(a => {
+      a.addEventListener('click', () => {
+        // booking-placeholder.html opens new tab, не нужно закрывать сразу
+        if (a.target === '_blank') return;
+        // anchor link - close after click
+        setTimeout(close, 80);
+      });
+    });
+
+    // Escape to close
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && drawer.classList.contains('is-open')) {
+        close();
+      }
+    });
+
+    // Если ширину увеличили выше брейкпоинта - закрываем drawer на всякий случай
+    let resizeTimer = null;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        if (window.innerWidth > 1100 && drawer.classList.contains('is-open')) {
+          close();
+        }
+      }, 120);
+    });
+
+    // Focus trap внутри drawer
+    drawer.addEventListener('keydown', (e) => {
+      if (e.key !== 'Tab' || !drawer.classList.contains('is-open')) return;
+      const focusables = drawer.querySelectorAll(
+        'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      );
+      if (!focusables.length) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault(); last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault(); first.focus();
+      }
+    });
+  })();
   </script>
 
   <!-- ============================================================
