@@ -6,8 +6,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Smile 3D - 3D-рентгенодиагностика стоматологии · Самара</title>
-  <meta name="description" content="Конусно-лучевая компьютерная томография (КЛКТ), ортопантомография (ОПТГ), телерентгенография (ТРГ) в Самаре. Воксель от 0.1 мм, снимок за 14 секунд." />
+  <title>Smile 3D - 3D-рентгенодиагностика стоматологии · Жигулёвск</title>
+  <meta name="description" content="Конусно-лучевая компьютерная томография (КЛКТ), ортопантомография (ОПТГ), телерентгенография (ТРГ) в Жигулёвске. Разрешение до 68 микрон, снимок за несколько секунд." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -35,6 +35,7 @@
        Tokens (mirror smile3d.pen variables, verbatim)
     ============================================================ */
     :root {
+      --topbar-h: 72px;
       --accent: #21B6C7;
       --accent-deep: #0E8C9D;
       --accent-soft: #C9EBEF;
@@ -225,39 +226,88 @@
     }
 
     /* ============================================================
-       Hero (MiCSw, h=840)
+       Hero v2 (full-screen photo bg + zoom/parallax + pulse-rings)
     ============================================================ */
     .hero {
       position: relative; overflow: hidden;
-      height: 700px;
+      min-height: calc(100vh - var(--topbar-h));
+      max-height: 980px;
       width: 100%;
+      isolation: isolate;
     }
     .hero-bg {
       position: absolute; inset: 0;
       background: radial-gradient(circle at 50% 50%, #E5F5F7 0%, #F5F9FB 100%);
+      z-index: 0;
     }
     .hero-bg__image {
-      position: absolute; inset: 0;
-      background: url('assets/img/generated-1778318895975.png') center/cover no-repeat;
+      position: absolute; inset: -4% -2%;
+      background: url('assets/img/generated-1778319557238.png') center 45% / cover no-repeat;
+      will-change: transform;
+      animation: hero-slow-zoom 14s ease-in-out infinite alternate;
+      transform: translate3d(0, var(--hero-parallax-y, 0px), 0);
+    }
+    @keyframes hero-slow-zoom {
+      0%   { background-size: 100% auto; }
+      100% { background-size: 106% auto; }
     }
     .hero-bg__wash {
       position: absolute; inset: 0;
-      background: linear-gradient(180deg, rgba(245, 249, 251, 0.9) 0%, rgba(245, 249, 251, 0.6) 50%, rgba(245, 249, 251, 0.9) 100%);
+      background:
+        linear-gradient(180deg,
+          rgba(245, 249, 251, 0.55) 0%,
+          rgba(245, 249, 251, 0.20) 22%,
+          rgba(245, 249, 251, 0.10) 50%,
+          rgba(245, 249, 251, 0.55) 82%,
+          rgba(245, 249, 251, 0.95) 100%);
+      z-index: 1;
     }
-    .hero-center {
+
+    /* Pulse-rings - концентрический сонар вокруг зуба-неона */
+    .hero-pulse {
+      position: absolute;
+      left: 50%; top: 46%;
+      width: 0; height: 0;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .hero-pulse__ring {
       position: absolute;
       left: 50%; top: 50%;
-      transform: translate(-50%, -50%);
-      width: 880px;
+      width: 240px; height: 240px;
+      margin-left: -120px; margin-top: -120px;
+      border-radius: 50%;
+      border: 2px solid rgba(33, 182, 199, 0.55);
+      opacity: 0;
+      animation: hero-pulse-out 5s cubic-bezier(.16,1,.3,1) infinite;
+    }
+    .hero-pulse__ring:nth-child(2) { animation-delay: 1.65s; }
+    .hero-pulse__ring:nth-child(3) { animation-delay: 3.30s; }
+    @keyframes hero-pulse-out {
+      0%   { transform: scale(0.45); opacity: 0; border-width: 2.5px; }
+      14%  { opacity: 0.55; }
+      100% { transform: scale(2.6); opacity: 0; border-width: 0.5px; }
+    }
+
+    .hero-center {
+      position: absolute;
+      left: 50%; top: 18%;
+      transform: translateX(-50%);
+      width: min(880px, calc(100% - 64px));
       display: flex; flex-direction: column; align-items: center;
-      gap: 20px;
+      gap: 22px;
       text-align: center;
+      z-index: 3;
     }
     .hero-eyebrow {
       font-family: var(--font-mono);
-      font-size: 13px; font-weight: 500;
-      letter-spacing: 1.4px;
+      font-size: 20px; font-weight: 600;
+      letter-spacing: 2.6px;
       color: var(--accent-deep);
+      text-transform: uppercase;
+      padding: 6px 14px;
+      background: rgba(33, 182, 199, 0.10);
+      border-radius: 999px;
     }
     .hero h1 {
       font-family: var(--font-display);
@@ -421,8 +471,101 @@
       .hero-ruler { flex-wrap: wrap; gap: 12px; padding: 16px 24px; }
       .hero-ruler__sep { display: none; }
       .hero h1 { font-size: 56px; width: 100%; letter-spacing: -1.5px; }
-      .hero-center { width: calc(100% - 48px); top: 120px; }
+      .hero-center { width: calc(100% - 48px); top: 14%; }
       .hero-lead { width: 100%; font-size: 18px; }
+    }
+    @media (max-width: 767px) {
+      .hero { min-height: calc(100svh - 60px); max-height: none; }
+      .hero-bg__image {
+        inset: -2% -1%;
+        background-position: 55% 45%;
+        background-size: 180% auto;
+      }
+      @keyframes hero-slow-zoom {
+        0%   { background-size: 180% auto; }
+        100% { background-size: 195% auto; }
+      }
+      .hero-bg__wash {
+        background:
+          linear-gradient(180deg,
+            rgba(245, 249, 251, 0.70) 0%,
+            rgba(245, 249, 251, 0.25) 30%,
+            rgba(245, 249, 251, 0.30) 55%,
+            rgba(245, 249, 251, 0.90) 100%);
+      }
+      .hero-center { top: 11%; gap: 16px; }
+      .hero h1 { font-size: 40px; letter-spacing: -1px; line-height: 1.08; }
+      .hero-lead { font-size: 16px; line-height: 1.45; }
+      .hero-pulse { top: 48%; }
+      .hero-pulse__ring { width: 180px; height: 180px; margin-left: -90px; margin-top: -90px; }
+    }
+    @media (max-width: 441px) {
+      .hero-bg__image {
+        background-position: 52% 42%;
+      }
+      .hero h1 { font-size: 34px; }
+      .hero-lead { font-size: 15px; }
+      .hero-pulse__ring { width: 140px; height: 140px; margin-left: -70px; margin-top: -70px; }
+    }
+
+    /* Hero scroll indicator - bouncing arrow */
+    .hero-scroll-indicator {
+      position: absolute;
+      left: 50%; bottom: 78px;
+      transform: translateX(-50%);
+      display: inline-flex; flex-direction: column; align-items: center;
+      gap: 6px;
+      color: var(--accent-deep);
+      font-family: var(--font-mono);
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      z-index: 4;
+      opacity: 0.85;
+      text-decoration: none;
+      animation: hero-scroll-bounce 2.4s ease-in-out infinite;
+    }
+    .hero-scroll-indicator:hover { opacity: 1; color: var(--accent); }
+    .hero-scroll-indicator svg { width: 22px; height: 22px; }
+    @keyframes hero-scroll-bounce {
+      0%, 100% { transform: translate(-50%, 0); opacity: 0.55; }
+      50%      { transform: translate(-50%, 6px); opacity: 1; }
+    }
+    @media (max-width: 767px) {
+      .hero-scroll-indicator { display: none; }
+    }
+
+    /* Hero tabs overlay - glassmorphism strip at hero bottom */
+    .hero-tabs-bar {
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      padding: 18px 0 22px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.0) 0%, rgba(255,255,255,0.65) 35%, rgba(255,255,255,0.92) 100%);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      z-index: 5;
+    }
+    .hero-tabs-bar .section-tabs {
+      margin: 0;
+      gap: 56px;
+    }
+    .hero-tabs-bar .section-tab { font-weight: 500; }
+    .hero-tabs-bar .section-tab span:first-child { color: rgba(20, 30, 40, 0.72); }
+    .hero-tabs-bar .section-tab.is-active span:first-child { color: var(--fg); font-weight: 600; }
+    @media (max-width: 767px) {
+      .hero-tabs-bar { padding: 14px 0 18px; }
+      .hero-tabs-bar .section-tabs { gap: 22px; }
+    }
+    @media (max-width: 441px) {
+      .hero-tabs-bar .section-tabs { gap: 14px; }
+      .hero-tabs-bar .section-tab { font-size: 13px; }
+      .hero-tabs-bar .section-tab__underline { width: 56px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero-bg__image,
+      .hero-pulse__ring,
+      .hero-scroll-indicator { animation: none; }
     }
 
     /* ============================================================
@@ -431,7 +574,7 @@
        Backgrounds vary by tab: Услуги=#FFFFFF, Пациентам=#F5F9FB, Врачам=#FFFFFF
     ============================================================ */
     .tabs-section {
-      padding: 56px 0;
+      padding: 80px 0 64px;
       background: var(--surface);
       transition: background 600ms cubic-bezier(.4,0,.2,1);
     }
@@ -2426,17 +2569,7 @@
       .section-tabs { gap: 28px; flex-wrap: wrap; margin-bottom: 28px; }
       .section-tab__underline { width: 64px; }
 
-      /* hero */
-      .hero { height: auto; min-height: 540px; padding: 96px 0 140px; }
-      .hero-center {
-        position: relative; transform: none;
-        left: auto; top: auto;
-        z-index: 2;
-        width: 100%; padding: 0 16px;
-        margin: 0 auto;
-      }
-      .hero h1 { width: 100%; font-size: 44px; letter-spacing: -1.4px; }
-      .hero-lead { width: 100%; font-size: 17px; }
+      /* hero - legacy overrides removed; new hero v2 has its own mobile MQ above */
       .hero-cta { flex-wrap: wrap; justify-content: center; }
       .hero-ruler { padding: 14px 16px; gap: 10px; }
       .hero-ruler__sep { display: none; }
@@ -2564,11 +2697,8 @@
       .section-tab { font-size: 14px; gap: 8px; }
       .section-tab__underline { width: 48px; }
 
-      /* hero */
-      .hero { min-height: 480px; padding: 72px 0 120px; }
-      .hero h1 { font-size: 32px; letter-spacing: -1px; line-height: 1.1; }
-      .hero-lead { font-size: 15px; }
-      .hero-eyebrow { font-size: 11px; letter-spacing: 1.2px; }
+      /* hero - legacy overrides removed; keep button + cta-stack helpers only */
+      .hero-eyebrow { font-size: 13px; letter-spacing: 1.6px; padding: 4px 10px; }
       .btn-primary, .btn-secondary {
         padding: 13px 20px; font-size: 15px; border-radius: 12px;
       }
@@ -3167,6 +3297,471 @@
       .book-form__submit { padding: 14px 20px; font-size: 15px; }
       .book-modal__close { top: 12px; right: 12px; width: 32px; height: 32px; }
     }
+
+    /* ===================== DOCTORS CTA ===================== */
+    .doctors-cta {
+      margin-top: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+    .doctors-cta__primary,
+    .doctors-cta__secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 22px;
+      border-radius: 14px;
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.2px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 220ms ease, border-color 220ms ease, transform 220ms ease, box-shadow 220ms ease, color 220ms ease;
+    }
+    .doctors-cta__primary {
+      background: var(--accent);
+      border: 1.5px solid var(--accent);
+      color: #fff;
+      box-shadow: 0 8px 28px rgba(33, 182, 199, 0.26);
+    }
+    .doctors-cta__primary:hover {
+      background: var(--accent-deep);
+      border-color: var(--accent-deep);
+      transform: translateY(-1px);
+      box-shadow: 0 12px 34px rgba(14, 140, 157, 0.32);
+    }
+    .doctors-cta__secondary {
+      background: #fff;
+      border: 1.5px solid var(--border);
+      color: var(--fg);
+    }
+    .doctors-cta__secondary:hover {
+      border-color: var(--accent);
+      color: var(--accent-deep);
+      transform: translateY(-1px);
+    }
+
+    /* ===================== REFERRAL MODAL ===================== */
+    .ref-modal {
+      position: fixed; inset: 0; z-index: 1001;
+      display: none;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 40px 20px;
+      background: rgba(16, 34, 43, 0.55);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      opacity: 0;
+      transition: opacity 260ms ease;
+      overflow-y: auto;
+    }
+    .ref-modal.is-open {
+      display: flex;
+      opacity: 1;
+    }
+    .ref-modal__dialog {
+      position: relative;
+      width: 100%;
+      max-width: 760px;
+      background: #fff;
+      border-radius: 24px;
+      padding: 40px 44px 36px;
+      box-shadow: 0 30px 80px rgba(16, 34, 43, 0.26);
+      transform: translateY(24px);
+      transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+      margin: auto;
+    }
+    .ref-modal.is-open .ref-modal__dialog { transform: translateY(0); }
+    .ref-modal__close {
+      position: absolute; top: 16px; right: 16px;
+      width: 36px; height: 36px;
+      display: inline-flex; align-items: center; justify-content: center;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      color: var(--fg-dim);
+      cursor: pointer;
+      transition: background 200ms ease, color 200ms ease;
+    }
+    .ref-modal__close:hover { background: #E8EEF1; color: var(--fg); }
+    .ref-modal__kicker {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 2.2px; text-transform: uppercase;
+      color: var(--accent-deep);
+      background: var(--soft);
+      padding: 5px 11px;
+      border-radius: 999px;
+      margin: 0 0 12px;
+    }
+    .ref-modal__title {
+      font-family: var(--font-head);
+      font-size: 28px; font-weight: 700;
+      letter-spacing: -0.6px;
+      color: var(--fg);
+      margin: 0 0 8px;
+      line-height: 1.12;
+    }
+    .ref-modal__sub {
+      font-size: 15px; line-height: 1.55;
+      color: var(--fg-dim);
+      margin: 0 0 28px;
+    }
+
+    .ref-section {
+      padding: 22px 0 6px;
+      border-top: 1px solid var(--border);
+    }
+    .ref-section:first-of-type { border-top: none; padding-top: 4px; }
+    .ref-section__title {
+      font-family: var(--font-head);
+      font-size: 15px; font-weight: 600;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      color: var(--accent-deep);
+      margin: 0 0 14px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .ref-section__title::before {
+      content: attr(data-step);
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 24px; height: 24px;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 50%;
+      font-family: var(--font-mono);
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0;
+    }
+    .ref-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px 16px;
+    }
+    .ref-field {
+      position: relative;
+      display: block;
+    }
+    .ref-field input,
+    .ref-field textarea,
+    .ref-field select {
+      width: 100%;
+      padding: 14px 14px 14px;
+      background: #fff;
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      font-family: var(--font-body);
+      font-size: 15px;
+      color: var(--fg);
+      outline: none;
+      transition: border-color 200ms ease, box-shadow 200ms ease;
+    }
+    .ref-field textarea {
+      min-height: 78px;
+      resize: vertical;
+      font-family: var(--font-body);
+    }
+    .ref-field input:focus,
+    .ref-field textarea:focus,
+    .ref-field select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(33, 182, 199, 0.18);
+    }
+    .ref-field__label {
+      display: block;
+      font-size: 12px; font-weight: 500;
+      letter-spacing: 0.2px;
+      color: var(--fg-dim);
+      margin: 0 0 5px 2px;
+    }
+
+    /* FDI grid */
+    .fdi {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 14px 16px;
+    }
+    .fdi__hint {
+      font-family: var(--font-mono);
+      font-size: 10.5px; font-weight: 600;
+      letter-spacing: 1.2px; text-transform: uppercase;
+      color: var(--fg-dim);
+      text-align: center;
+      margin: 0 0 12px;
+    }
+    .fdi__row {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr) 1px repeat(8, 1fr);
+      gap: 6px;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+    .fdi__divider {
+      grid-column: 9 / 10;
+      width: 1px;
+      align-self: stretch;
+      background: var(--border-strong);
+      margin: 0 3px;
+    }
+    .fdi__mid {
+      margin: 6px 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border-strong), transparent);
+    }
+    .fdi__tooth {
+      appearance: none;
+      -webkit-appearance: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center; justify-content: center;
+      width: 100%;
+      aspect-ratio: 1;
+      max-width: 38px;
+      min-width: 26px;
+      justify-self: center;
+      background: #fff;
+      border: 1.5px solid var(--border);
+      border-radius: 50%;
+      font-family: var(--font-mono);
+      font-size: 10.5px; font-weight: 600;
+      letter-spacing: 0;
+      color: var(--fg-dim);
+      transition: background 180ms ease, border-color 180ms ease, color 180ms ease, transform 160ms ease;
+    }
+    .fdi__tooth:hover { border-color: var(--accent); color: var(--fg); }
+    .fdi__tooth.is-checked {
+      background: var(--accent);
+      border-color: var(--accent-deep);
+      color: #fff;
+      transform: scale(1.06);
+      box-shadow: 0 4px 12px rgba(33, 182, 199, 0.28);
+    }
+
+    /* Круглые чекбоксы для услуг/зон */
+    .ref-checks {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 10px;
+    }
+    .ref-check {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 13px 14px;
+      background: #fff;
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: border-color 180ms ease, background 180ms ease;
+    }
+    .ref-check:hover { border-color: var(--accent); }
+    .ref-check input { position: absolute; opacity: 0; pointer-events: none; }
+    .ref-check__dot {
+      flex-shrink: 0;
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      border: 2px solid var(--border-strong);
+      background: #fff;
+      position: relative;
+      transition: border-color 160ms ease, background 160ms ease;
+    }
+    .ref-check__dot::after {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      width: 10px; height: 10px;
+      background: var(--accent);
+      border-radius: 50%;
+      transition: transform 180ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .ref-check input:checked ~ .ref-check__dot {
+      border-color: var(--accent);
+    }
+    .ref-check input:checked ~ .ref-check__dot::after {
+      transform: translate(-50%, -50%) scale(1);
+    }
+    .ref-check input:checked ~ .ref-check__text { color: var(--fg); }
+    .ref-check.is-active { border-color: var(--accent); background: rgba(33, 182, 199, 0.06); }
+    .ref-check__text {
+      font-size: 14px; font-weight: 500;
+      color: var(--fg);
+      line-height: 1.35;
+    }
+    .ref-check__text small {
+      display: block;
+      font-size: 12px; font-weight: 400;
+      color: var(--fg-dim);
+      margin-top: 2px;
+    }
+
+    /* Skull zones with SVG icons */
+    .ref-zones {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    .ref-zone {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 14px;
+      background: #fff;
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      cursor: pointer;
+      transition: border-color 180ms ease, background 180ms ease;
+    }
+    .ref-zone:hover { border-color: var(--accent); }
+    .ref-zone input { position: absolute; opacity: 0; pointer-events: none; }
+    .ref-zone__icon {
+      flex-shrink: 0;
+      width: 46px; height: 46px;
+      display: inline-flex; align-items: center; justify-content: center;
+      background: var(--soft);
+      border-radius: 50%;
+      color: var(--accent-deep);
+    }
+    .ref-zone.is-active { border-color: var(--accent); background: rgba(33, 182, 199, 0.06); }
+    .ref-zone.is-active .ref-zone__icon { background: var(--accent); color: #fff; }
+    .ref-zone__body { flex: 1; min-width: 0; }
+    .ref-zone__name {
+      font-size: 14.5px; font-weight: 600;
+      color: var(--fg);
+      margin: 0 0 3px;
+    }
+    .ref-zone__desc {
+      font-size: 12.5px;
+      color: var(--fg-dim);
+      line-height: 1.35;
+      margin: 0;
+    }
+    .ref-zone__dot {
+      flex-shrink: 0;
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      border: 2px solid var(--border-strong);
+      background: #fff;
+      position: relative;
+      transition: border-color 160ms ease;
+    }
+    .ref-zone__dot::after {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      width: 10px; height: 10px;
+      background: var(--accent);
+      border-radius: 50%;
+      transition: transform 180ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .ref-zone input:checked ~ .ref-zone__dot { border-color: var(--accent); }
+    .ref-zone input:checked ~ .ref-zone__dot::after { transform: translate(-50%, -50%) scale(1); }
+
+    .ref-submit-row {
+      margin-top: 28px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .ref-submit {
+      flex: 1 1 260px;
+      padding: 15px 24px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 14px;
+      font-family: var(--font-body);
+      font-size: 15px; font-weight: 600;
+      letter-spacing: -0.1px;
+      cursor: pointer;
+      box-shadow: 0 10px 30px rgba(33, 182, 199, 0.28);
+      transition: background 220ms ease, transform 200ms ease, box-shadow 220ms ease;
+    }
+    .ref-submit:hover:not(:disabled) {
+      background: var(--accent-deep);
+      transform: translateY(-1px);
+      box-shadow: 0 14px 34px rgba(14, 140, 157, 0.34);
+    }
+    .ref-submit:disabled { opacity: 0.6; cursor: default; }
+    .ref-legal {
+      flex: 1 1 220px;
+      font-size: 12px;
+      color: var(--fg-dim);
+      margin: 0;
+      line-height: 1.45;
+    }
+    .ref-legal a { color: var(--accent-deep); text-decoration: underline; }
+
+    .ref-modal__success {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 20px 8px 12px;
+    }
+    .ref-modal.is-success .ref-body { display: none; }
+    .ref-modal.is-success .ref-modal__success { display: flex; }
+    .ref-modal__success-icon {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      background: var(--soft);
+      color: var(--accent-deep);
+      display: inline-flex; align-items: center; justify-content: center;
+      margin-bottom: 18px;
+    }
+    .ref-modal__success-icon svg { width: 36px; height: 36px; }
+    .ref-modal__success h3 {
+      font-family: var(--font-head);
+      font-size: 22px; font-weight: 700;
+      letter-spacing: -0.4px;
+      color: var(--fg);
+      margin: 0 0 8px;
+    }
+    .ref-modal__success p {
+      font-size: 14.5px; line-height: 1.55;
+      color: var(--fg-dim);
+      margin: 0 0 20px;
+      max-width: 420px;
+    }
+    .ref-modal__success-close {
+      padding: 12px 22px;
+      background: #fff;
+      border: 1.5px solid var(--border);
+      color: var(--fg);
+      border-radius: 12px;
+      font-family: var(--font-body);
+      font-size: 14px; font-weight: 600;
+      cursor: pointer;
+      transition: border-color 200ms ease, background 200ms ease;
+    }
+    .ref-modal__success-close:hover { border-color: var(--accent); background: var(--bg); }
+
+    body.has-ref-modal { overflow: hidden; }
+
+    @media (max-width: 760px) {
+      .ref-modal { padding: 20px 12px; }
+      .ref-modal__dialog { padding: 32px 22px 24px; border-radius: 20px; }
+      .ref-modal__title { font-size: 22px; }
+      .ref-grid-2 { grid-template-columns: 1fr; }
+      .ref-zones { grid-template-columns: 1fr; }
+      .fdi { padding: 14px 8px 12px; }
+      .fdi__row { gap: 4px; }
+      .fdi__tooth { font-size: 9.5px; max-width: 32px; min-width: 22px; }
+      .fdi__divider { margin: 0 1px; }
+      .ref-modal__close { top: 10px; right: 10px; }
+    }
+    @media (max-width: 441px) {
+      .doctors-cta { flex-direction: column; align-items: stretch; }
+      .doctors-cta__primary, .doctors-cta__secondary { justify-content: center; }
+      .ref-section__title { font-size: 13px; }
+      .fdi__tooth { max-width: 28px; font-size: 9px; }
+    }
   </style>
 </head>
 <body>
@@ -3255,10 +3850,15 @@
     <div class="topbar-inner">
       <a href="#" class="logo-mark-header">
         <span class="logo-icon" aria-hidden="true">
-          <svg viewBox="0 0 48 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M19 6c-3 0-6 2.5-6 7 0 3 0.5 7 1.5 11 0.6 2.4 1 4 1.8 5.5 0.7 1.4 1.4 2.5 2.4 2.5 0.8 0 1.4-0.7 2-1.8 0.5-0.9 1.1-2.2 1.5-3.6 0.3-1 0.5-1.6 1-1.6 0.5 0 0.7 0.6 1 1.6 0.4 1.4 1 2.7 1.5 3.6 0.6 1.1 1.2 1.8 2 1.8 1 0 1.7-1.1 2.4-2.5 0.8-1.5 1.2-3.1 1.8-5.5 1-4 1.5-8 1.5-11 0-4.5-3-7-6-7-2 0-3.5 0.7-4.2 1-0.8 0.3-1.6 0.3-2.4 0-0.7-0.3-2.2-1-4.2-1z" fill="#DFF8FA" stroke="#67B8C3" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
-            <path d="M22 16c0 4 0 8-1 12" stroke="#8BD3DA" stroke-width="2" stroke-linecap="round"/>
-            <path d="M37 5l1.5 3 3 1.5-3 1.5L37 14l-1.5-3-3-1.5 3-1.5z" fill="#BFEFF2"/>
+          <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Smile3D logo">
+            <path d="M5 17 C 5 33, 14 43, 24 43 C 34 43, 43 33, 43 17" stroke="#67B8C3" stroke-width="2.4" stroke-linecap="round" fill="none" opacity="0.5"/>
+            <g stroke="#0E8C9D" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round" fill="#DFF8FA">
+              <path d="M8.5 20 c-1 6 1 12 4 12 c2 0 3-3 3-7 c0-3-1-5.5-2-6 z"/>
+              <path d="M16 24 c-1 6 0 13 3.5 13 c2.5 0 3.5-3 3.5-7.5 c0-3.5-1.2-6-2.2-6.5 z"/>
+              <path d="M28.5 24 c-1 6 0 13 3.5 13 c2.5 0 3.5-3 3.5-7.5 c0-3.5-1.2-6-2.2-6.5 z"/>
+              <path d="M36 20 c-1 6 1 12 4 12 c2 0 3-3 3-7 c0-3-1-5.5-2-6 z"/>
+            </g>
+            <path d="M21.5 21 c-1.4 6 0 14 4 14 c3 0 4.4-3.5 4.4-9 c0-3.6-1.4-7-2.6-7.6 z" fill="#21B6C7" stroke="#0E8C9D" stroke-width="2.2" stroke-linejoin="round"/>
           </svg>
         </span>
         <span class="logo-text">
@@ -3272,14 +3872,14 @@
         <a href="#advantages">Преимущества</a>
         <a href="#video">Видео</a>
         <a href="#guarantees">Гарантии</a>
-        <a href="#faq">FAQ</a>
+        <a href="#faq">Вопросы</a>
         <a href="#contacts">Контакты</a>
       </nav>
 
       <div class="topbar-right">
         <div class="topbar-contact">
           <a href="tel:+79934731010" class="topbar-contact__phone">8 (993) 473-10-10</a>
-          <span class="topbar-contact__hours">Пн-Сб · 09:00-20:00</span>
+          <span class="topbar-contact__hours">Пн-Пт · 09:00-20:00 · Сб · 09:00-16:00</span>
         </div>
         <a href="booking-placeholder.html" target="_blank" rel="noopener" class="topbar-cta">Записаться</a>
         <button type="button" class="burger" data-burger aria-label="Открыть меню" aria-expanded="false" aria-controls="mobile-nav">
@@ -3312,7 +3912,7 @@
       <a href="#advantages" data-mobile-link><span>Преимущества</span><span class="mobile-nav__arrow">→</span></a>
       <a href="#video" data-mobile-link><span>Видео</span><span class="mobile-nav__arrow">→</span></a>
       <a href="#guarantees" data-mobile-link><span>Гарантии</span><span class="mobile-nav__arrow">→</span></a>
-      <a href="#faq" data-mobile-link><span>FAQ</span><span class="mobile-nav__arrow">→</span></a>
+      <a href="#faq" data-mobile-link><span>Вопросы</span><span class="mobile-nav__arrow">→</span></a>
       <a href="#contacts" data-mobile-link><span>Контакты</span><span class="mobile-nav__arrow">→</span></a>
     </nav>
     <div class="mobile-nav__footer">
@@ -3320,7 +3920,7 @@
         <span class="mobile-nav__phone-dot" aria-hidden="true"></span>
         8 (993) 473-10-10
       </a>
-      <span class="mobile-nav__hours">Пн-Сб · 09:00-20:00 · Самара</span>
+      <span class="mobile-nav__hours">Пн-Пт 09:00-20:00 · Сб 09:00-16:00 · Жигулёвск</span>
       <a href="booking-placeholder.html" target="_blank" rel="noopener" class="mobile-nav__cta" data-mobile-link>Записаться на исследование</a>
     </div>
   </aside>
@@ -3339,6 +3939,8 @@
       <p class="book-modal__sub">Оставьте номер - подтвердим удобное время и&nbsp;ответим на&nbsp;вопросы.</p>
 
       <form class="book-form" data-book-form novalidate>
+        <!-- honeypot anti-spam -->
+        <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:0;height:0;opacity:0;pointer-events:none">
         <label class="field">
           <input type="text" name="name" placeholder=" " autocomplete="name">
           <span class="field__label">Как к вам обращаться</span>
@@ -3375,31 +3977,288 @@
     </div>
   </div>
 
-  <!-- HERO (MiCSw) -->
-  <section class="hero" aria-label="Hero">
+  <!-- DOCTORS REFERRAL MODAL (Этап D) -->
+  <div class="ref-modal" data-ref-modal aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="ref-modal-title">
+    <div class="ref-modal__dialog">
+      <button type="button" class="ref-modal__close" data-ref-close aria-label="Закрыть">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M5 5l8 8M13 5l-8 8"/>
+        </svg>
+      </button>
+
+      <span class="ref-modal__kicker">Коллегам · направление</span>
+      <h2 class="ref-modal__title" id="ref-modal-title">Электронная форма направления</h2>
+      <p class="ref-modal__sub">Отметьте зубы и зоны интереса - администратор свяжется с пациентом и подтвердит запись в течение 15 минут.</p>
+
+      <form class="ref-body" data-ref-form novalidate>
+        <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:0;height:0;opacity:0;pointer-events:none">
+
+        <div class="ref-section">
+          <h3 class="ref-section__title" data-step="1">О пациенте</h3>
+          <div class="ref-grid-2">
+            <label class="ref-field">
+              <span class="ref-field__label">ФИО пациента</span>
+              <input type="text" name="patient_name" placeholder="Иванов И. И." autocomplete="off">
+            </label>
+            <label class="ref-field">
+              <span class="ref-field__label">Возраст</span>
+              <input type="text" name="patient_age" placeholder="45" inputmode="numeric">
+            </label>
+            <label class="ref-field" style="grid-column: 1 / -1">
+              <span class="ref-field__label">Контактный телефон пациента *</span>
+              <input type="tel" name="patient_phone" placeholder="+7" required autocomplete="tel" data-ref-phone>
+            </label>
+          </div>
+        </div>
+
+        <div class="ref-section">
+          <h3 class="ref-section__title" data-step="2">Направивший врач</h3>
+          <div class="ref-grid-2">
+            <label class="ref-field">
+              <span class="ref-field__label">ФИО врача</span>
+              <input type="text" name="doctor_name" placeholder="Петров П. П." autocomplete="name">
+            </label>
+            <label class="ref-field">
+              <span class="ref-field__label">Клиника / кабинет</span>
+              <input type="text" name="doctor_clinic" placeholder="Клиника &laquo;Улыбка&raquo;">
+            </label>
+            <label class="ref-field" style="grid-column: 1 / -1">
+              <span class="ref-field__label">Телефон врача для связи</span>
+              <input type="tel" name="doctor_phone" placeholder="+7" data-ref-phone>
+            </label>
+          </div>
+        </div>
+
+        <div class="ref-section">
+          <h3 class="ref-section__title" data-step="3">Формула FDI - отметьте зубы</h3>
+            <div class="fdi" data-fdi-grid>
+              <p class="fdi__hint">Верхняя челюсть (правая / левая)</p>
+              <div class="fdi__row">
+                <button type="button" class="fdi__tooth" data-fdi="18" aria-pressed="false">18</button>
+                <button type="button" class="fdi__tooth" data-fdi="17" aria-pressed="false">17</button>
+                <button type="button" class="fdi__tooth" data-fdi="16" aria-pressed="false">16</button>
+                <button type="button" class="fdi__tooth" data-fdi="15" aria-pressed="false">15</button>
+                <button type="button" class="fdi__tooth" data-fdi="14" aria-pressed="false">14</button>
+                <button type="button" class="fdi__tooth" data-fdi="13" aria-pressed="false">13</button>
+                <button type="button" class="fdi__tooth" data-fdi="12" aria-pressed="false">12</button>
+                <button type="button" class="fdi__tooth" data-fdi="11" aria-pressed="false">11</button>
+                <div class="fdi__divider" aria-hidden="true"></div>
+                <button type="button" class="fdi__tooth" data-fdi="21" aria-pressed="false">21</button>
+                <button type="button" class="fdi__tooth" data-fdi="22" aria-pressed="false">22</button>
+                <button type="button" class="fdi__tooth" data-fdi="23" aria-pressed="false">23</button>
+                <button type="button" class="fdi__tooth" data-fdi="24" aria-pressed="false">24</button>
+                <button type="button" class="fdi__tooth" data-fdi="25" aria-pressed="false">25</button>
+                <button type="button" class="fdi__tooth" data-fdi="26" aria-pressed="false">26</button>
+                <button type="button" class="fdi__tooth" data-fdi="27" aria-pressed="false">27</button>
+                <button type="button" class="fdi__tooth" data-fdi="28" aria-pressed="false">28</button>
+              </div>
+              <div class="fdi__mid" aria-hidden="true"></div>
+              <div class="fdi__row">
+                <button type="button" class="fdi__tooth" data-fdi="48" aria-pressed="false">48</button>
+                <button type="button" class="fdi__tooth" data-fdi="47" aria-pressed="false">47</button>
+                <button type="button" class="fdi__tooth" data-fdi="46" aria-pressed="false">46</button>
+                <button type="button" class="fdi__tooth" data-fdi="45" aria-pressed="false">45</button>
+                <button type="button" class="fdi__tooth" data-fdi="44" aria-pressed="false">44</button>
+                <button type="button" class="fdi__tooth" data-fdi="43" aria-pressed="false">43</button>
+                <button type="button" class="fdi__tooth" data-fdi="42" aria-pressed="false">42</button>
+                <button type="button" class="fdi__tooth" data-fdi="41" aria-pressed="false">41</button>
+                <div class="fdi__divider" aria-hidden="true"></div>
+                <button type="button" class="fdi__tooth" data-fdi="31" aria-pressed="false">31</button>
+                <button type="button" class="fdi__tooth" data-fdi="32" aria-pressed="false">32</button>
+                <button type="button" class="fdi__tooth" data-fdi="33" aria-pressed="false">33</button>
+                <button type="button" class="fdi__tooth" data-fdi="34" aria-pressed="false">34</button>
+                <button type="button" class="fdi__tooth" data-fdi="35" aria-pressed="false">35</button>
+                <button type="button" class="fdi__tooth" data-fdi="36" aria-pressed="false">36</button>
+                <button type="button" class="fdi__tooth" data-fdi="37" aria-pressed="false">37</button>
+                <button type="button" class="fdi__tooth" data-fdi="38" aria-pressed="false">38</button>
+              </div>
+              <p class="fdi__hint" style="margin-top:10px;margin-bottom:0">Нижняя челюсть (правая / левая)</p>
+            </div>
+        </div>
+
+        <div class="ref-section">
+          <h3 class="ref-section__title" data-step="4">Виды исследований</h3>
+          <div class="ref-checks">
+            <label class="ref-check">
+              <input type="checkbox" name="study[]" value="КЛКТ - отдельный зуб">
+              <span class="ref-check__dot" aria-hidden="true"></span>
+              <span class="ref-check__text">КЛКТ - отдельный зуб<small>FOV 5×5 см, воксель 0.1 мм</small></span>
+            </label>
+            <label class="ref-check">
+              <input type="checkbox" name="study[]" value="КЛКТ - сегмент">
+              <span class="ref-check__dot" aria-hidden="true"></span>
+              <span class="ref-check__text">КЛКТ - сегмент челюсти<small>FOV 8×8 см</small></span>
+            </label>
+            <label class="ref-check">
+              <input type="checkbox" name="study[]" value="КЛКТ - обе челюсти">
+              <span class="ref-check__dot" aria-hidden="true"></span>
+              <span class="ref-check__text">КЛКТ - обе челюсти<small>FOV 16×10 см</small></span>
+            </label>
+            <label class="ref-check">
+              <input type="checkbox" name="study[]" value="ОПТГ">
+              <span class="ref-check__dot" aria-hidden="true"></span>
+              <span class="ref-check__text">ОПТГ - панорамный снимок<small>FOV до 15×8 см</small></span>
+            </label>
+            <label class="ref-check">
+              <input type="checkbox" name="study[]" value="ТРГ - боковая">
+              <span class="ref-check__dot" aria-hidden="true"></span>
+              <span class="ref-check__text">ТРГ - боковая проекция<small>Цефалометрия, 17 точек</small></span>
+            </label>
+            <label class="ref-check">
+              <input type="checkbox" name="study[]" value="ТРГ - прямая">
+              <span class="ref-check__dot" aria-hidden="true"></span>
+              <span class="ref-check__text">ТРГ - прямая проекция<small>Анфас</small></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="ref-section">
+          <h3 class="ref-section__title" data-step="5">Анатомические зоны интереса</h3>
+          <div class="ref-zones">
+            <label class="ref-zone">
+              <input type="checkbox" name="zone[]" value="Верхняя челюсть">
+              <span class="ref-zone__icon" aria-hidden="true">
+                <svg viewBox="0 0 32 32" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 18 C 4 11, 10 6, 16 6 C 22 6, 28 11, 28 18"/>
+                  <path d="M8 14 v 4 M12 13 v 5 M16 12 v 6 M20 13 v 5 M24 14 v 4"/>
+                </svg>
+              </span>
+              <div class="ref-zone__body">
+                <p class="ref-zone__name">Верхняя челюсть</p>
+                <p class="ref-zone__desc">Maxilla - зубы, альвеолярный отросток, корни</p>
+              </div>
+              <span class="ref-zone__dot" aria-hidden="true"></span>
+            </label>
+
+            <label class="ref-zone">
+              <input type="checkbox" name="zone[]" value="Нижняя челюсть">
+              <span class="ref-zone__icon" aria-hidden="true">
+                <svg viewBox="0 0 32 32" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 14 C 4 21, 10 26, 16 26 C 22 26, 28 21, 28 14"/>
+                  <path d="M8 18 v -4 M12 19 v -5 M16 20 v -6 M20 19 v -5 M24 18 v -4"/>
+                </svg>
+              </span>
+              <div class="ref-zone__body">
+                <p class="ref-zone__name">Нижняя челюсть</p>
+                <p class="ref-zone__desc">Mandibula - тело, ветви, нижнечелюстной канал</p>
+              </div>
+              <span class="ref-zone__dot" aria-hidden="true"></span>
+            </label>
+
+            <label class="ref-zone">
+              <input type="checkbox" name="zone[]" value="ВНЧС">
+              <span class="ref-zone__icon" aria-hidden="true">
+                <svg viewBox="0 0 32 32" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="11" cy="12" r="5"/>
+                  <circle cx="21" cy="20" r="5"/>
+                  <path d="M15 15 l 2 2"/>
+                </svg>
+              </span>
+              <div class="ref-zone__body">
+                <p class="ref-zone__name">ВНЧС</p>
+                <p class="ref-zone__desc">Височно-нижнечелюстной сустав (билатерально)</p>
+              </div>
+              <span class="ref-zone__dot" aria-hidden="true"></span>
+            </label>
+
+            <label class="ref-zone">
+              <input type="checkbox" name="zone[]" value="Придаточные пазухи">
+              <span class="ref-zone__icon" aria-hidden="true">
+                <svg viewBox="0 0 32 32" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 18 C 6 12, 10 8, 14 8 L 18 8 C 22 8, 26 12, 26 18 C 26 22, 22 26, 16 26 C 10 26, 6 22, 6 18 Z"/>
+                  <path d="M12 14 L 14 18 L 12 22 M20 14 L 18 18 L 20 22"/>
+                </svg>
+              </span>
+              <div class="ref-zone__body">
+                <p class="ref-zone__name">Придаточные пазухи</p>
+                <p class="ref-zone__desc">Гайморовы + лобные + решётчатый лабиринт</p>
+              </div>
+              <span class="ref-zone__dot" aria-hidden="true"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="ref-section">
+          <h3 class="ref-section__title" data-step="6">Дополнительно</h3>
+          <div class="ref-checks">
+            <label class="ref-check">
+              <input type="checkbox" name="extra[]" value="Diagnocat AI">
+              <span class="ref-check__dot" aria-hidden="true"></span>
+              <span class="ref-check__text">Diagnocat AI<small>Автоматический анализ снимка</small></span>
+            </label>
+            <label class="ref-check">
+              <input type="checkbox" name="extra[]" value="DICOM на USB" checked>
+              <span class="ref-check__dot" aria-hidden="true"></span>
+              <span class="ref-check__text">DICOM на флешке<small>Стандарт экспорта</small></span>
+            </label>
+            <label class="ref-check">
+              <input type="checkbox" name="extra[]" value="PDF-отчёт" checked>
+              <span class="ref-check__dot" aria-hidden="true"></span>
+              <span class="ref-check__text">PDF-отчёт<small>Заключение врача-рентгенолога</small></span>
+            </label>
+            <label class="ref-check">
+              <input type="checkbox" name="extra[]" value="Email врачу">
+              <span class="ref-check__dot" aria-hidden="true"></span>
+              <span class="ref-check__text">Отправить копию снимка<small>На email направителя</small></span>
+            </label>
+          </div>
+          <label class="ref-field" style="margin-top:14px;display:block">
+            <span class="ref-field__label">Комментарий / клиническая задача</span>
+            <textarea name="comment" placeholder="Подозрение на кисту у 36 зуба, уточнить положение каналов..."></textarea>
+          </label>
+        </div>
+
+        <div class="ref-submit-row">
+          <button type="submit" class="ref-submit" data-ref-submit>Отправить направление</button>
+          <p class="ref-legal">Нажимая кнопку, вы соглашаетесь с <a href="privacy.html" target="_blank" rel="noopener">политикой конфиденциальности</a>. Пациенту перезвонит администратор в течение 15 минут.</p>
+        </div>
+      </form>
+
+      <div class="ref-modal__success">
+        <span class="ref-modal__success-icon" aria-hidden="true">
+          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M7 16l6 6 12-12"/>
+          </svg>
+        </span>
+        <h3>Направление отправлено</h3>
+        <p>Администратор свяжется с пациентом в течение 15 минут и подтвердит время визита. Копия направления продублирована вам на указанный телефон врача.</p>
+        <button type="button" class="ref-modal__success-close" data-ref-close>Закрыть</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERO v2 (full-screen, photo bg + pulse-rings + tabs overlay) -->
+  <section class="hero" aria-label="Hero" data-hero>
     <div class="hero-bg" aria-hidden="true">
-      <div class="hero-bg__image"></div>
+      <div class="hero-bg__image" data-hero-bg></div>
       <div class="hero-bg__wash"></div>
+    </div>
+
+    <div class="hero-pulse" aria-hidden="true">
+      <span class="hero-pulse__ring"></span>
+      <span class="hero-pulse__ring"></span>
+      <span class="hero-pulse__ring"></span>
     </div>
 
     <div class="hero-center">
       <p class="hero-eyebrow">3D-диагностика</p>
       <h1>Точный 3D-снимок зубов в&nbsp;удобное время</h1>
-      <p class="hero-lead">Конусно-лучевая компьютерная томография в Самаре. Воксель от 0.1 мм, снимок за 14 секунд, DICOM на флешке.</p>
+      <p class="hero-lead">Конусно-лучевая компьютерная томография в Жигулёвске. Чрезвычайно высокое разрешение (до 68 микрон), снимок за несколько секунд, данные сразу у врача и/или на флешке.</p>
       <div class="hero-cta">
         <a href="booking-placeholder.html" target="_blank" rel="noopener" class="btn-primary">Записаться на исследование</a>
         <a href="#contacts" class="btn-secondary">Как нас найти</a>
       </div>
     </div>
 
-  </section>
+    <a href="#services" class="hero-scroll-indicator" aria-label="Смотреть услуги ниже">
+      <span>Услуги ниже</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M12 5v14M6 13l6 6 6-6"/>
+      </svg>
+    </a>
 
-  <!-- TABS SECTION (s2wipL + kHbbz + K32OVs merged) -->
-  <section class="tabs-section" id="services" data-active="services">
-    <div class="container">
-
-      <!-- Tab buttons -->
-      <div class="section-tabs" role="tablist">
+    <div class="hero-tabs-bar" role="tablist" aria-label="Аудитория">
+      <div class="section-tabs section-tabs--inhero">
         <button type="button" class="section-tab is-active" role="tab" aria-selected="true" data-tab="services">
           <span>Услуги</span>
           <span class="section-tab__underline"></span>
@@ -3413,8 +4272,14 @@
           <span class="section-tab__underline"></span>
         </button>
       </div>
+    </div>
+  </section>
 
-      <!-- Tab panels -->
+  <!-- TABS SECTION (s2wipL + kHbbz + K32OVs merged) -->
+  <section class="tabs-section" id="services" data-active="services">
+    <div class="container">
+
+      <!-- Tab panels (tab buttons moved into .hero-tabs-bar overlay) -->
       <div class="tab-panels">
 
         <!-- Услуги panel (s2wipL) -->
@@ -3523,8 +4388,26 @@
             <div class="doctors-text">
               <div class="doctors-bullet">Приём пациентов по Направлению от лечащего врача или по самозаписи.</div>
               <div class="doctors-bullet">DICOM на флешке для вашего собственного анализа в Anatomage, Invivo, Diagnocat и другом ПО.</div>
-              <div class="doctors-bullet">Готовое заключение врача-рентгенолога вместе со снимком — без доплаты.</div>
-              <div class="doctors-bullet">Поддержка по сложным клиническим случаям — обсуждение, повторный анализ, второе мнение.</div>
+              <div class="doctors-bullet">Готовое заключение врача-рентгенолога вместе со снимком - без доплаты.</div>
+              <div class="doctors-bullet">Поддержка по сложным клиническим случаям - обсуждение, повторный анализ, второе мнение.</div>
+              <div class="doctors-cta">
+                <button type="button" class="doctors-cta__primary" data-open-referral>
+                  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <polyline points="14 2 14 8 20 8"/>
+                    <path d="M9 14l2 2 4-4"/>
+                  </svg>
+                  <span>Заполнить электронное направление</span>
+                </button>
+                <a class="doctors-cta__secondary" href="assets/doctors-brochure.pdf" target="_blank" rel="noopener">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="7 10 12 15 17 10"/>
+                    <line x1="12" y1="15" x2="12" y2="3"/>
+                  </svg>
+                  <span>Скачать брошюру (PDF)</span>
+                </a>
+              </div>
             </div>
             <div class="doctors-video" role="button" tabindex="0" aria-label="Видео-объяснение процесса для лечащих врачей">
               <div class="doctors-video__inner">
@@ -3696,6 +4579,7 @@
   <section class="inline-form-strip inline-form-strip--advisory" aria-label="Быстрая консультация">
     <div class="container">
       <form class="inline-form inline-form--advisory" novalidate>
+        <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:0;height:0;opacity:0;pointer-events:none">
         <span class="inline-form__icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="10"/>
@@ -3863,7 +4747,7 @@
         <article class="trust-card">
           <div class="trust-card__visual" style="background-image: url('assets/img/generated-1778319130772.png');"></div>
           <h3>Партнёры</h3>
-          <p>Сотрудничаем с ведущими стоматологическими клиниками Самары. Принимаем направления, отдаём DICOM в любом формате под нужное ПО.</p>
+          <p>Сотрудничаем с ведущими стоматологическими клиниками Самарской области. Принимаем направления, отдаём DICOM в любом формате под нужное ПО.</p>
         </article>
 
       </div>
@@ -3880,9 +4764,9 @@
         </svg>
       </span>
       <div class="video-cinema__overlay">
-        <p class="kicker">Кабинет в Самаре</p>
+        <p class="kicker">Кабинет в Жигулёвске</p>
         <h2>О нас</h2>
-        <p>Smile 3D — современный кабинет 3D-рентгенодиагностики в Самаре. Делаем КЛКТ, ОПТГ и ТРГ исследования на оборудовании Sirona и Vatech с точностью до 0.1 мм и выдачей результата в формате DICOM за 14 секунд.</p>
+        <p>Smile 3D — современный кабинет 3D-рентгенодиагностики в Жигулёвске. Делаем КЛКТ, ОПТГ и ТРГ исследования на современном оборудовании с разрешением до 68 микрон и выдачей результата в формате DICOM на флешке или сразу врачу.</p>
       </div>
     </div>
   </section>
@@ -3891,6 +4775,7 @@
   <section class="inline-form-strip inline-form-strip--booking" aria-label="Запись на исследование">
     <div class="container">
       <form class="inline-form inline-form--booking" novalidate>
+        <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:0;height:0;opacity:0;pointer-events:none">
         <div class="inline-form__copy">
           <span class="inline-form__kicker inline-form__kicker--accent">
             <span class="inline-form__pulse" aria-hidden="true"></span>
@@ -3977,7 +4862,7 @@
         <div class="contacts-head">
           <div class="contacts-heading">
             <p class="kicker">Контакты</p>
-            <h2>Smile 3D в Самаре</h2>
+            <h2>Smile 3D в Жигулёвске</h2>
             <p>Запишитесь на КЛКТ, ОПТГ или ТРГ. Администратор уточнит задачу, подскажет подготовку и поможет выбрать удобное время.</p>
           </div>
           <div class="contacts-help">
@@ -3993,6 +4878,7 @@
               <h3 class="contact-form-head">Оставьте заявку</h3>
               <p class="contact-form-sub">Перезвоним в течение 15 минут и подберём удобное время</p>
               <form class="contact-mini-form" novalidate>
+        <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:0;height:0;opacity:0;pointer-events:none">
                 <label class="field">
                   <input type="text" name="name" placeholder=" " required autocomplete="name" aria-describedby="contact-name-err">
                   <span class="field__label">Ваше имя</span>
@@ -4010,7 +4896,7 @@
           </aside>
 
           <div class="contacts-map">
-            <iframe src="https://yandex.ru/map-widget/v1/?text=Самара,%20улица%20Стара-Загора&amp;z=15"
+            <iframe src="https://yandex.ru/map-widget/v1/?text=Жигулёвск,%20стоматология&amp;z=14"
               loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Карта расположения Smile 3D"></iframe>
           </div>
 
@@ -4040,7 +4926,7 @@
               <span class="smile">Smile</span><span class="three-d" style="color: var(--accent);">3D</span>
             </span>
           </a>
-          <p class="footer-tagline">Кабинет 3D-рентгенодиагностики стоматологии в Самаре. КЛКТ, ОПТГ, ТРГ на оборудовании Sirona и Vatech. Воксель от 0.1 мм, выдача DICOM в день обращения.</p>
+          <p class="footer-tagline">Кабинет 3D-рентгенодиагностики стоматологии в Жигулёвске. КЛКТ, ОПТГ, ТРГ на современном оборудовании. Разрешение до 68 микрон, выдача DICOM в день обращения.</p>
           <div class="footer-social">
             <a href="#" aria-label="Facebook">
               <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
@@ -4090,7 +4976,7 @@
           <ul>
             <li><a href="tel:+79934731010">+7 (993) 473-10-10</a></li>
             <li><a href="mailto:hello@smile-3d.ru">hello@smile-3d.ru</a></li>
-            <li>г. Самара, ул. Стара-Загора</li>
+            <li>г. Жигулёвск</li>
             <li>Пн–Сб · 09:00–20:00</li>
           </ul>
         </div>
@@ -4140,7 +5026,8 @@
     (function() {
       const section = document.querySelector('.tabs-section');
       if (!section) return;
-      const tabs = section.querySelectorAll('.section-tab');
+      // Tabs may live inside hero overlay; panels remain inside .tabs-section
+      const tabs = document.querySelectorAll('[role="tab"][data-tab]');
       const panels = section.querySelectorAll('.tab-panel');
       const stack = section.querySelector('.tab-panels');
 
@@ -4184,8 +5071,35 @@
           });
           section.dataset.active = target;
           animateHeightTo(newActive);
+          // Если клик из hero-overlay - доскроллить к контенту секции
+          if (tab.closest('.hero-tabs-bar')) {
+            const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            section.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
+          }
         });
       });
+
+      // Parallax: subtle bg translate on scroll (skip on mobile/reduced motion)
+      const heroBg = document.querySelector('[data-hero-bg]');
+      const hero = document.querySelector('[data-hero]');
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (heroBg && hero && !reducedMotion && window.innerWidth > 767) {
+        let ticking = false;
+        const onScroll = () => {
+          if (ticking) return;
+          ticking = true;
+          requestAnimationFrame(() => {
+            const rect = hero.getBoundingClientRect();
+            if (rect.bottom > 0 && rect.top < window.innerHeight) {
+              const offset = Math.max(-60, Math.min(60, -rect.top * 0.18));
+              heroBg.style.setProperty('--hero-parallax-y', offset + 'px');
+            }
+            ticking = false;
+          });
+        };
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+      }
     })();
 
     // Service modal popup
@@ -4414,18 +5328,65 @@
 
         if (firstInvalid) { firstInvalid.focus(); return; }
 
+        // honeypot anti-spam
+        const honey = form.querySelector('input[name="_honey"]');
+        if (honey && honey.value) return;
+
         const btn = form.querySelector('button[type="submit"]');
         if (!btn) return;
         const originalText = btn.textContent;
         btn.disabled = true;
         btn.textContent = 'Отправляем...';
 
-        setTimeout(() => {
-          btn.disabled = false;
-          btn.textContent = 'Готово - перезвоним';
-          form.reset();
-          setTimeout(() => { btn.textContent = originalText; btn.disabled = false; }, 3500);
-        }, 700);
+        const formKind = form.closest('.inline-form-strip--advisory')
+          ? 'Inline · консультация'
+          : form.closest('.inline-form-strip--booking')
+            ? 'Inline · бронирование времени'
+            : form.closest('.contact-card')
+              ? 'Контактная форма'
+              : 'Inline-форма';
+        const nameVal = (form.querySelector('input[name="name"]') || {}).value || 'не указано';
+        const phoneVal = (form.querySelector('input[name="phone"]') || {}).value || '';
+        const msgVal = (form.querySelector('textarea[name="message"], input[name="message"]') || {}).value || '';
+        const slotVal = (form.querySelector('[name="slot"], select[name="time"], input[name="time"]') || {}).value || '';
+
+        const payload = {
+          _subject: 'Smile3D · заявка с сайта (' + formKind + ') — ' + nameVal + ' ' + phoneVal,
+          _template: 'table',
+          _captcha: 'false',
+          Имя: nameVal,
+          Телефон: phoneVal,
+          Источник: formKind,
+          Сообщение: msgVal,
+          'Слот/время': slotVal,
+          Страница: window.location.href,
+          Время: new Date().toLocaleString('ru-RU')
+        };
+
+        fetch(window.SMILE3D_FORM_ENDPOINT || 'https://formsubmit.co/ajax/prowebber.02@gmail.com', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(payload)
+        }).then(r => r.json().catch(() => ({success: r.ok ? 'true' : 'false'})))
+          .then(res => {
+            if (res && (res.success === 'true' || res.success === true)) {
+              btn.textContent = 'Готово · перезвоним';
+              form.reset();
+            } else {
+              btn.textContent = 'Не удалось · попробуйте ещё';
+              console.warn('FormSubmit response', res);
+            }
+          })
+          .catch((err) => {
+            console.error('FormSubmit error', err);
+            btn.textContent = 'Ошибка сети · попробуйте ещё';
+          })
+          .finally(() => {
+            setTimeout(() => {
+              btn.textContent = originalText;
+              btn.disabled = false;
+            }, 3500);
+          });
       });
     });
   })();
@@ -4653,23 +5614,224 @@
         return;
       }
 
-      // эмулируем отправку
+      // honeypot check
+      if (form.querySelector('input[name="_honey"]').value) return;
+
       submit.disabled = true;
       const originalText = submit.textContent;
       submit.textContent = 'Отправляем...';
 
-      // в будущем здесь будет fetch на endpoint
-      // const data = new FormData(form);
-      // fetch('/api/booking', { method:'POST', body: data })
+      // Реальная отправка через FormSubmit.co (preview-этап; после подключения хостинга - на бэк WP)
+      const serviceField = form.querySelector('[name="service"]');
+      const serviceLabel = serviceField && serviceField.options
+        ? serviceField.options[serviceField.selectedIndex].text
+        : (serviceField ? serviceField.value : '');
+      const nameVal = (form.querySelector('input[name="name"]') || {}).value || 'не указано';
+      const phoneVal = form.querySelector('input[name="phone"]').value;
+
+      const payload = {
+        _subject: 'Smile3D · заявка с сайта (модалка) — ' + nameVal + ' ' + phoneVal,
+        _template: 'table',
+        _captcha: 'false',
+        Имя: nameVal,
+        Телефон: phoneVal,
+        Услуга: serviceLabel,
+        Источник: 'Booking modal',
+        Страница: window.location.href,
+        Время: new Date().toLocaleString('ru-RU')
+      };
+
+      fetch(window.SMILE3D_FORM_ENDPOINT || 'https://formsubmit.co/ajax/prowebber.02@gmail.com', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(payload)
+      }).then(r => r.json().catch(() => ({success: r.ok ? 'true' : 'false'})))
+        .then(res => {
+          if (res && (res.success === 'true' || res.success === true)) {
+            modal.classList.add('is-success');
+            if (dialog) dialog.scrollTop = 0;
+            form.reset();
+          } else {
+            submit.textContent = 'Не удалось отправить · попробуйте ещё раз';
+            console.warn('FormSubmit response', res);
+          }
+        })
+        .catch((err) => {
+          console.error('FormSubmit error', err);
+          submit.textContent = 'Ошибка сети · попробуйте ещё раз';
+        })
+        .finally(() => {
+          submit.disabled = false;
+          if (!modal.classList.contains('is-success')) {
+            setTimeout(() => { submit.textContent = originalText; }, 3000);
+          } else {
+            submit.textContent = originalText;
+          }
+        });
+    });
+  })();
+  </script>
+  <!-- ============================================================
+       REFERRAL MODAL controller (Этап D - 2026-05-11)
+  ============================================================ -->
+  <script>
+  (function() {
+    const modal = document.querySelector('[data-ref-modal]');
+    const form = document.querySelector('[data-ref-form]');
+    if (!modal || !form) return;
+
+    const dialog = modal.querySelector('.ref-modal__dialog');
+    const submit = modal.querySelector('[data-ref-submit]');
+    let lastFocus = null;
+
+    function refPhoneMask(inp) {
+      inp.addEventListener('input', () => {
+        let v = inp.value.replace(/\D/g, '');
+        if (v.startsWith('8')) v = '7' + v.slice(1);
+        if (!v) { inp.value = ''; return; }
+        if (!v.startsWith('7')) v = '7' + v;
+        v = v.slice(0, 11);
+        let out = '+7';
+        if (v.length > 1)  out += ' (' + v.slice(1, 4);
+        if (v.length >= 4) out += ') ' + v.slice(4, 7);
+        if (v.length >= 7) out += '-' + v.slice(7, 9);
+        if (v.length >= 9) out += '-' + v.slice(9, 11);
+        inp.value = out;
+      });
+      inp.addEventListener('keydown', (e) => {
+        if (e.key === 'Backspace' && inp.value.length <= 3) {
+          e.preventDefault();
+          inp.value = '';
+        }
+      });
+    }
+    form.querySelectorAll('[data-ref-phone]').forEach(refPhoneMask);
+
+    // FDI teeth toggle
+    const fdiBtns = form.querySelectorAll('.fdi__tooth');
+    fdiBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const on = btn.classList.toggle('is-checked');
+        btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+    });
+
+    // Toggle is-active class on .ref-check and .ref-zone
+    form.querySelectorAll('.ref-check input, .ref-zone input').forEach(inp => {
+      const parent = inp.closest('.ref-check, .ref-zone');
+      if (!parent) return;
+      if (inp.checked) parent.classList.add('is-active');
+      inp.addEventListener('change', () => {
+        parent.classList.toggle('is-active', inp.checked);
+      });
+    });
+
+    function open() {
+      lastFocus = document.activeElement;
+      modal.classList.remove('is-success');
+      modal.classList.add('is-open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('has-ref-modal');
       setTimeout(() => {
-        submit.disabled = false;
-        submit.textContent = originalText;
-        modal.classList.add('is-success');
-        // прокрутим dialog в начало чтобы success-icon был виден
-        if (dialog) dialog.scrollTop = 0;
-        // сбросим форму в фоне
-        form.reset();
-      }, 700);
+        const first = form.querySelector('input[name="patient_name"]');
+        if (first) first.focus({ preventScroll: true });
+      }, 380);
+    }
+    function close() {
+      modal.classList.remove('is-open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('has-ref-modal');
+      setTimeout(() => { modal.classList.remove('is-success'); }, 360);
+      if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus({ preventScroll: true });
+    }
+
+    document.addEventListener('click', (e) => {
+      const trigger = e.target.closest('[data-open-referral]');
+      if (!trigger) return;
+      e.preventDefault();
+      open();
+    });
+
+    modal.addEventListener('click', (e) => { if (e.target === modal) close(); });
+    modal.querySelectorAll('[data-ref-close]').forEach(b => b.addEventListener('click', close));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('is-open')) close();
+    });
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (form.querySelector('input[name="_honey"]').value) return;
+
+      const patientPhone = form.querySelector('input[name="patient_phone"]').value.trim();
+      if (patientPhone.replace(/\D/g, '').length < 11) {
+        const el = form.querySelector('input[name="patient_phone"]');
+        el.focus();
+        el.style.borderColor = '#d23a3a';
+        el.style.boxShadow = '0 0 0 3px rgba(210, 58, 58, 0.16)';
+        setTimeout(() => { el.style.borderColor = ''; el.style.boxShadow = ''; }, 2400);
+        return;
+      }
+
+      submit.disabled = true;
+      const originalText = submit.textContent;
+      submit.textContent = 'Отправляем...';
+
+      const val = (sel) => (form.querySelector(sel) || {}).value || '';
+      const collect = (name) => Array.from(form.querySelectorAll('input[name="' + name + '"]:checked')).map(i => i.value);
+      const teeth = Array.from(form.querySelectorAll('.fdi__tooth.is-checked')).map(b => b.dataset.fdi);
+
+      const payload = {
+        _subject: 'Smile3D · Электронное направление — пациент ' + (val('input[name="patient_name"]') || 'без имени'),
+        _template: 'table',
+        _captcha: 'false',
+        Источник: 'Электронное направление (врачи)',
+        'Пациент ФИО': val('input[name="patient_name"]') || 'не указано',
+        'Пациент возраст': val('input[name="patient_age"]') || 'не указан',
+        'Пациент телефон': val('input[name="patient_phone"]'),
+        'Врач ФИО': val('input[name="doctor_name"]') || 'не указано',
+        'Клиника': val('input[name="doctor_clinic"]') || 'не указана',
+        'Врач телефон': val('input[name="doctor_phone"]') || 'не указан',
+        'Зубы (FDI)': teeth.length ? teeth.join(', ') : 'не отмечены',
+        'Виды исследований': collect('study[]').join(', ') || 'не выбраны',
+        'Зоны интереса': collect('zone[]').join(', ') || 'не выбраны',
+        'Доп. опции': collect('extra[]').join(', ') || '—',
+        'Комментарий': val('textarea[name="comment"]') || '—',
+        Страница: window.location.href,
+        Время: new Date().toLocaleString('ru-RU')
+      };
+
+      fetch(window.SMILE3D_FORM_ENDPOINT || 'https://formsubmit.co/ajax/prowebber.02@gmail.com', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(payload)
+      }).then(r => r.json().catch(() => ({success: r.ok ? 'true' : 'false'})))
+        .then(res => {
+          if (res && (res.success === 'true' || res.success === true)) {
+            modal.classList.add('is-success');
+            if (dialog) dialog.scrollTop = 0;
+            form.reset();
+            form.querySelectorAll('.fdi__tooth.is-checked').forEach(b => {
+              b.classList.remove('is-checked');
+              b.setAttribute('aria-pressed', 'false');
+            });
+            form.querySelectorAll('.ref-check.is-active, .ref-zone.is-active').forEach(el => el.classList.remove('is-active'));
+          } else {
+            submit.textContent = 'Не удалось отправить · попробуйте ещё раз';
+            console.warn('Referral FormSubmit response', res);
+          }
+        })
+        .catch((err) => {
+          console.error('Referral FormSubmit error', err);
+          submit.textContent = 'Ошибка сети · попробуйте ещё раз';
+        })
+        .finally(() => {
+          submit.disabled = false;
+          if (!modal.classList.contains('is-success')) {
+            setTimeout(() => { submit.textContent = originalText; }, 3000);
+          } else {
+            submit.textContent = originalText;
+          }
+        });
     });
   })();
   </script>
