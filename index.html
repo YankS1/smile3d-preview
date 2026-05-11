@@ -4176,7 +4176,7 @@
     </div>
   </div>
 
-  <!-- DOCTORS REFERRAL MODAL (Этап D) -->
+  <!-- DOCTORS REFERRAL MODAL (Этап D - rebuilt 2-col 3D/2D 2026-05-11) -->
   <div class="ref-modal" data-ref-modal aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="ref-modal-title">
     <div class="ref-modal__dialog">
       <button type="button" class="ref-modal__close" data-ref-close aria-label="Закрыть">
@@ -4185,231 +4185,363 @@
         </svg>
       </button>
 
-      <span class="ref-modal__kicker">Коллегам · направление</span>
-      <h2 class="ref-modal__title" id="ref-modal-title">Электронная форма направления</h2>
-      <p class="ref-modal__sub">Отметьте зубы и зоны интереса - администратор свяжется с пациентом и подтвердит запись в течение 15 минут.</p>
+      <div class="ref-modal__header">
+        <span class="ref-modal__kicker">Коллегам · направление</span>
+        <h2 class="ref-modal__title" id="ref-modal-title">Электронная форма направления</h2>
+        <p class="ref-modal__sub">Отметьте нужные исследования и заполните контакты пациента — администратор перезвонит и подтвердит запись в течение 15 минут.</p>
+      </div>
 
       <form class="ref-body" data-ref-form novalidate>
         <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:0;height:0;opacity:0;pointer-events:none">
 
-        <div class="ref-section">
-          <h3 class="ref-section__title" data-step="1">О пациенте</h3>
-          <div class="ref-grid-2">
-            <label class="ref-field">
-              <span class="ref-field__label">ФИО пациента</span>
-              <input type="text" name="patient_name" placeholder="Иванов И. И." autocomplete="off">
-            </label>
-            <label class="ref-field">
-              <span class="ref-field__label">Возраст</span>
-              <input type="text" name="patient_age" placeholder="45" inputmode="numeric">
-            </label>
-            <label class="ref-field" style="grid-column: 1 / -1">
-              <span class="ref-field__label">Контактный телефон пациента *</span>
-              <input type="tel" name="patient_phone" placeholder="+7" required autocomplete="tel" data-ref-phone>
-            </label>
-          </div>
-        </div>
+        <div class="ref-body__grid">
 
-        <div class="ref-section">
-          <h3 class="ref-section__title" data-step="2">Направивший врач</h3>
-          <div class="ref-grid-2">
-            <label class="ref-field">
-              <span class="ref-field__label">ФИО врача</span>
-              <input type="text" name="doctor_name" placeholder="Петров П. П." autocomplete="name">
-            </label>
-            <label class="ref-field">
-              <span class="ref-field__label">Клиника / кабинет</span>
-              <input type="text" name="doctor_clinic" placeholder="Клиника &laquo;Улыбка&raquo;">
-            </label>
-            <label class="ref-field" style="grid-column: 1 / -1">
-              <span class="ref-field__label">Телефон врача для связи</span>
-              <input type="tel" name="doctor_phone" placeholder="+7" data-ref-phone>
-            </label>
-          </div>
-        </div>
-
-        <div class="ref-section">
-          <h3 class="ref-section__title" data-step="3">Формула FDI - отметьте зубы</h3>
-            <div class="fdi" data-fdi-grid>
-              <p class="fdi__hint">Верхняя челюсть (правая / левая)</p>
-              <div class="fdi__row">
-                <button type="button" class="fdi__tooth" data-fdi="18" aria-pressed="false">18</button>
-                <button type="button" class="fdi__tooth" data-fdi="17" aria-pressed="false">17</button>
-                <button type="button" class="fdi__tooth" data-fdi="16" aria-pressed="false">16</button>
-                <button type="button" class="fdi__tooth" data-fdi="15" aria-pressed="false">15</button>
-                <button type="button" class="fdi__tooth" data-fdi="14" aria-pressed="false">14</button>
-                <button type="button" class="fdi__tooth" data-fdi="13" aria-pressed="false">13</button>
-                <button type="button" class="fdi__tooth" data-fdi="12" aria-pressed="false">12</button>
-                <button type="button" class="fdi__tooth" data-fdi="11" aria-pressed="false">11</button>
-                <div class="fdi__divider" aria-hidden="true"></div>
-                <button type="button" class="fdi__tooth" data-fdi="21" aria-pressed="false">21</button>
-                <button type="button" class="fdi__tooth" data-fdi="22" aria-pressed="false">22</button>
-                <button type="button" class="fdi__tooth" data-fdi="23" aria-pressed="false">23</button>
-                <button type="button" class="fdi__tooth" data-fdi="24" aria-pressed="false">24</button>
-                <button type="button" class="fdi__tooth" data-fdi="25" aria-pressed="false">25</button>
-                <button type="button" class="fdi__tooth" data-fdi="26" aria-pressed="false">26</button>
-                <button type="button" class="fdi__tooth" data-fdi="27" aria-pressed="false">27</button>
-                <button type="button" class="fdi__tooth" data-fdi="28" aria-pressed="false">28</button>
-              </div>
-              <div class="fdi__mid" aria-hidden="true"></div>
-              <div class="fdi__row">
-                <button type="button" class="fdi__tooth" data-fdi="48" aria-pressed="false">48</button>
-                <button type="button" class="fdi__tooth" data-fdi="47" aria-pressed="false">47</button>
-                <button type="button" class="fdi__tooth" data-fdi="46" aria-pressed="false">46</button>
-                <button type="button" class="fdi__tooth" data-fdi="45" aria-pressed="false">45</button>
-                <button type="button" class="fdi__tooth" data-fdi="44" aria-pressed="false">44</button>
-                <button type="button" class="fdi__tooth" data-fdi="43" aria-pressed="false">43</button>
-                <button type="button" class="fdi__tooth" data-fdi="42" aria-pressed="false">42</button>
-                <button type="button" class="fdi__tooth" data-fdi="41" aria-pressed="false">41</button>
-                <div class="fdi__divider" aria-hidden="true"></div>
-                <button type="button" class="fdi__tooth" data-fdi="31" aria-pressed="false">31</button>
-                <button type="button" class="fdi__tooth" data-fdi="32" aria-pressed="false">32</button>
-                <button type="button" class="fdi__tooth" data-fdi="33" aria-pressed="false">33</button>
-                <button type="button" class="fdi__tooth" data-fdi="34" aria-pressed="false">34</button>
-                <button type="button" class="fdi__tooth" data-fdi="35" aria-pressed="false">35</button>
-                <button type="button" class="fdi__tooth" data-fdi="36" aria-pressed="false">36</button>
-                <button type="button" class="fdi__tooth" data-fdi="37" aria-pressed="false">37</button>
-                <button type="button" class="fdi__tooth" data-fdi="38" aria-pressed="false">38</button>
-              </div>
-              <p class="fdi__hint" style="margin-top:10px;margin-bottom:0">Нижняя челюсть (правая / левая)</p>
+          <!-- ============================ 3D COLUMN ============================ -->
+          <div>
+            <div class="refcol__head refcol__head--3d">
+              <span class="refcol__digit">3D</span>
+              <span class="refcol__caption">Компьютерная<br>томография</span>
             </div>
-        </div>
 
-        <div class="ref-section">
-          <h3 class="ref-section__title" data-step="4">Виды исследований</h3>
-          <div class="ref-checks">
-            <label class="ref-check">
-              <input type="checkbox" name="study[]" value="КЛКТ - отдельный зуб">
+            <label class="ref-card">
+              <input type="checkbox" name="study3d[]" value="КЛКТ зубных рядов обеих челюстей">
               <span class="ref-check__dot" aria-hidden="true"></span>
-              <span class="ref-check__text">КЛКТ - отдельный зуб<small>FOV 5×5 см, воксель 0.1 мм</small></span>
+              <div class="ref-card__body">
+                <p class="ref-card__label">КЛКТ зубных рядов обеих челюстей</p>
+                <p class="ref-card__desc">FOV 16×10 см, воксель от 0.1 мм</p>
+                <div class="refsub" onclick="event.stopPropagation()">
+                  <label class="refsub__item"><input type="checkbox" name="study3d_sub[]" value="обе челюсти · с прикусным шаблоном"><span class="refsub__dot"></span>с прикусным шаблоном</label>
+                  <label class="refsub__item"><input type="checkbox" name="study3d_sub[]" value="обе челюсти · с разобщением"><span class="refsub__dot"></span>с разобщением</label>
+                </div>
+              </div>
             </label>
-            <label class="ref-check">
-              <input type="checkbox" name="study[]" value="КЛКТ - сегмент">
+
+            <label class="ref-card ref-card--highlight">
+              <input type="checkbox" name="study3d[]" value="КОМПЛЕКС: ОПТГ + КЛКТ обеих челюстей">
               <span class="ref-check__dot" aria-hidden="true"></span>
-              <span class="ref-check__text">КЛКТ - сегмент челюсти<small>FOV 8×8 см</small></span>
+              <div class="ref-card__body">
+                <p class="ref-card__label">КОМПЛЕКС: ОПТГ + КЛКТ обеих челюстей</p>
+                <p class="ref-card__desc">Панорамный снимок плюс 3D в одном протоколе</p>
+                <div class="refsub" onclick="event.stopPropagation()">
+                  <label class="refsub__item"><input type="checkbox" name="study3d_sub[]" value="комплекс обе · с прикусным шаблоном"><span class="refsub__dot"></span>с прикусным шаблоном</label>
+                  <label class="refsub__item"><input type="checkbox" name="study3d_sub[]" value="комплекс обе · с разобщением"><span class="refsub__dot"></span>с разобщением</label>
+                </div>
+              </div>
             </label>
-            <label class="ref-check">
-              <input type="checkbox" name="study[]" value="КЛКТ - обе челюсти">
+
+            <label class="ref-card">
+              <input type="checkbox" name="study3d[]" value="КЛКТ зубных рядов одной челюсти">
               <span class="ref-check__dot" aria-hidden="true"></span>
-              <span class="ref-check__text">КЛКТ - обе челюсти<small>FOV 16×10 см</small></span>
+              <div class="ref-card__body">
+                <p class="ref-card__label">КЛКТ зубных рядов одной челюсти</p>
+                <p class="ref-card__desc">FOV 12×8 см</p>
+                <div class="refsub" onclick="event.stopPropagation()">
+                  <label class="refsub__item"><input type="checkbox" name="study3d_sub[]" value="одна · верхняя"><span class="refsub__dot"></span>верхняя</label>
+                  <label class="refsub__item"><input type="checkbox" name="study3d_sub[]" value="одна · нижняя"><span class="refsub__dot"></span>нижняя</label>
+                </div>
+              </div>
             </label>
-            <label class="ref-check">
-              <input type="checkbox" name="study[]" value="ОПТГ">
+
+            <label class="ref-card">
+              <input type="checkbox" name="study3d[]" value="КЛКТ одного квадранта">
               <span class="ref-check__dot" aria-hidden="true"></span>
-              <span class="ref-check__text">ОПТГ - панорамный снимок<small>FOV до 15×8 см</small></span>
+              <div class="ref-card__body">
+                <p class="ref-card__label">КЛКТ одного квадранта</p>
+                <p class="ref-card__desc">FOV 8×8 см, воксель от 0.1 мм</p>
+                <div class="refsub refsub--quad" onclick="event.stopPropagation()">
+                  <label class="refsub__quad-btn"><input type="checkbox" name="quad1[]" value="I">I</label>
+                  <label class="refsub__quad-btn"><input type="checkbox" name="quad1[]" value="II">II</label>
+                  <label class="refsub__quad-btn"><input type="checkbox" name="quad1[]" value="III">III</label>
+                  <label class="refsub__quad-btn"><input type="checkbox" name="quad1[]" value="IV">IV</label>
+                </div>
+              </div>
             </label>
-            <label class="ref-check">
-              <input type="checkbox" name="study[]" value="ТРГ - боковая">
+
+            <label class="ref-card">
+              <input type="checkbox" name="study3d[]" value="КЛКТ двух квадрантов">
               <span class="ref-check__dot" aria-hidden="true"></span>
-              <span class="ref-check__text">ТРГ - боковая проекция<small>Цефалометрия, 17 точек</small></span>
+              <div class="ref-card__body">
+                <p class="ref-card__label">КЛКТ двух квадрантов</p>
+                <p class="ref-card__desc">Отметьте нужные квадранты</p>
+                <div class="refsub refsub--quad" onclick="event.stopPropagation()">
+                  <label class="refsub__quad-btn"><input type="checkbox" name="quad2[]" value="I">I</label>
+                  <label class="refsub__quad-btn"><input type="checkbox" name="quad2[]" value="II">II</label>
+                  <label class="refsub__quad-btn"><input type="checkbox" name="quad2[]" value="III">III</label>
+                  <label class="refsub__quad-btn"><input type="checkbox" name="quad2[]" value="IV">IV</label>
+                </div>
+              </div>
             </label>
-            <label class="ref-check">
-              <input type="checkbox" name="study[]" value="ТРГ - прямая">
+
+            <label class="ref-card ref-card--highlight">
+              <input type="checkbox" name="study3d[]" value="КОМПЛЕКС: ОПТГ + КЛКТ квадранта">
               <span class="ref-check__dot" aria-hidden="true"></span>
-              <span class="ref-check__text">ТРГ - прямая проекция<small>Анфас</small></span>
+              <div class="ref-card__body">
+                <p class="ref-card__label">КОМПЛЕКС: ОПТГ + КЛКТ квадранта</p>
+                <p class="ref-card__desc">2D панорама плюс прицельный 3D-сегмент</p>
+                <div class="refsub refsub--quad" onclick="event.stopPropagation()">
+                  <label class="refsub__quad-btn"><input type="checkbox" name="quad_complex[]" value="I">I</label>
+                  <label class="refsub__quad-btn"><input type="checkbox" name="quad_complex[]" value="II">II</label>
+                  <label class="refsub__quad-btn"><input type="checkbox" name="quad_complex[]" value="III">III</label>
+                  <label class="refsub__quad-btn"><input type="checkbox" name="quad_complex[]" value="IV">IV</label>
+                </div>
+              </div>
+            </label>
+
+            <label class="ref-card">
+              <input type="checkbox" name="study3d[]" value="КЛКТ нескольких зубов">
+              <span class="ref-check__dot" aria-hidden="true"></span>
+              <div class="ref-card__body">
+                <p class="ref-card__label">КЛКТ нескольких зубов</p>
+                <p class="ref-card__desc">От 1 до 3 зубов в одном FOV 5×5 см</p>
+              </div>
+            </label>
+
+            <label class="ref-card">
+              <input type="checkbox" name="study3d[]" value="КЛКТ челюстно-лицевой области 10×15">
+              <span class="ref-check__dot" aria-hidden="true"></span>
+              <div class="ref-card__body">
+                <p class="ref-card__label">КЛКТ челюстно-лицевой области 10×15&nbsp;см</p>
+                <p class="ref-card__desc">Расширенный FOV для имплантологии и хирургии</p>
+                <div class="refsub" onclick="event.stopPropagation()">
+                  <label class="refsub__item"><input type="checkbox" name="study3d_sub[]" value="ЧЛО · с цефалометрическим снимком"><span class="refsub__dot"></span>с цефалометрическим снимком</label>
+                </div>
+              </div>
+            </label>
+
+            <label class="ref-card">
+              <input type="checkbox" name="study3d[]" value="КЛКТ ЛОР-зоны">
+              <span class="ref-check__dot" aria-hidden="true"></span>
+              <div class="ref-card__body">
+                <p class="ref-card__label">КЛКТ ЛОР-зоны</p>
+                <p class="ref-card__desc">Околоносовые пазухи, височные кости</p>
+              </div>
+            </label>
+
+            <label class="ref-card">
+              <input type="checkbox" name="study3d[]" value="КЛКТ ВНЧС и зубочелюстной системы">
+              <span class="ref-check__dot" aria-hidden="true"></span>
+              <div class="ref-card__body">
+                <p class="ref-card__label">КЛКТ ВНЧС и зубочелюстной системы</p>
+                <p class="ref-card__desc">Билатеральное исследование суставов</p>
+                <div class="refsub" onclick="event.stopPropagation()">
+                  <label class="refsub__item"><input type="checkbox" name="study3d_sub[]" value="ВНЧС · 1 положение"><span class="refsub__dot"></span>в привычной окклюзии</label>
+                  <label class="refsub__item"><input type="checkbox" name="study3d_sub[]" value="ВНЧС · 2 положения"><span class="refsub__dot"></span>с открытым и закрытым ртом</label>
+                  <label class="refsub__item"><input type="checkbox" name="study3d_sub[]" value="ВНЧС · 3 положения"><span class="refsub__dot"></span>с максимальным открыванием</label>
+                </div>
+              </div>
             </label>
           </div>
-        </div>
 
-        <div class="ref-section">
-          <h3 class="ref-section__title" data-step="5">Анатомические зоны интереса</h3>
-          <div class="ref-zones">
-            <label class="ref-zone">
-              <input type="checkbox" name="zone[]" value="Верхняя челюсть">
-              <span class="ref-zone__icon" aria-hidden="true">
-                <svg viewBox="0 0 32 32" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M4 18 C 4 11, 10 6, 16 6 C 22 6, 28 11, 28 18"/>
-                  <path d="M8 14 v 4 M12 13 v 5 M16 12 v 6 M20 13 v 5 M24 14 v 4"/>
-                </svg>
-              </span>
-              <div class="ref-zone__body">
-                <p class="ref-zone__name">Верхняя челюсть</p>
-                <p class="ref-zone__desc">Maxilla - зубы, альвеолярный отросток, корни</p>
+          <!-- ============================ 2D COLUMN ============================ -->
+          <div>
+            <div class="refcol__head refcol__head--2d">
+              <span class="refcol__digit">2D</span>
+              <span class="refcol__caption">Цифровая<br>рентгенография</span>
+            </div>
+
+            <div class="ref-arch" data-arch>
+              <p class="ref-arch__hint">Область интереса · верхняя челюсть</p>
+              <div class="ref-arch__row">
+                <button type="button" class="ref-arch__tooth" data-arch-tooth="18" aria-pressed="false">18</button>
+                <button type="button" class="ref-arch__tooth" data-arch-tooth="17" aria-pressed="false">17</button>
+                <button type="button" class="ref-arch__tooth" data-arch-tooth="16" aria-pressed="false">16</button>
+                <button type="button" class="ref-arch__tooth" data-arch-tooth="15" aria-pressed="false">15</button>
+                <button type="button" class="ref-arch__tooth" data-arch-tooth="14" aria-pressed="false">14</button>
+                <button type="button" class="ref-arch__tooth" data-arch-tooth="13" aria-pressed="false">13</button>
+                <button type="button" class="ref-arch__tooth" data-arch-tooth="12" aria-pressed="false">12</button>
+                <button type="button" class="ref-arch__tooth" data-arch-tooth="11" aria-pressed="false">11</button>
+                <div class="ref-arch__divider" aria-hidden="true"></div>
+                <button type="button" class="ref-arch__tooth" data-arch-tooth="21" aria-pressed="false">21</button>
+                <button type="button" class="ref-arch__tooth" data-arch-tooth="22" aria-pressed="false">22</button>
+                <button type="button" class="ref-arch__tooth" data-arch-tooth="23" aria-pressed="false">23</button>
+                <button type="button" class="ref-arch__tooth" data-arch-tooth="24" aria-pressed="false">24</button>
+                <button type="button" class="ref-arch__tooth" data-arch-tooth="25" aria-pressed="false">25</button>
+                <button type="button" class="ref-arch__tooth" data-arch-tooth="26" aria-pressed="false">26</button>
+                <button type="button" class="ref-arch__tooth" data-arch-tooth="27" aria-pressed="false">27</button>
+                <button type="button" class="ref-arch__tooth" data-arch-tooth="28" aria-pressed="false">28</button>
               </div>
-              <span class="ref-zone__dot" aria-hidden="true"></span>
+              <div class="ref-arch__mid" aria-hidden="true"></div>
+              <div class="ref-arch__row">
+                <button type="button" class="ref-arch__tooth" data-arch-tooth="48" aria-pressed="false">48</button>
+                <button type="button" class="ref-arch__tooth" data-arch-tooth="47" aria-pressed="false">47</button>
+                <button type="button" class="ref-arch__tooth" data-arch-tooth="46" aria-pressed="false">46</button>
+                <button type="button" class="ref-arch__tooth" data-arch-tooth="45" aria-pressed="false">45</button>
+                <button type="button" class="ref-arch__tooth" data-arch-tooth="44" aria-pressed="false">44</button>
+                <button type="button" class="ref-arch__tooth" data-arch-tooth="43" aria-pressed="false">43</button>
+                <button type="button" class="ref-arch__tooth" data-arch-tooth="42" aria-pressed="false">42</button>
+                <button type="button" class="ref-arch__tooth" data-arch-tooth="41" aria-pressed="false">41</button>
+                <div class="ref-arch__divider" aria-hidden="true"></div>
+                <button type="button" class="ref-arch__tooth" data-arch-tooth="31" aria-pressed="false">31</button>
+                <button type="button" class="ref-arch__tooth" data-arch-tooth="32" aria-pressed="false">32</button>
+                <button type="button" class="ref-arch__tooth" data-arch-tooth="33" aria-pressed="false">33</button>
+                <button type="button" class="ref-arch__tooth" data-arch-tooth="34" aria-pressed="false">34</button>
+                <button type="button" class="ref-arch__tooth" data-arch-tooth="35" aria-pressed="false">35</button>
+                <button type="button" class="ref-arch__tooth" data-arch-tooth="36" aria-pressed="false">36</button>
+                <button type="button" class="ref-arch__tooth" data-arch-tooth="37" aria-pressed="false">37</button>
+                <button type="button" class="ref-arch__tooth" data-arch-tooth="38" aria-pressed="false">38</button>
+              </div>
+              <p class="ref-arch__hint" style="margin-top:10px;margin-bottom:0">Нижняя челюсть</p>
+            </div>
+
+            <label class="ref-card">
+              <input type="checkbox" name="study2d[]" value="ОПТГ — панорамный снимок">
+              <span class="ref-check__dot" aria-hidden="true"></span>
+              <div class="ref-card__body">
+                <p class="ref-card__label">ОПТГ — панорамный снимок</p>
+                <p class="ref-card__desc">FOV до 15×8 см</p>
+                <div class="refsub" onclick="event.stopPropagation()">
+                  <label class="refsub__item"><input type="checkbox" name="study2d_sub[]" value="ОПТГ · обычный"><span class="refsub__dot"></span>обычный</label>
+                  <label class="refsub__item"><input type="checkbox" name="study2d_sub[]" value="ОПТГ · с прикусным шаблоном"><span class="refsub__dot"></span>с прикусным шаблоном</label>
+                </div>
+              </div>
             </label>
 
-            <label class="ref-zone">
-              <input type="checkbox" name="zone[]" value="Нижняя челюсть">
-              <span class="ref-zone__icon" aria-hidden="true">
-                <svg viewBox="0 0 32 32" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M4 14 C 4 21, 10 26, 16 26 C 22 26, 28 21, 28 14"/>
-                  <path d="M8 18 v -4 M12 19 v -5 M16 20 v -6 M20 19 v -5 M24 18 v -4"/>
-                </svg>
-              </span>
-              <div class="ref-zone__body">
-                <p class="ref-zone__name">Нижняя челюсть</p>
-                <p class="ref-zone__desc">Mandibula - тело, ветви, нижнечелюстной канал</p>
+            <label class="ref-card">
+              <input type="checkbox" name="study2d[]" value="ТРГ черепа 24×30 см">
+              <span class="ref-check__dot" aria-hidden="true"></span>
+              <div class="ref-card__body">
+                <p class="ref-card__label">ТРГ черепа 24×30 см</p>
+                <p class="ref-card__desc">Цефалометрия, 17 точек</p>
+                <div class="refsub" onclick="event.stopPropagation()">
+                  <label class="refsub__item"><input type="checkbox" name="study2d_sub[]" value="ТРГ · боковая"><span class="refsub__dot"></span>боковая</label>
+                  <label class="refsub__item"><input type="checkbox" name="study2d_sub[]" value="ТРГ · прямая"><span class="refsub__dot"></span>прямая</label>
+                  <label class="refsub__item"><input type="checkbox" name="study2d_sub[]" value="ТРГ · с расчётом"><span class="refsub__dot"></span>с расчётом</label>
+                  <label class="refsub__item"><input type="checkbox" name="study2d_sub[]" value="ТРГ · с разметкой"><span class="refsub__dot"></span>с разметкой</label>
+                </div>
               </div>
-              <span class="ref-zone__dot" aria-hidden="true"></span>
             </label>
 
-            <label class="ref-zone">
-              <input type="checkbox" name="zone[]" value="ВНЧС">
-              <span class="ref-zone__icon" aria-hidden="true">
-                <svg viewBox="0 0 32 32" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="11" cy="12" r="5"/>
-                  <circle cx="21" cy="20" r="5"/>
-                  <path d="M15 15 l 2 2"/>
-                </svg>
-              </span>
-              <div class="ref-zone__body">
-                <p class="ref-zone__name">ВНЧС</p>
-                <p class="ref-zone__desc">Височно-нижнечелюстной сустав (билатерально)</p>
+            <label class="ref-card ref-card--highlight">
+              <input type="checkbox" name="study2d[]" value="КОМПЛЕКС: ОПТГ + ТРГ боковая">
+              <span class="ref-check__dot" aria-hidden="true"></span>
+              <div class="ref-card__body">
+                <p class="ref-card__label">КОМПЛЕКС: ОПТГ + ТРГ боковая</p>
+                <p class="ref-card__desc">Базовый ортодонтический протокол</p>
               </div>
-              <span class="ref-zone__dot" aria-hidden="true"></span>
             </label>
 
-            <label class="ref-zone">
-              <input type="checkbox" name="zone[]" value="Придаточные пазухи">
-              <span class="ref-zone__icon" aria-hidden="true">
-                <svg viewBox="0 0 32 32" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M6 18 C 6 12, 10 8, 14 8 L 18 8 C 22 8, 26 12, 26 18 C 26 22, 22 26, 16 26 C 10 26, 6 22, 6 18 Z"/>
-                  <path d="M12 14 L 14 18 L 12 22 M20 14 L 18 18 L 20 22"/>
-                </svg>
-              </span>
-              <div class="ref-zone__body">
-                <p class="ref-zone__name">Придаточные пазухи</p>
-                <p class="ref-zone__desc">Гайморовы + лобные + решётчатый лабиринт</p>
+            <label class="ref-card ref-card--highlight">
+              <input type="checkbox" name="study2d[]" value="КОМПЛЕКС: ОПТГ + ТРГ боковая + расчёт">
+              <span class="ref-check__dot" aria-hidden="true"></span>
+              <div class="ref-card__body">
+                <p class="ref-card__label">КОМПЛЕКС: ОПТГ + ТРГ боковая + расчёт</p>
+                <p class="ref-card__desc">Полный пакет для цефалометрии</p>
               </div>
-              <span class="ref-zone__dot" aria-hidden="true"></span>
+            </label>
+
+            <label class="ref-card ref-card--highlight">
+              <input type="checkbox" name="study2d[]" value="КОМПЛЕКС: ТРГ боковая + ТРГ прямая">
+              <span class="ref-check__dot" aria-hidden="true"></span>
+              <div class="ref-card__body">
+                <p class="ref-card__label">КОМПЛЕКС: ТРГ боковая + ТРГ прямая</p>
+                <p class="ref-card__desc">Двухпроекционная цефалометрия</p>
+              </div>
+            </label>
+
+            <label class="ref-card">
+              <input type="checkbox" name="study2d[]" value="Рентгенограмма ВНЧС">
+              <span class="ref-check__dot" aria-hidden="true"></span>
+              <div class="ref-card__body">
+                <p class="ref-card__label">Рентгенограмма ВНЧС</p>
+                <div class="refsub" onclick="event.stopPropagation()">
+                  <label class="refsub__item"><input type="checkbox" name="study2d_sub[]" value="ВНЧС 2D · открытый рот"><span class="refsub__dot"></span>с открытым ртом</label>
+                  <label class="refsub__item"><input type="checkbox" name="study2d_sub[]" value="ВНЧС 2D · закрытый рот"><span class="refsub__dot"></span>с закрытым ртом</label>
+                </div>
+              </div>
+            </label>
+
+            <label class="ref-card">
+              <input type="checkbox" name="study2d[]" value="Рентгенограмма кистей рук">
+              <span class="ref-check__dot" aria-hidden="true"></span>
+              <div class="ref-card__body">
+                <p class="ref-card__label">Рентгенограмма кистей рук</p>
+                <p class="ref-card__desc">Определение костного возраста</p>
+              </div>
             </label>
           </div>
-        </div>
 
-        <div class="ref-section">
-          <h3 class="ref-section__title" data-step="6">Дополнительно</h3>
-          <div class="ref-checks">
-            <label class="ref-check">
-              <input type="checkbox" name="extra[]" value="Diagnocat AI">
-              <span class="ref-check__dot" aria-hidden="true"></span>
-              <span class="ref-check__text">Diagnocat AI<small>Автоматический анализ снимка</small></span>
-            </label>
-            <label class="ref-check">
-              <input type="checkbox" name="extra[]" value="DICOM на USB" checked>
-              <span class="ref-check__dot" aria-hidden="true"></span>
-              <span class="ref-check__text">DICOM на флешке<small>Стандарт экспорта</small></span>
-            </label>
-            <label class="ref-check">
-              <input type="checkbox" name="extra[]" value="PDF-отчёт" checked>
-              <span class="ref-check__dot" aria-hidden="true"></span>
-              <span class="ref-check__text">PDF-отчёт<small>Заключение врача-рентгенолога</small></span>
-            </label>
-            <label class="ref-check">
-              <input type="checkbox" name="extra[]" value="Email врачу">
-              <span class="ref-check__dot" aria-hidden="true"></span>
-              <span class="ref-check__text">Отправить копию снимка<small>На email направителя</small></span>
-            </label>
+          <!-- ============================ BOTTOM (full width) ============================ -->
+          <div class="ref-bottom">
+            <div class="ref-bottom__divider"></div>
+
+            <h4 class="ref-eyebrow">Дополнительные услуги</h4>
+            <div class="ref-extras">
+              <label class="ref-icheck"><input type="checkbox" name="extra[]" value="Печать на плёнке"><span class="ref-icheck__dot"></span>Печать снимка на плёнке</label>
+              <label class="ref-icheck"><input type="checkbox" name="extra[]" value="Печать на фотобумаге"><span class="ref-icheck__dot"></span>Печать на фотобумаге A4</label>
+              <label class="ref-icheck"><input type="checkbox" name="extra[]" value="DICOM на USB" checked><span class="ref-icheck__dot"></span>Запись на USB-носитель (DICOM)</label>
+              <label class="ref-icheck"><input type="checkbox" name="extra[]" value="Email коллег"><span class="ref-icheck__dot"></span>Отправка на email коллеги</label>
+            </div>
+
+            <div class="ref-diagnocat">
+              <div class="ref-diagnocat__info">
+                <p class="ref-diagnocat__brand">Diagnocat · AI-анализ</p>
+                <p class="ref-diagnocat__text">Интеграция с международной диагностической платформой Diagnocat — автоматический разбор данных КЛКТ с заключением врача-рентгенолога.</p>
+              </div>
+              <div class="ref-diagnocat__checks">
+                <label class="ref-icheck"><input type="checkbox" name="diagnocat[]" value="Общий рентгенологический отчёт"><span class="ref-icheck__dot"></span>Общий рентген. отчёт</label>
+                <label class="ref-icheck"><input type="checkbox" name="diagnocat[]" value="Кариологический отчёт"><span class="ref-icheck__dot"></span>Кариологический отчёт</label>
+                <label class="ref-icheck"><input type="checkbox" name="diagnocat[]" value="Эндодонтический отчёт"><span class="ref-icheck__dot"></span>Эндодонтический отчёт</label>
+                <label class="ref-icheck"><input type="checkbox" name="diagnocat[]" value="Ортодонтический STL"><span class="ref-icheck__dot"></span>Ортодонтический STL</label>
+              </div>
+            </div>
+
+            <div class="ref-vrach">
+              <div class="ref-vrach__head">
+                <h4 class="ref-eyebrow" style="margin: 0">Врачебные услуги</h4>
+                <span class="ref-ribbon">NEW</span>
+              </div>
+              <div class="ref-vrach__grid">
+                <div>
+                  <p class="ref-vrach__col-title">Описание и интерпретация для предварительной постановки диагноза</p>
+                  <div class="ref-vrach__list">
+                    <label class="ref-icheck"><input type="checkbox" name="vrach_interpret[]" value="по данным КЛКТ зубных рядов"><span class="ref-icheck__dot"></span>по данным КЛКТ зубных рядов</label>
+                    <label class="ref-icheck"><input type="checkbox" name="vrach_interpret[]" value="по данным ОПТГ"><span class="ref-icheck__dot"></span>по данным ОПТГ</label>
+                    <label class="ref-icheck"><input type="checkbox" name="vrach_interpret[]" value="по данным ТРГ"><span class="ref-icheck__dot"></span>по данным ТРГ</label>
+                    <label class="ref-icheck"><input type="checkbox" name="vrach_interpret[]" value="по данным КЛКТ ЧЛО"><span class="ref-icheck__dot"></span>по данным КЛКТ ЧЛО</label>
+                    <label class="ref-icheck"><input type="checkbox" name="vrach_interpret[]" value="по данным КЛКТ ВНЧС"><span class="ref-icheck__dot"></span>по данным КЛКТ ВНЧС</label>
+                    <label class="ref-icheck"><input type="checkbox" name="vrach_interpret[]" value="по данным КЛКТ ЛОР"><span class="ref-icheck__dot"></span>по данным КЛКТ ЛОР</label>
+                  </div>
+                </div>
+                <div>
+                  <p class="ref-vrach__col-title">Инструментальное планирование имплантологического лечения</p>
+                  <div class="ref-vrach__list">
+                    <label class="ref-icheck"><input type="checkbox" name="vrach_implant[]" value="разметка в области адентии"><span class="ref-icheck__dot"></span>Разметка в области адентии</label>
+                    <label class="ref-icheck"><input type="checkbox" name="vrach_implant[]" value="разметка в области эндодонтии"><span class="ref-icheck__dot"></span>Разметка в области эндодонтии</label>
+                    <label class="ref-icheck"><input type="checkbox" name="vrach_implant[]" value="разметка по плановым параметрам"><span class="ref-icheck__dot"></span>Разметка по плановым параметрам</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="ref-contacts">
+              <h4 class="ref-eyebrow">Контакты для связи</h4>
+              <div class="ref-contacts__grid">
+                <label class="ref-field">
+                  <span class="ref-field__label">Телефон пациента *</span>
+                  <input type="tel" name="patient_phone" placeholder="+7" required autocomplete="tel" data-ref-phone>
+                </label>
+                <label class="ref-field">
+                  <span class="ref-field__label">ФИО врача-направителя</span>
+                  <input type="text" name="doctor_name" placeholder="Петров П. П." autocomplete="name">
+                </label>
+                <label class="ref-field">
+                  <span class="ref-field__label">Телефон врача</span>
+                  <input type="tel" name="doctor_phone" placeholder="+7" data-ref-phone>
+                </label>
+              </div>
+              <label class="ref-field">
+                <span class="ref-field__label">Комментарий / клиническая задача (необязательно)</span>
+                <textarea name="comment" placeholder="Подозрение на кисту у 36 зуба, уточнить положение каналов..."></textarea>
+              </label>
+            </div>
+
+            <div class="ref-submit-row">
+              <button type="submit" class="ref-submit" data-ref-submit>Отправить направление</button>
+              <button type="button" class="ref-cancel" data-ref-close>Отмена</button>
+              <p class="ref-legal">Нажимая «Отправить», вы соглашаетесь с <a href="privacy.html" target="_blank" rel="noopener">политикой конфиденциальности</a>. Администратор перезвонит пациенту в течение 15 минут.</p>
+            </div>
           </div>
-          <label class="ref-field" style="margin-top:14px;display:block">
-            <span class="ref-field__label">Комментарий / клиническая задача</span>
-            <textarea name="comment" placeholder="Подозрение на кисту у 36 зуба, уточнить положение каналов..."></textarea>
-          </label>
-        </div>
 
-        <div class="ref-submit-row">
-          <button type="submit" class="ref-submit" data-ref-submit>Отправить направление</button>
-          <p class="ref-legal">Нажимая кнопку, вы соглашаетесь с <a href="privacy.html" target="_blank" rel="noopener">политикой конфиденциальности</a>. Пациенту перезвонит администратор в течение 15 минут.</p>
         </div>
       </form>
 
@@ -5895,18 +6027,37 @@
     }
     form.querySelectorAll('[data-ref-phone]').forEach(refPhoneMask);
 
-    // FDI teeth toggle
-    const fdiBtns = form.querySelectorAll('.fdi__tooth');
-    fdiBtns.forEach(btn => {
+    // Dental arch teeth toggle (2D column FDI-arch)
+    form.querySelectorAll('.ref-arch__tooth').forEach(btn => {
       btn.addEventListener('click', () => {
         const on = btn.classList.toggle('is-checked');
         btn.setAttribute('aria-pressed', on ? 'true' : 'false');
       });
     });
 
-    // Toggle is-active class on .ref-check and .ref-zone
-    form.querySelectorAll('.ref-check input, .ref-zone input').forEach(inp => {
-      const parent = inp.closest('.ref-check, .ref-zone');
+    // Quadrant button toggle (I/II/III/IV inside .refsub--quad)
+    form.querySelectorAll('.refsub__quad-btn').forEach(label => {
+      const inp = label.querySelector('input[type="checkbox"]');
+      if (!inp) return;
+      if (inp.checked) label.classList.add('is-checked');
+      inp.addEventListener('change', () => {
+        label.classList.toggle('is-checked', inp.checked);
+      });
+    });
+
+    // Toggle is-active class on .ref-card (skip nested sub-checkboxes)
+    form.querySelectorAll('.ref-card > input[type="checkbox"]').forEach(inp => {
+      const parent = inp.closest('.ref-card');
+      if (!parent) return;
+      if (inp.checked) parent.classList.add('is-active');
+      inp.addEventListener('change', () => {
+        parent.classList.toggle('is-active', inp.checked);
+      });
+    });
+
+    // Toggle is-active class on .ref-icheck (extras / diagnocat / vrach)
+    form.querySelectorAll('.ref-icheck input[type="checkbox"]').forEach(inp => {
+      const parent = inp.closest('.ref-icheck');
       if (!parent) return;
       if (inp.checked) parent.classList.add('is-active');
       inp.addEventListener('change', () => {
@@ -5921,7 +6072,7 @@
       modal.setAttribute('aria-hidden', 'false');
       document.body.classList.add('has-ref-modal');
       setTimeout(() => {
-        const first = form.querySelector('input[name="patient_name"]');
+        const first = form.querySelector('input[name="patient_phone"]');
         if (first) first.focus({ preventScroll: true });
       }, 380);
     }
@@ -5966,23 +6117,37 @@
 
       const val = (sel) => (form.querySelector(sel) || {}).value || '';
       const collect = (name) => Array.from(form.querySelectorAll('input[name="' + name + '"]:checked')).map(i => i.value);
-      const teeth = Array.from(form.querySelectorAll('.fdi__tooth.is-checked')).map(b => b.dataset.fdi);
+      const teeth = Array.from(form.querySelectorAll('.ref-arch__tooth.is-checked')).map(b => b.dataset.archTooth);
+
+      const study3d = collect('study3d[]');
+      const study3dSub = collect('study3d_sub[]');
+      const quad1 = collect('quad1[]');
+      const quad2 = collect('quad2[]');
+      const quadComplex = collect('quad_complex[]');
+      if (quad1.length) study3dSub.push('Квадрант (одиночный): ' + quad1.join(', '));
+      if (quad2.length) study3dSub.push('Квадранты (двойной): ' + quad2.join(', '));
+      if (quadComplex.length) study3dSub.push('Комплекс ОПТГ+КЛКТ квадранта: ' + quadComplex.join(', '));
+
+      const study2d = collect('study2d[]');
+      const study2dSub = collect('study2d_sub[]');
 
       const payload = {
-        _subject: 'Smile3D · Электронное направление — пациент ' + (val('input[name="patient_name"]') || 'без имени'),
+        _subject: 'Smile3D · Электронное направление от ' + (val('input[name="doctor_name"]') || 'врача'),
         _template: 'table',
         _captcha: 'false',
         Источник: 'Электронное направление (врачи)',
-        'Пациент ФИО': val('input[name="patient_name"]') || 'не указано',
-        'Пациент возраст': val('input[name="patient_age"]') || 'не указан',
-        'Пациент телефон': val('input[name="patient_phone"]'),
-        'Врач ФИО': val('input[name="doctor_name"]') || 'не указано',
-        'Клиника': val('input[name="doctor_clinic"]') || 'не указана',
-        'Врач телефон': val('input[name="doctor_phone"]') || 'не указан',
-        'Зубы (FDI)': teeth.length ? teeth.join(', ') : 'не отмечены',
-        'Виды исследований': collect('study[]').join(', ') || 'не выбраны',
-        'Зоны интереса': collect('zone[]').join(', ') || 'не выбраны',
-        'Доп. опции': collect('extra[]').join(', ') || '—',
+        'Телефон пациента': val('input[name="patient_phone"]'),
+        'ФИО врача': val('input[name="doctor_name"]') || 'не указано',
+        'Телефон врача': val('input[name="doctor_phone"]') || 'не указан',
+        'Исследования 3D': study3d.length ? study3d.join('; ') : '—',
+        'Уточнения 3D': study3dSub.length ? study3dSub.join('; ') : '—',
+        'Исследования 2D': study2d.length ? study2d.join('; ') : '—',
+        'Уточнения 2D': study2dSub.length ? study2dSub.join('; ') : '—',
+        'Зубы (область интереса)': teeth.length ? teeth.join(', ') : '—',
+        'Дополнительные услуги': collect('extra[]').join(', ') || '—',
+        'Diagnocat AI': collect('diagnocat[]').join(', ') || '—',
+        'Врачебные услуги · интерпретация': collect('vrach_interpret[]').join(', ') || '—',
+        'Врачебные услуги · имплантология': collect('vrach_implant[]').join(', ') || '—',
         'Комментарий': val('textarea[name="comment"]') || '—',
         Страница: window.location.href,
         Время: new Date().toLocaleString('ru-RU')
@@ -5998,11 +6163,12 @@
             modal.classList.add('is-success');
             if (dialog) dialog.scrollTop = 0;
             form.reset();
-            form.querySelectorAll('.fdi__tooth.is-checked').forEach(b => {
+            form.querySelectorAll('.ref-arch__tooth.is-checked').forEach(b => {
               b.classList.remove('is-checked');
               b.setAttribute('aria-pressed', 'false');
             });
-            form.querySelectorAll('.ref-check.is-active, .ref-zone.is-active').forEach(el => el.classList.remove('is-active'));
+            form.querySelectorAll('.refsub__quad-btn.is-checked').forEach(el => el.classList.remove('is-checked'));
+            form.querySelectorAll('.ref-card.is-active, .ref-icheck.is-active').forEach(el => el.classList.remove('is-active'));
           } else {
             submit.textContent = 'Не удалось отправить · попробуйте ещё раз';
             console.warn('Referral FormSubmit response', res);
