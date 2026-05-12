@@ -486,21 +486,11 @@
       .hero-lead { width: 100%; font-size: 18px; }
     }
     @media (max-width: 767px) {
-      .hero { min-height: calc(100svh - 60px); max-height: none; }
-      .hero-bg__image {
-        inset: -2% -1%;
-        background-position: 55% 45%;
-        background-size: 180% auto;
-      }
-      @keyframes hero-slow-zoom {
-        0%   { background-size: 180% auto; }
-        100% { background-size: 195% auto; }
-      }
       .hero {
-        min-height: 0;
-        height: auto;
+        min-height: calc(100svh - 60px);
+        height: calc(100svh - 60px);
         max-height: none;
-        padding-bottom: 70px;
+        padding-bottom: 0;
       }
       .hero-bg {
         position: absolute;
@@ -508,35 +498,35 @@
       }
       .hero-bg__image {
         position: absolute;
-        inset: -2% -1%;
+        inset: 0;
         background-image: url('assets/img/hero-bg-mobile.webp');
-        background-position: 55% 45%;
-        background-size: 180% auto;
-      }
-      @keyframes hero-slow-zoom {
-        0%   { background-size: 180% auto; }
-        100% { background-size: 195% auto; }
+        background-position: center 45%;
+        background-size: cover;
+        background-repeat: no-repeat;
+        animation: none;
       }
       .hero-bg__wash {
         background:
           linear-gradient(180deg,
-            rgba(245, 249, 251, 0.20) 0%,
-            rgba(245, 249, 251, 0.00) 22%,
-            rgba(245, 249, 251, 0.00) 42%,
+            rgba(245, 249, 251, 0.15) 0%,
+            rgba(245, 249, 251, 0.00) 28%,
+            rgba(245, 249, 251, 0.00) 48%,
             rgba(245, 249, 251, 0.55) 62%,
-            rgba(245, 249, 251, 0.92) 80%,
+            rgba(245, 249, 251, 0.86) 76%,
+            rgba(245, 249, 251, 0.96) 90%,
             rgba(245, 249, 251, 1.00) 100%);
       }
       .hero-pulse { display: none; }
       .hero-center {
-        position: relative;
-        transform: none;
-        left: auto;
+        position: absolute;
+        left: 50%;
+        bottom: 96px;
         top: auto;
-        margin: 56vw auto 0;
+        transform: translateX(-50%);
+        margin: 0;
         width: calc(100% - 32px);
         max-width: 520px;
-        padding: 0 4px 18px;
+        padding: 0 4px;
         background: transparent;
         -webkit-backdrop-filter: none;
         backdrop-filter: none;
@@ -590,14 +580,14 @@
     }
     @media (max-width: 441px) {
       .hero-bg__image {
-        background-position: 52% 42%;
+        background-position: center 42%;
       }
-      .hero-center { margin-top: 62vw; }
+      .hero-center { bottom: 92px; }
       .hero h1 { font-size: 30px; }
       .hero-lead { font-size: 14.5px; }
     }
     @media (max-width: 360px) {
-      .hero-center { margin-top: 66vw; padding-bottom: 14px; }
+      .hero-center { bottom: 84px; }
       .hero h1 { font-size: 26px; }
     }
 
@@ -4326,7 +4316,7 @@
     <div class="topbar-inner">
       <a href="#" class="logo-mark-header">
         <span class="logo-icon" aria-hidden="true">
-          <img src="assets/img/logo-tooth.png" alt="Smile3D" width="48" height="42">
+          <img src="assets/img/logo-tooth.webp" alt="Smile3D" width="48" height="42">
 
         </span>
         <span class="logo-text">
@@ -4944,7 +4934,7 @@
           <div class="services-grid">
 
             <article class="service-card" data-service="klkt" role="button" tabindex="0" aria-expanded="false" aria-controls="service-detail">
-              <div class="service-card__visual" style="background-image: url('assets/img/generated-1778318886127.png');"></div>
+              <div class="service-card__visual" style="background-image: url('assets/img/generated-1778318886127.webp');"></div>
               <p class="service-meta">Конусно-лучевая КТ</p>
               <h3>КЛКТ</h3>
               <ul class="service-card__features">
@@ -4962,7 +4952,7 @@
             </article>
 
             <article class="service-card" data-service="optg" role="button" tabindex="0" aria-expanded="false" aria-controls="service-detail">
-              <div class="service-card__visual" style="background-image: url('assets/img/generated-1778318892889.png');"></div>
+              <div class="service-card__visual" style="background-image: url('assets/img/generated-1778318892889.webp');"></div>
               <p class="service-meta">Ортопантомография</p>
               <h3>ОПТГ</h3>
               <ul class="service-card__features">
@@ -4979,7 +4969,7 @@
             </article>
 
             <article class="service-card" data-service="trg" role="button" tabindex="0" aria-expanded="false" aria-controls="service-detail">
-              <div class="service-card__visual" style="background-image: url('assets/img/generated-1778318890785.png');"></div>
+              <div class="service-card__visual" style="background-image: url('assets/img/generated-1778318890785.webp');"></div>
               <p class="service-meta">Телерентгенография</p>
               <h3>ТРГ</h3>
               <ul class="service-card__features">
@@ -5083,7 +5073,7 @@
   <!-- SCAN-STORY (yQYw8) -->
   <section class="scan-story" id="scan-story">
     <div class="scan-story__container">
-      <div class="scan-story__visual" style="background-image: url('assets/img/generated-1778319124732.png');"></div>
+      <div class="scan-story__visual" style="background-image: url('assets/img/generated-1778319124732.webp');"></div>
       <div class="scan-story__content">
         <div class="scan-story__head">
           <p class="kicker">3D · цветной снимок</p>
@@ -5301,7 +5291,7 @@
       <div class="equipment-grid">
 
         <article class="equipment-card">
-          <div class="equipment-visual" style="background-image: url('assets/img/generated-1778319132323.png');"></div>
+          <div class="equipment-visual" style="background-image: url('assets/img/generated-1778319132323.webp');"></div>
           <div class="equipment-content">
             <h3>Sirona Orthophos XG 3D</h3>
             <p>Конусно-лучевой сканер для КЛКТ. Поддерживает панорамный и цефалометрический режимы.</p>
@@ -5314,7 +5304,7 @@
         </article>
 
         <article class="equipment-card">
-          <div class="equipment-visual" style="background-image: url('assets/img/generated-1778319135575.png');"></div>
+          <div class="equipment-visual" style="background-image: url('assets/img/generated-1778319135575.webp');"></div>
           <div class="equipment-content">
             <h3>Vatech Pax-i3D</h3>
             <p>Панорамный сканер с 3D-реконструкцией. Применяется в ортодонтии и имплантологии.</p>
@@ -5386,19 +5376,19 @@
       <div class="trust-grid">
 
         <article class="trust-card">
-          <div class="trust-card__visual" style="background-image: url('assets/img/generated-1778319126540.png');"></div>
+          <div class="trust-card__visual" style="background-image: url('assets/img/generated-1778319126540.webp');"></div>
           <h3>Сертифицированное оборудование</h3>
           <p>Сканеры Sirona и Vatech, техническое обслуживание и калибровка по графику. Производственные сертификаты, поверка дозиметрии.</p>
         </article>
 
         <article class="trust-card">
-          <div class="trust-card__visual" style="background-image: url('assets/img/generated-1778319134095.png');"></div>
+          <div class="trust-card__visual" style="background-image: url('assets/img/generated-1778319134095.webp');"></div>
           <h3>Опыт работы</h3>
           <p>Более 5 000 исследований за время работы кабинета. Точность установки FOV и качество снимков держим на одном уровне.</p>
         </article>
 
         <article class="trust-card">
-          <div class="trust-card__visual" style="background-image: url('assets/img/generated-1778319130772.png');"></div>
+          <div class="trust-card__visual" style="background-image: url('assets/img/generated-1778319130772.webp');"></div>
           <h3>Партнёры</h3>
           <p>Работаем со стоматологическими клиниками Самарской области. Принимаем направления, отдаём DICOM под нужное ПО.</p>
         </article>
@@ -5410,7 +5400,7 @@
   <!-- VIDEO / О НАС (cS6FH) -->
   <section class="video" id="video">
     <div class="video-cinema" role="button" tabindex="0" aria-label="Видео о Smile 3D">
-      <div class="video-cinema__poster" style="background-image: url('assets/img/generated-1778319132585.png');"></div>
+      <div class="video-cinema__poster" style="background-image: url('assets/img/generated-1778319132585.webp');"></div>
       <span class="video-cinema__play" aria-hidden="true">
         <svg class="ico" viewBox="0 0 24 24" width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <polygon points="6 3 20 12 6 21 6 3"/>
@@ -5569,7 +5559,7 @@
         <div class="footer-col footer-col--brand">
           <a href="#" class="logo-mark-header" style="text-decoration: none;">
             <span class="logo-icon" aria-hidden="true">
-              <img src="assets/img/logo-tooth-dark.png" alt="Smile3D" width="36" height="32">
+              <img src="assets/img/logo-tooth-dark.webp" alt="Smile3D" width="36" height="32">
             </span>
             <span class="logo-text" style="color: #F4F7FB;">
               <span class="smile">Smile</span><span class="three-d" style="color: var(--accent);">3D</span>
