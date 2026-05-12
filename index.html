@@ -6,6 +6,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light only" />
+  <meta name="theme-color" content="#F5F9FB" />
   <title>Smile 3D - 3D-рентгенодиагностика стоматологии · Жигулёвск</title>
   <meta name="description" content="Конусно-лучевая компьютерная томография (КЛКТ), ортопантомография (ОПТГ), телерентгенография (ТРГ) в Жигулёвске. Разрешение до 68 микрон, снимок за несколько секунд." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -495,13 +497,24 @@
       .hero-bg__wash {
         background:
           linear-gradient(180deg,
-            rgba(245, 249, 251, 0.70) 0%,
-            rgba(245, 249, 251, 0.25) 30%,
-            rgba(245, 249, 251, 0.30) 55%,
-            rgba(245, 249, 251, 0.90) 100%);
+            rgba(245, 249, 251, 0.45) 0%,
+            rgba(245, 249, 251, 0.18) 28%,
+            rgba(245, 249, 251, 0.22) 55%,
+            rgba(245, 249, 251, 0.95) 100%);
       }
-      .hero-center { top: 11%; gap: 16px; }
-      .hero h1 { font-size: 40px; letter-spacing: -1px; line-height: 1.08; }
+      .hero-center {
+        top: 9%;
+        gap: 14px;
+        width: calc(100% - 28px);
+        padding: 22px 20px 24px;
+        background: rgba(255, 255, 255, 0.78);
+        -webkit-backdrop-filter: blur(18px) saturate(140%);
+        backdrop-filter: blur(18px) saturate(140%);
+        border: 1px solid rgba(255, 255, 255, 0.65);
+        border-radius: 22px;
+        box-shadow: 0 18px 50px -24px rgba(11, 30, 46, 0.22);
+      }
+      .hero h1 { font-size: 38px; letter-spacing: -1px; line-height: 1.08; }
       .hero-lead { font-size: 16px; line-height: 1.45; }
       .hero-pulse { top: 48%; }
       .hero-pulse__ring { width: 180px; height: 180px; margin-left: -90px; margin-top: -90px; }
@@ -3486,7 +3499,7 @@
       gap: 10px;
     }
     .ref-block__grid--clinic {
-      grid-template-columns: 2fr 2fr 1fr;
+      grid-template-columns: 1fr 1fr;
     }
     .ref-block__grid > .ref-field--full { grid-column: 1 / -1; }
     @media (max-width: 767px) {
@@ -3923,6 +3936,51 @@
     .ref-block--clinic {
       margin-top: 18px;
       background: rgba(11,30,46,0.03);
+    }
+    .ref-clinic-options {
+      margin-top: 14px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px 14px;
+    }
+    .ref-clinic-options .ref-icheck {
+      flex: 1 1 240px;
+      min-width: 0;
+    }
+    .ref-icheck--urgent {
+      border-color: rgba(214, 96, 80, 0.28);
+      background: rgba(214, 96, 80, 0.04);
+    }
+    .ref-icheck--urgent:hover { border-color: rgba(214, 96, 80, 0.55); }
+    .ref-icheck--urgent.is-active,
+    .ref-icheck--urgent input:checked ~ .ref-icheck__dot {
+      border-color: rgba(214, 96, 80, 0.85);
+    }
+    .ref-icheck--urgent input:checked ~ .ref-icheck__dot::after {
+      background: rgba(214, 96, 80, 0.95);
+    }
+    .ref-clinic-clear {
+      flex: 0 0 auto;
+      margin-left: auto;
+      background: transparent;
+      border: 0;
+      padding: 6px 0;
+      font-family: var(--font-body);
+      font-size: 13px;
+      color: var(--text-body-light);
+      cursor: pointer;
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      text-underline-offset: 3px;
+      transition: color 160ms ease;
+    }
+    .ref-clinic-clear:hover { color: var(--accent-deep); }
+    .ref-clinic-clear[hidden] { display: none; }
+    @media (max-width: 540px) {
+      .ref-clinic-options { gap: 10px; }
+      .ref-clinic-options .ref-icheck { flex: 1 1 100%; }
+      .ref-clinic-clear { margin-left: 0; }
     }
 
     /* === SUBMIT ROW === */
@@ -4639,33 +4697,42 @@
               <p class="ref-block__title">Информация о направляющем учреждении</p>
               <div class="ref-block__grid ref-block__grid--clinic">
                 <label class="ref-field">
-                  <span class="ref-field__label">Клиника</span>
-                  <input type="text" name="clinic_name" placeholder="Название клиники" autocomplete="organization">
+                  <span class="ref-field__label">Название клиники</span>
+                  <input type="text" name="clinic_name" placeholder="ООО «Стоматология Альфа»" autocomplete="organization" data-ref-doc-field>
                 </label>
                 <label class="ref-field">
-                  <span class="ref-field__label">Адрес</span>
-                  <input type="text" name="clinic_address" placeholder="г. Жигулёвск, ул...">
-                </label>
-                <label class="ref-field">
-                  <span class="ref-field__label">Дата</span>
-                  <input type="date" name="ref_date">
+                  <span class="ref-field__label">Адрес клиники</span>
+                  <input type="text" name="clinic_address" placeholder="г. Жигулёвск, ул..." data-ref-doc-field>
                 </label>
                 <label class="ref-field">
                   <span class="ref-field__label">ФИО врача *</span>
-                  <input type="text" name="doctor_name" placeholder="Петров П. П." required autocomplete="name">
+                  <input type="text" name="doctor_name" placeholder="Петров П. П." required autocomplete="name" data-ref-doc-field>
                 </label>
                 <label class="ref-field">
                   <span class="ref-field__label">Контактный тел.</span>
-                  <input type="tel" name="doctor_phone" placeholder="+7" data-ref-phone autocomplete="tel">
+                  <input type="tel" name="doctor_phone" placeholder="+7" data-ref-phone autocomplete="tel" data-ref-doc-field>
                 </label>
-                <label class="ref-field">
-                  <span class="ref-field__label">E-mail врача</span>
-                  <input type="email" name="doctor_email" placeholder="doctor@example.com" autocomplete="email">
+                <label class="ref-field ref-field--full">
+                  <span class="ref-field__label">E-mail врача (для направления результатов)</span>
+                  <input type="email" name="doctor_email" placeholder="doctor@example.com" autocomplete="email" data-ref-doc-field>
                 </label>
                 <label class="ref-field ref-field--full">
                   <span class="ref-field__label">Комментарий / клиническая задача (необязательно)</span>
                   <textarea name="comment" placeholder="Подозрение на кисту у 36 зуба, уточнить положение каналов..."></textarea>
                 </label>
+              </div>
+              <div class="ref-clinic-options">
+                <label class="ref-icheck">
+                  <input type="checkbox" name="remember_doctor" value="1" data-ref-remember>
+                  <span class="ref-icheck__dot"></span>
+                  Запомнить мои данные на этом устройстве
+                </label>
+                <label class="ref-icheck ref-icheck--urgent">
+                  <input type="checkbox" name="urgent" value="СРОЧНО (живая очередь)">
+                  <span class="ref-icheck__dot"></span>
+                  Срочно - живая очередь, без записи на конкретное время
+                </label>
+                <button type="button" class="ref-clinic-clear" data-ref-clear-doctor hidden>Очистить мои данные</button>
               </div>
             </div>
 
@@ -6199,12 +6266,67 @@
       });
     });
 
+    // ===== Память врача (localStorage) =====
+    // Один раз заполнил клинику/ФИО/тел/email - в следующий раз форма открывается уже заполненной.
+    // Хранится только локально на устройстве, не передаётся никуда кроме самого письма при отправке.
+    const DOC_STORAGE_KEY = 'smile3d.doctor.profile.v1';
+    const docFields = ['clinic_name','clinic_address','doctor_name','doctor_phone','doctor_email'];
+    const rememberInput = form.querySelector('[data-ref-remember]');
+    const clearBtn = form.querySelector('[data-ref-clear-doctor]');
+
+    function loadDoctorProfile() {
+      try {
+        const raw = localStorage.getItem(DOC_STORAGE_KEY);
+        if (!raw) return null;
+        return JSON.parse(raw);
+      } catch (err) { return null; }
+    }
+    function saveDoctorProfile(data) {
+      try { localStorage.setItem(DOC_STORAGE_KEY, JSON.stringify(data)); } catch (err) {}
+    }
+    function clearDoctorProfile() {
+      try { localStorage.removeItem(DOC_STORAGE_KEY); } catch (err) {}
+    }
+    function applyDoctorProfile(p) {
+      if (!p) return;
+      docFields.forEach(name => {
+        const el = form.querySelector('[name="' + name + '"]');
+        if (el && p[name] && !el.value) el.value = p[name];
+      });
+      if (rememberInput) {
+        rememberInput.checked = true;
+        const wrap = rememberInput.closest('.ref-icheck');
+        if (wrap) wrap.classList.add('is-active');
+      }
+      if (clearBtn) clearBtn.hidden = false;
+    }
+    if (clearBtn) {
+      clearBtn.addEventListener('click', () => {
+        clearDoctorProfile();
+        docFields.forEach(name => {
+          const el = form.querySelector('[name="' + name + '"]');
+          if (el) el.value = '';
+        });
+        if (rememberInput) {
+          rememberInput.checked = false;
+          const wrap = rememberInput.closest('.ref-icheck');
+          if (wrap) wrap.classList.remove('is-active');
+        }
+        clearBtn.hidden = true;
+      });
+    }
+    // подгружаем при инициализации модалки (один раз)
+    applyDoctorProfile(loadDoctorProfile());
+
     function open() {
       lastFocus = document.activeElement;
       modal.classList.remove('is-success');
       modal.classList.add('is-open');
       modal.setAttribute('aria-hidden', 'false');
       document.body.classList.add('has-ref-modal');
+      // Подтягиваем сохранённые данные врача каждый раз при открытии
+      // (на случай если пользователь нажал "Очистить" -> закрыл -> снова открыл)
+      applyDoctorProfile(loadDoctorProfile());
       setTimeout(() => {
         const first = form.querySelector('input[name="patient_phone"]');
         if (first) first.focus({ preventScroll: true });
@@ -6271,11 +6393,27 @@
       const vrachInterpretSub = collect('vrach_interpret_sub[]');
       const vrachInterpretFull = vrachInterpret.concat(vrachInterpretSub);
 
+      const isUrgent = !!form.querySelector('input[name="urgent"]:checked');
+      const isRemember = !!(rememberInput && rememberInput.checked);
+
+      // Сохраняем / стираем профиль врача согласно чекбоксу
+      if (isRemember) {
+        const profile = {};
+        docFields.forEach(name => {
+          const el = form.querySelector('[name="' + name + '"]');
+          if (el) profile[name] = el.value || '';
+        });
+        saveDoctorProfile(profile);
+      } else {
+        clearDoctorProfile();
+      }
+
       const payload = {
-        _subject: 'Smile3D · Электронное направление - пациент ' + (val('input[name="patient_name"]') || 'не указан'),
+        _subject: (isUrgent ? '[СРОЧНО] ' : '') + 'Smile3D · Электронное направление - пациент ' + (val('input[name="patient_name"]') || 'не указан'),
         _template: 'table',
         _captcha: 'false',
         Источник: 'Электронное направление (врачи)',
+        'Срочность': isUrgent ? 'СРОЧНО (живая очередь, без записи на конкретное время)' : 'Обычная очередь',
         'ФИО пациента': val('input[name="patient_name"]') || '-',
         'Дата рождения': val('input[name="patient_dob"]') || '-',
         'Телефон пациента': val('input[name="patient_phone"]'),
@@ -6295,7 +6433,6 @@
         'ФИО врача': val('input[name="doctor_name"]') || 'не указано',
         'Телефон врача': val('input[name="doctor_phone"]') || 'не указан',
         'E-mail врача': val('input[name="doctor_email"]') || '-',
-        'Дата направления': val('input[name="ref_date"]') || '-',
         'Комментарий': val('textarea[name="comment"]') || '-',
         Страница: window.location.href,
         Время: new Date().toLocaleString('ru-RU')
@@ -6317,6 +6454,8 @@
             });
             form.querySelectorAll('.refsub__quad-btn.is-checked').forEach(el => el.classList.remove('is-checked'));
             form.querySelectorAll('.ref-card.is-active, .ref-icheck.is-active').forEach(el => el.classList.remove('is-active'));
+            // Восстанавливаем профиль врача после reset (чтобы при следующем открытии данные были на месте)
+            applyDoctorProfile(loadDoctorProfile());
           } else {
             submit.textContent = 'Не удалось отправить · попробуйте ещё раз';
             console.warn('Referral FormSubmit response', res);
