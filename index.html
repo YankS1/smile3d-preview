@@ -12,6 +12,8 @@
   <meta name="description" content="Конусно-лучевая компьютерная томография (КЛКТ), ортопантомография (ОПТГ), телерентгенография (ТРГ) в Жигулёвске. Разрешение до 68 микрон, снимок за несколько секунд." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="image" href="assets/img/hero-bg.webp" media="(min-width: 768px)" fetchpriority="high">
+  <link rel="preload" as="image" href="assets/img/hero-bg-mobile.webp" media="(max-width: 767px)" fetchpriority="high">
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block">
   <style>
@@ -245,7 +247,7 @@
     }
     .hero-bg__image {
       position: absolute; inset: -4% -2%;
-      background: url('assets/img/generated-1778319557238.png') center 45% / cover no-repeat;
+      background: url('assets/img/hero-bg.webp') center 45% / cover no-repeat;
       will-change: transform;
       animation: hero-slow-zoom 9s ease-in-out infinite alternate;
       transform: translate3d(0, var(--hero-parallax-y, 0px), 0);
@@ -498,39 +500,43 @@
         min-height: 0;
         height: auto;
         max-height: none;
+        padding-bottom: 70px;
       }
       .hero-bg {
-        position: relative;
-        height: 56vw;
-        max-height: 320px;
-        min-height: 220px;
+        position: absolute;
+        inset: 0;
       }
       .hero-bg__image {
         position: absolute;
-        inset: 0;
-        background-size: cover;
-        background-position: 50% 48%;
+        inset: -2% -1%;
+        background-image: url('assets/img/hero-bg-mobile.webp');
+        background-position: 55% 45%;
+        background-size: 180% auto;
       }
       @keyframes hero-slow-zoom {
-        0%   { background-size: 130% auto; }
-        100% { background-size: 138% auto; }
+        0%   { background-size: 180% auto; }
+        100% { background-size: 195% auto; }
       }
       .hero-bg__wash {
         background:
           linear-gradient(180deg,
-            rgba(245, 249, 251, 0.15) 0%,
-            rgba(245, 249, 251, 0.00) 30%,
-            rgba(245, 249, 251, 0.00) 65%,
-            rgba(245, 249, 251, 0.55) 100%);
+            rgba(245, 249, 251, 0.20) 0%,
+            rgba(245, 249, 251, 0.00) 22%,
+            rgba(245, 249, 251, 0.00) 42%,
+            rgba(245, 249, 251, 0.55) 62%,
+            rgba(245, 249, 251, 0.92) 80%,
+            rgba(245, 249, 251, 1.00) 100%);
       }
       .hero-pulse { display: none; }
       .hero-center {
-        position: static;
+        position: relative;
         transform: none;
-        left: auto; top: auto;
-        width: 100%;
-        max-width: none;
-        padding: 22px 20px 28px;
+        left: auto;
+        top: auto;
+        margin: 56vw auto 0;
+        width: calc(100% - 32px);
+        max-width: 520px;
+        padding: 0 4px 18px;
         background: transparent;
         -webkit-backdrop-filter: none;
         backdrop-filter: none;
@@ -540,10 +546,11 @@
         gap: 12px;
         text-align: center;
         align-items: center;
+        z-index: 3;
       }
       .hero h1 {
-        font-size: 32px;
-        letter-spacing: -0.5px;
+        font-size: 34px;
+        letter-spacing: -0.6px;
         line-height: 1.1;
         color: var(--fg);
         text-shadow: none;
@@ -557,19 +564,41 @@
         width: 100%;
       }
       .hero-cta {
+        display: flex;
         flex-direction: column;
         width: 100%;
         gap: 10px;
+        margin-top: 4px;
       }
       .hero-cta .btn-primary,
-      .hero-cta .btn-secondary { width: 100%; }
+      .hero-cta .btn-secondary {
+        width: 100%;
+        max-width: 360px;
+      }
       .hero-scroll-indicator { display: none; }
-      .hero-tabs-bar { position: static; transform: none; margin-top: 8px; }
+      .hero-tabs-bar {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding: 12px 0 14px;
+        background: rgba(255, 255, 255, 0.92);
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+        z-index: 5;
+      }
     }
     @media (max-width: 441px) {
-      .hero-bg { height: 60vw; max-height: 280px; }
-      .hero h1 { font-size: 28px; }
+      .hero-bg__image {
+        background-position: 52% 42%;
+      }
+      .hero-center { margin-top: 62vw; }
+      .hero h1 { font-size: 30px; }
       .hero-lead { font-size: 14.5px; }
+    }
+    @media (max-width: 360px) {
+      .hero-center { margin-top: 66vw; padding-bottom: 14px; }
+      .hero h1 { font-size: 26px; }
     }
 
     /* Hero scroll indicator - bouncing arrow */
@@ -5526,7 +5555,7 @@
 
         </div>
 
-        <div class="clinic-photo" style="background-image: url('assets/img/generated-1778319557238.png');" aria-label="Фото кабинета Smile 3D"></div>
+        <div class="clinic-photo" style="background-image: url('assets/img/hero-bg.webp');" aria-label="Фото кабинета Smile 3D"></div>
 
       </div>
     </div>
