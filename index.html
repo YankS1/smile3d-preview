@@ -482,7 +482,12 @@
       .hero-ruler { flex-wrap: wrap; gap: 12px; padding: 16px 24px; }
       .hero-ruler__sep { display: none; }
       .hero h1 { font-size: 56px; width: 100%; letter-spacing: -1.5px; }
-      .hero-center { width: calc(100% - 48px); top: 14%; }
+      .hero-center {
+        width: calc(100% - 48px);
+        top: 50%;
+        bottom: auto;
+        transform: translate(-50%, -50%);
+      }
       .hero-lead { width: 100%; font-size: 18px; }
     }
     @media (max-width: 767px) {
@@ -507,22 +512,32 @@
       }
       .hero-bg__wash {
         background:
+          radial-gradient(ellipse 90% 60% at 50% 50%,
+            rgba(255, 255, 255, 0.62) 0%,
+            rgba(255, 255, 255, 0.42) 35%,
+            rgba(255, 255, 255, 0.18) 65%,
+            rgba(255, 255, 255, 0.00) 100%),
           linear-gradient(180deg,
-            rgba(245, 249, 251, 0.15) 0%,
-            rgba(245, 249, 251, 0.00) 28%,
-            rgba(245, 249, 251, 0.00) 48%,
-            rgba(245, 249, 251, 0.55) 62%,
-            rgba(245, 249, 251, 0.86) 76%,
-            rgba(245, 249, 251, 0.96) 90%,
-            rgba(245, 249, 251, 1.00) 100%);
+            rgba(245, 249, 251, 0.18) 0%,
+            rgba(245, 249, 251, 0.00) 30%,
+            rgba(245, 249, 251, 0.00) 70%,
+            rgba(245, 249, 251, 0.65) 90%,
+            rgba(245, 249, 251, 0.95) 100%);
       }
-      .hero-pulse { display: none; }
+      .hero-pulse {
+        display: block;
+        top: 50%;
+      }
+      .hero-pulse__ring {
+        width: 200px; height: 200px;
+        margin-left: -100px; margin-top: -100px;
+      }
       .hero-center {
         position: absolute;
         left: 50%;
-        bottom: 96px;
-        top: auto;
-        transform: translateX(-50%);
+        top: 50%;
+        bottom: auto;
+        transform: translate(-50%, -50%);
         margin: 0;
         width: calc(100% - 32px);
         max-width: 520px;
@@ -582,12 +597,10 @@
       .hero-bg__image {
         background-position: center 42%;
       }
-      .hero-center { bottom: 92px; }
       .hero h1 { font-size: 30px; }
       .hero-lead { font-size: 14.5px; }
     }
     @media (max-width: 360px) {
-      .hero-center { bottom: 84px; }
       .hero h1 { font-size: 26px; }
     }
 
