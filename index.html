@@ -601,11 +601,13 @@
       .hero-lead {
         top: 78%;
         transform: translate(-50%, -50%);
-        font-size: 15px;
-        line-height: 1.5;
+        font-size: 14px;
+        line-height: 1.45;
         color: var(--text-body);
-        width: calc(100% - 32px);
-        max-width: 460px;
+        /* По запросу клиента: lead вписан в "стеклянную панель" на фото-фоне.
+           Ширина panel ~ 48-52% от viewport, поэтому max-width в относительных единицах */
+        width: min(280px, 48vw);
+        max-width: 280px;
       }
       .hero-scroll-indicator { display: none; }
       .hero-tabs-bar {
@@ -625,12 +627,12 @@
         background-position: center 42%;
       }
       .hero h1 { font-size: 28px; letter-spacing: -0.4px; }
-      .hero-lead { font-size: 14px; }
+      .hero-lead { font-size: 12.5px; line-height: 1.4; width: min(220px, 50vw); }
       .hero-eyebrow { font-size: 11px; letter-spacing: 2.2px; }
     }
     @media (max-width: 360px) {
       .hero h1 { font-size: 24px; }
-      .hero-lead { font-size: 13px; }
+      .hero-lead { font-size: 11.5px; width: min(180px, 52vw); }
     }
 
     /* Hero scroll indicator - bouncing arrow */
