@@ -4304,6 +4304,108 @@
         font-size: 13px;
       }
     }
+
+    /* ============================================================
+       2K+ экраны (1921px+) - всё контентное масштабируется чтобы
+       не было крошечного контента в океане белого
+    ============================================================ */
+    @media (min-width: 1921px) {
+      body { font-size: 19px; }
+
+      .container { width: 2200px; max-width: calc(100% - 160px); }
+      .topbar { height: 88px; }
+      .topbar-inner { width: 2200px; max-width: calc(100% - 160px); height: 88px; gap: 40px; }
+      .logo-icon { width: 56px; height: 50px; }
+      .logo-text { font-size: 30px; }
+      .topbar-nav a { font-size: 16px; }
+      .topbar-contact__phone { font-size: 19px; }
+      .topbar-contact__hours { font-size: 13px; }
+      .topbar-cta { padding: 13px 26px; font-size: 17px; border-radius: 14px; }
+
+      /* hero */
+      .hero h1 { font-size: 96px; letter-spacing: -2.8px; width: 1100px; }
+      .hero-lead { font-size: 26px; line-height: 1.45; width: 900px; }
+      .hero-eyebrow { font-size: 16px; letter-spacing: 3.2px; }
+      .hero-center { width: min(1100px, calc(100% - 120px)); gap: 36px; top: 18%; }
+      .hero-cta { gap: 16px; margin-top: 12px; }
+      .btn-primary, .btn-secondary {
+        padding: 19px 38px; font-size: 20px; border-radius: 16px;
+      }
+      .hero-ruler { padding: 26px 120px; gap: 32px; }
+      .hero-ruler__item { font-size: 14px; letter-spacing: 1.8px; }
+      .hero-ruler__sep { flex-basis: 140px; }
+      .hero-scroll-indicator { font-size: 13px; bottom: 110px; }
+      .hero-scroll-indicator svg { width: 38px; height: 38px; }
+      .hero-tabs-bar { padding: 24px 0 28px; }
+      .hero-trust { gap: 18px; margin: 28px 0 36px; }
+      .hero-trust__chip { padding: 14px 22px 14px 26px; }
+      .hero-trust__num { font-size: 28px; }
+      .hero-trust__unit { font-size: 15px; }
+      .hero-trust__sub { font-size: 13px; }
+
+      /* section headings */
+      .section-heading h2 { font-size: 60px; letter-spacing: -1.8px; max-width: 1100px; }
+      .section-heading .lead { font-size: 22px; max-width: 900px; }
+      .kicker { font-size: 15px; letter-spacing: 1.8px; }
+
+      /* section tabs */
+      .section-tabs { gap: 56px; margin-bottom: 56px; }
+      .section-tab { font-size: 22px; }
+      .section-tab__underline { width: 88px; }
+
+      /* services / pricing / equipment / trust cards */
+      .service-card h3, .pricing-card h3, .equipment-content h3, .guarantee-card h3, .trust-card h3, .step-card h3, .patient-card h3 { font-size: 32px; letter-spacing: -0.7px; }
+      .service-card__sub, .service-card__features, .pricing-features, .equipment-content p, .guarantee-card p, .trust-card p, .step-card p, .patient-card p { font-size: 18px; line-height: 1.6; }
+      .pricing-price__value { font-size: 64px; letter-spacing: -1.8px; }
+      .pricing-price__currency { font-size: 26px; }
+      .pricing-cta { font-size: 18px; padding: 16px 32px; }
+
+      /* faq */
+      .faq-item summary { font-size: 22px; padding: 24px 28px; }
+      .faq-item__answer { font-size: 18px; padding: 0 28px 24px; line-height: 1.65; }
+
+      /* video */
+      .video-cinema { height: 920px; }
+      .video-cinema__overlay h2 { font-size: 56px; }
+      .video-cinema__overlay p { font-size: 20px; }
+      .video-cinema__play { width: 120px; height: 120px; }
+      .video-cinema__play .ico { width: 48px; height: 48px; }
+
+      /* scan-story */
+      .scan-story h2 { font-size: 52px; }
+      .scan-story__lead { font-size: 22px; }
+      .scan-chip { padding: 10px 20px; font-size: 14px; }
+
+      /* doctors cta */
+      .doctors-cta__primary, .doctors-cta__secondary {
+        padding: 18px 30px; font-size: 19px; gap: 14px;
+      }
+      .doctors-cta__primary svg, .doctors-cta__secondary svg {
+        width: 24px; height: 24px;
+      }
+
+      /* advantages stats */
+      .stat-item__value { font-size: 56px; }
+      .stat-item__label { font-size: 16px; }
+      .advantages .section-heading h2 { font-size: 52px; }
+
+      /* contacts / forms */
+      .contact-card { padding: 36px; }
+      .contact-form-head { font-size: 32px; }
+      .contact-form-sub { font-size: 19px; }
+      .lead-form__title { font-size: 32px; }
+      .lead-form__desc { font-size: 19px; }
+      .inline-form__text { font-size: 19px; }
+
+      /* booking modal */
+      .book-modal__dialog { max-width: 600px; padding: 48px 48px 42px; }
+      .book-modal__title { font-size: 36px; }
+      .book-modal__sub { font-size: 18px; }
+      .book-form__submit { font-size: 19px; padding: 18px 32px; }
+
+      /* footer */
+      .footer { padding: 80px 0 48px; }
+    }
   </style>
 </head>
 <body>
