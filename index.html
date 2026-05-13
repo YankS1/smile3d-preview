@@ -538,54 +538,74 @@
         width: 200px; height: 200px;
         margin-left: -100px; margin-top: -100px;
       }
+      /* Mobile/tablet hero - absolute positioning по запросу клиента:
+         eyebrow+h1 ВЫШЕ зуба-панели, CTA НА уровне нижней части зуба,
+         lead ПОД CTA внутри "стеклянной панели" */
       .hero-center {
         position: absolute;
-        left: 50%;
-        top: 42%;
-        bottom: auto;
-        transform: translate(-50%, -50%);
+        inset: 0;
+        left: 0; right: 0; top: 0;
+        transform: none;
         margin: 0;
-        width: calc(100% - 32px);
-        max-width: 520px;
-        padding: 0 4px;
+        width: 100%;
+        max-width: none;
+        padding: 0;
         background: transparent;
         -webkit-backdrop-filter: none;
         backdrop-filter: none;
         border: 0;
         border-radius: 0;
         box-shadow: none;
-        gap: 22px;
+        display: block;
+        gap: 0;
         text-align: center;
-        align-items: center;
         z-index: 3;
       }
+      .hero-center > * {
+        position: absolute;
+        left: 50%;
+        width: calc(100% - 32px);
+        max-width: 480px;
+      }
+      .hero-eyebrow {
+        top: 13%;
+        transform: translateX(-50%);
+        padding: 0;
+        font-size: 12px;
+        letter-spacing: 2.6px;
+      }
       .hero h1 {
-        font-size: 40px;
-        letter-spacing: -0.7px;
+        top: 18%;
+        transform: translateX(-50%);
+        font-size: 32px;
+        letter-spacing: -0.5px;
         line-height: 1.1;
         color: var(--fg);
         text-shadow: none;
-        width: 100%;
-      }
-      .hero-eyebrow { padding: 0; font-size: 13.5px; letter-spacing: 2.6px; }
-      .hero-lead {
-        font-size: 17.5px;
-        line-height: 1.5;
-        color: var(--text-body);
-        width: 100%;
+        width: calc(100% - 32px);
       }
       .hero-cta {
+        top: 60%;
+        transform: translate(-50%, -50%);
         display: flex;
         flex-direction: column;
         align-items: center;
-        width: 100%;
         gap: 10px;
-        margin-top: 4px;
+        margin-top: 0;
       }
       .hero-cta .btn-primary,
       .hero-cta .btn-secondary {
         width: 100%;
         max-width: 360px;
+      }
+      .hero-lead {
+        top: 78%;
+        transform: translate(-50%, -50%);
+        font-size: 15px;
+        line-height: 1.5;
+        color: var(--text-body);
+        width: calc(100% - 32px);
+        max-width: 460px;
       }
       .hero-scroll-indicator { display: none; }
       .hero-tabs-bar {
@@ -604,12 +624,13 @@
       .hero-bg__image {
         background-position: center 42%;
       }
-      .hero h1 { font-size: 35px; }
-      .hero-lead { font-size: 16.5px; }
+      .hero h1 { font-size: 28px; letter-spacing: -0.4px; }
+      .hero-lead { font-size: 14px; }
+      .hero-eyebrow { font-size: 11px; letter-spacing: 2.2px; }
     }
     @media (max-width: 360px) {
-      .hero h1 { font-size: 30px; }
-      .hero-lead { font-size: 15.5px; }
+      .hero h1 { font-size: 24px; }
+      .hero-lead { font-size: 13px; }
     }
 
     /* Hero scroll indicator - bouncing arrow */
