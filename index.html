@@ -3814,8 +3814,10 @@
     .refsub__item input:checked ~ .refsub__dot { border-color: var(--accent); }
     .refsub__item input:checked ~ .refsub__dot::after { transform: translate(-50%, -50%) scale(1); }
 
-    /* Quadrant mini-buttons I/II/III/IV */
+    /* Quadrant mini-buttons I/II/III/IV - 2x2 anatomical grid (FDI/WHO) */
     .refsub--quad {
+      display: inline-grid;
+      grid-template-columns: repeat(2, 30px);
       gap: 6px;
     }
     .refsub__quad-btn {
@@ -4785,8 +4787,8 @@
                 <div class="refsub refsub--quad" onclick="event.stopPropagation()">
                   <label class="refsub__quad-btn"><input type="checkbox" name="quad1[]" value="I">I</label>
                   <label class="refsub__quad-btn"><input type="checkbox" name="quad1[]" value="II">II</label>
-                  <label class="refsub__quad-btn"><input type="checkbox" name="quad1[]" value="III">III</label>
                   <label class="refsub__quad-btn"><input type="checkbox" name="quad1[]" value="IV">IV</label>
+                  <label class="refsub__quad-btn"><input type="checkbox" name="quad1[]" value="III">III</label>
                 </div>
               </div>
             </label>
@@ -4799,8 +4801,8 @@
                 <div class="refsub refsub--quad" onclick="event.stopPropagation()">
                   <label class="refsub__quad-btn"><input type="checkbox" name="quad2[]" value="I">I</label>
                   <label class="refsub__quad-btn"><input type="checkbox" name="quad2[]" value="II">II</label>
-                  <label class="refsub__quad-btn"><input type="checkbox" name="quad2[]" value="III">III</label>
                   <label class="refsub__quad-btn"><input type="checkbox" name="quad2[]" value="IV">IV</label>
+                  <label class="refsub__quad-btn"><input type="checkbox" name="quad2[]" value="III">III</label>
                 </div>
               </div>
             </label>
@@ -4813,8 +4815,8 @@
                 <div class="refsub refsub--quad" onclick="event.stopPropagation()">
                   <label class="refsub__quad-btn"><input type="checkbox" name="quad_complex[]" value="I">I</label>
                   <label class="refsub__quad-btn"><input type="checkbox" name="quad_complex[]" value="II">II</label>
-                  <label class="refsub__quad-btn"><input type="checkbox" name="quad_complex[]" value="III">III</label>
                   <label class="refsub__quad-btn"><input type="checkbox" name="quad_complex[]" value="IV">IV</label>
+                  <label class="refsub__quad-btn"><input type="checkbox" name="quad_complex[]" value="III">III</label>
                 </div>
               </div>
             </label>
