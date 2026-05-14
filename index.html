@@ -590,29 +590,29 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 8px;
+        gap: 10px;
         margin-top: 0;
-        /* Ширина строго в рамку стеклянной панели зуба на фото */
-        width: min(260px, 50vw);
+        /* Ширина в рамку стеклянной панели зуба на фото */
+        width: min(320px, 54vw);
         max-width: none;
       }
       .hero .hero-cta .btn-primary,
       .hero .hero-cta .btn-secondary {
         width: 100%;
         max-width: none;
-        padding: 11px 14px;
-        font-size: 13.5px;
-        border-radius: 11px;
+        padding: 13px 18px;
+        font-size: 14.5px;
+        border-radius: 12px;
         white-space: nowrap;
       }
       .hero .hero-lead {
         top: 73%;
         transform: translate(-50%, -50%);
-        font-size: 12.5px;
+        font-size: 13.5px;
         line-height: 1.45;
         color: var(--text-body);
-        /* lead строго в ту же рамку что и CTA */
-        width: min(260px, 50vw);
+        /* lead в ту же рамку что и CTA */
+        width: min(320px, 54vw);
         max-width: none;
       }
       .hero-scroll-indicator { display: none; }
@@ -628,33 +628,44 @@
         z-index: 5;
       }
     }
+    @media (max-width: 540px) {
+      .hero .hero-cta { width: min(290px, 60vw); }
+      .hero .hero-cta .btn-primary, .hero .hero-cta .btn-secondary {
+        padding: 12px 16px;
+        font-size: 14px;
+      }
+      .hero .hero-lead {
+        width: min(290px, 60vw);
+        font-size: 13px;
+      }
+    }
     @media (max-width: 441px) {
       .hero-bg__image {
         background-position: center 42%;
       }
       .hero h1 { font-size: 28px; letter-spacing: -0.4px; }
       .hero-eyebrow { font-size: 11px; letter-spacing: 2.2px; }
-      .hero .hero-cta { width: min(240px, 52vw); }
+      .hero .hero-cta { width: min(270px, 64vw); }
       .hero .hero-cta .btn-primary, .hero .hero-cta .btn-secondary {
-        padding: 10px 12px;
-        font-size: 12.5px;
+        padding: 11px 14px;
+        font-size: 13.5px;
       }
       .hero .hero-lead {
-        width: min(240px, 52vw);
-        font-size: 11.5px;
+        width: min(270px, 64vw);
+        font-size: 12.5px;
         line-height: 1.4;
       }
     }
     @media (max-width: 360px) {
       .hero h1 { font-size: 24px; }
-      .hero .hero-cta { width: min(220px, 56vw); }
+      .hero .hero-cta { width: min(240px, 70vw); }
       .hero .hero-cta .btn-primary, .hero .hero-cta .btn-secondary {
-        padding: 9px 10px;
-        font-size: 11.5px;
+        padding: 10px 12px;
+        font-size: 12.5px;
       }
       .hero .hero-lead {
-        width: min(220px, 56vw);
-        font-size: 11px;
+        width: min(240px, 70vw);
+        font-size: 11.5px;
         line-height: 1.4;
       }
     }
