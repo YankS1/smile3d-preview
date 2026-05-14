@@ -4602,6 +4602,7 @@
             <option value="klkt">КЛКТ - конусно-лучевая КТ</option>
             <option value="optg">ОПТГ - панорамный снимок</option>
             <option value="trg">ТРГ - телерентгенограмма</option>
+            <option value="periapical">Прицельный снимок зуба</option>
             <option value="unknown">Не знаю - подскажите</option>
           </select>
           <span class="book-form__service-label">Тип исследования</span>
@@ -4860,6 +4861,19 @@
                 <div class="refsub" onclick="event.stopPropagation()">
                   <label class="refsub__item"><input type="checkbox" name="study2d_sub[]" value="ОПТГ · в прикусе"><span class="refsub__dot"></span>в прикусе</label>
                   <label class="refsub__item"><input type="checkbox" name="study2d_sub[]" value="ОПТГ · стандартно"><span class="refsub__dot"></span>стандартно</label>
+                </div>
+              </div>
+            </label>
+
+            <label class="ref-card">
+              <input type="checkbox" name="study2d[]" value="Прицельный снимок зуба (внутриротовой)">
+              <span class="ref-check__dot" aria-hidden="true"></span>
+              <div class="ref-card__body">
+                <p class="ref-card__label">Прицельный снимок зуба (внутриротовой)</p>
+                <div class="refsub" onclick="event.stopPropagation()">
+                  <label class="refsub__item"><input type="checkbox" name="study2d_sub[]" value="Прицельный · 1 зуб"><span class="refsub__dot"></span>1 зуб</label>
+                  <label class="refsub__item"><input type="checkbox" name="study2d_sub[]" value="Прицельный · 2-3 соседних зуба"><span class="refsub__dot"></span>2-3 соседних зуба</label>
+                  <label class="refsub__item"><input type="checkbox" name="study2d_sub[]" value="Прицельный · контроль эндодонтического лечения"><span class="refsub__dot"></span>контроль эндо-лечения</label>
                 </div>
               </div>
             </label>
@@ -5169,6 +5183,24 @@
                 <li>• Воксель 0.2 мм</li>
                 <li>• Снимок за 18 секунд</li>
                 <li>• Расчёт по 17 точкам</li>
+              </ul>
+              <span class="service-card__more">
+                <span>Подробнее об исследовании</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              </span>
+            </article>
+
+            <article class="service-card" data-service="periapical" role="button" tabindex="0" aria-expanded="false" aria-controls="service-detail">
+              <!-- TODO: заменить на реальный прицельный снимок от клиента. Сейчас placeholder с Wikimedia Commons (CC BY-SA 4.0, IOPA tooth 75) - до замены либо добавить attribution в footer, либо заменить. -->
+              <div class="service-card__visual" style="background-image: url('assets/img/svc-card-periapical.webp');"></div>
+              <p class="service-meta">Прицельный снимок</p>
+              <h3>Прицельный рентген</h3>
+              <ul class="service-card__features">
+                <li>• Крупный план одного-двух зубов</li>
+                <li>• Размер сенсора 30×40 мм</li>
+                <li>• Разрешение до 20 пар линий/мм</li>
+                <li>• Снимок за 2-3 секунды</li>
+                <li>• Минимальная лучевая нагрузка</li>
               </ul>
               <span class="service-card__more">
                 <span>Подробнее об исследовании</span>
@@ -5973,6 +6005,19 @@
           dose: 'до 10 мкЗв',
           output: 'PDF + JPG',
           cta: 'Записаться на ТРГ'
+        },
+        periapical: {
+          kicker: 'Прицельный (внутриротовой) снимок',
+          title: 'Прицельный рентген зуба - крупный план одного или нескольких зубов',
+          body: `
+            <p><strong>Прицельный (внутриротовой, периапикальный) снимок</strong> - двухмерное рентгенографическое исследование, на котором виден один зуб или 2-3 соседних зуба целиком: коронковая часть, корни и периапикальная область вокруг верхушек корней. Это <strong>базовое и наиболее частое исследование</strong> в стоматологии.</p>
+            <p>Показания: <strong>диагностика кариеса</strong> на апроксимальных поверхностях, оценка <strong>периапикальных изменений</strong> (гранулёмы, кисты), контроль <strong>эндодонтического лечения</strong> (качество пломбировки корневых каналов), оценка состояния пародонта, контроль положения штифтов и культевых вкладок, диагностика травм зуба.</p>
+            <p>Сенсор размером 30×40 мм размещается интраорально - за исследуемым зубом. Разрешающая способность цифрового радиовизиографа (RVG) - до <strong>20 пар линий на мм</strong>, что в разы выше, чем у ОПТГ. Лучевая нагрузка минимальна среди всех видов рентгенодиагностики.</p>
+          `,
+          time: '~2-3 секунды',
+          dose: 'до 3 мкЗв',
+          output: 'JPG + PDF',
+          cta: 'Записаться на снимок'
         }
       };
 
