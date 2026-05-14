@@ -1437,12 +1437,12 @@
       background: var(--surface);
     }
     .equipment-grid {
-      display: flex; gap: 32px; justify-content: center;
-      flex-wrap: nowrap; margin-top: 56px;
+      display: grid; gap: 28px;
+      grid-template-columns: repeat(3, 1fr);
+      align-items: stretch;
+      margin-top: 56px;
     }
     .equipment-card {
-      flex: 1 1 0; min-width: 0;
-      max-width: 904px;
       display: flex; flex-direction: column;
       background: var(--surface);
       border: 1px solid var(--border);
@@ -1450,18 +1450,33 @@
       overflow: hidden;
       transition: transform 240ms ease, box-shadow 240ms ease, border-color 240ms ease;
     }
+    .equipment-card--main {
+      border-color: var(--accent);
+      box-shadow: 0 8px 28px rgba(33, 182, 199, 0.14);
+    }
     @media (max-width: 991px) {
-      .equipment-grid { flex-wrap: wrap; }
-      .equipment-card { flex: 1 1 100%; max-width: 904px; }
+      .equipment-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+      .equipment-card--side:last-of-type { display: none; }
+    }
+    @media (max-width: 767px) {
+      .equipment-grid { grid-template-columns: 1fr; max-width: 540px; margin-inline: auto; }
+      .equipment-card--side { display: none; }
     }
     .equipment-card:hover {
       transform: translateY(-4px);
       box-shadow: 0 8px 24px rgba(14, 27, 38, 0.08);
       border-color: var(--accent);
     }
+    .equipment-card--main:hover {
+      box-shadow: 0 12px 32px rgba(33, 182, 199, 0.2);
+    }
     .equipment-visual {
-      width: 100%; height: 340px;
+      width: 100%; aspect-ratio: 1 / 1;
       background: var(--surface-cyan) center/cover no-repeat;
+    }
+    .equipment-visual--myray {
+      background-color: #FFFFFF;
+      background-size: contain;
     }
     .equipment-content {
       padding: 36px;
@@ -2782,7 +2797,6 @@
       .trust-card,
       .guarantee-card,
       .step-card { max-width: 100%; }
-      .equipment-visual { height: 240px; }
       .equipment-content { padding: 24px; }
       .pricing-card { padding: 28px 22px; }
       .pricing-price__value { font-size: 44px; }
@@ -2900,7 +2914,6 @@
       .equipment-content { padding: 20px; gap: 12px; }
       .equipment-content h3 { font-size: 22px; }
       .equipment-content p { font-size: 15.5px; }
-      .equipment-visual { height: 200px; }
       .guarantee-card { padding: 24px 20px; gap: 14px; }
       .guarantee-card h3 { font-size: 22px; }
       .guarantee-card p { font-size: 15.5px; }
@@ -5447,11 +5460,11 @@
     <div class="container">
       <div class="section-heading">
         <p class="kicker">Оборудование</p>
-        <h2>Наше оборудование</h2>
+        <h2>Современное оборудование КЛКТ</h2>
       </div>
       <div class="equipment-grid">
 
-        <article class="equipment-card">
+        <article class="equipment-card equipment-card--side">
           <div class="equipment-visual" style="background-image: url('assets/img/generated-1778319132323.webp');"></div>
           <div class="equipment-content">
             <h3>Sirona Orthophos XG 3D</h3>
@@ -5464,7 +5477,20 @@
           </div>
         </article>
 
-        <article class="equipment-card">
+        <article class="equipment-card equipment-card--main">
+          <div class="equipment-visual equipment-visual--myray" style="background-image: url('assets/img/equipment-myray.jpg');"></div>
+          <div class="equipment-content">
+            <h3>MyRay Hyperion X9 PRO</h3>
+            <p>Цифровой 2D+3D-томограф с цефалостатом. Высокое разрешение, быстрое сканирование за 360°, низкая доза излучения. Cefla S.c., Италия.</p>
+            <div class="equipment-specs">
+              <span class="equipment-spec">FOV 13×16 см</span>
+              <span class="equipment-spec">Воксель 68 мкм</span>
+              <span class="equipment-spec">Снимок 14 сек</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="equipment-card equipment-card--side">
           <div class="equipment-visual" style="background-image: url('assets/img/generated-1778319135575.webp');"></div>
           <div class="equipment-content">
             <h3>Vatech Pax-i3D</h3>
@@ -5520,7 +5546,7 @@
             </svg>
           </span>
           <h3>Лицензия Минздрава</h3>
-          <p>Работаем по медицинской лицензии №ЛО-63-01-005XXX. Сканеры Sirona и Vatech, дозиметрия проверяется регулярно.</p>
+          <p>Работаем по медицинской лицензии №ЛО-63-01-005XXX. Сканер MyRay, дозиметрия проверяется регулярно.</p>
         </article>
 
       </div>
@@ -5539,7 +5565,7 @@
         <article class="trust-card">
           <div class="trust-card__visual" style="background-image: url('assets/img/generated-1778319126540.webp');"></div>
           <h3>Сертифицированное оборудование</h3>
-          <p>Сканеры Sirona и Vatech, техническое обслуживание и калибровка по графику. Производственные сертификаты, поверка дозиметрии.</p>
+          <p>Сканер MyRay, техническое обслуживание и калибровка по графику. Производственные сертификаты, поверка дозиметрии.</p>
         </article>
 
         <article class="trust-card">
