@@ -3876,6 +3876,33 @@
       height: 1px;
       background: linear-gradient(90deg, transparent, var(--border-strong), transparent);
     }
+    /* Quadrant labels aligned over each half of the arch (FDI: I/II top, IV/III bottom) */
+    .ref-arch__seg {
+      display: grid;
+      grid-template-columns: repeat(8, minmax(0, 1fr)) 1px repeat(8, minmax(0, 1fr));
+      column-gap: 5px;
+      align-items: center;
+      text-align: center;
+      color: var(--muted);
+    }
+    .ref-arch__seg-cell { grid-column: span 8; line-height: 1.25; }
+    .ref-arch__seg-num {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 10px; font-weight: 600;
+      letter-spacing: 1.2px; text-transform: uppercase;
+      color: var(--fg);
+    }
+    .ref-arch__seg-desc {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 9.5px; font-weight: 400;
+      letter-spacing: 0.3px;
+      color: var(--muted);
+      margin-top: 1px;
+    }
+    .ref-arch__seg--top { margin: 0 0 8px; }
+    .ref-arch__seg--bottom { margin: 8px 0 0; }
     .ref-arch__tooth {
       appearance: none; -webkit-appearance: none;
       cursor: pointer;
@@ -4872,6 +4899,16 @@
 
             <div class="ref-arch" data-arch>
               <p class="ref-arch__hint">Область интереса · отметьте нужные зубы</p>
+              <div class="ref-arch__seg ref-arch__seg--top" aria-hidden="true">
+                <div class="ref-arch__seg-cell">
+                  <span class="ref-arch__seg-num">I сегмент</span>
+                  <span class="ref-arch__seg-desc">верхние зубы справа</span>
+                </div>
+                <div class="ref-arch__seg-cell">
+                  <span class="ref-arch__seg-num">II сегмент</span>
+                  <span class="ref-arch__seg-desc">верхние зубы слева</span>
+                </div>
+              </div>
               <div class="ref-arch__row">
                 <button type="button" class="ref-arch__tooth" data-arch-tooth="18" aria-pressed="false">18</button>
                 <button type="button" class="ref-arch__tooth" data-arch-tooth="17" aria-pressed="false">17</button>
@@ -4911,7 +4948,16 @@
                 <button type="button" class="ref-arch__tooth" data-arch-tooth="37" aria-pressed="false">37</button>
                 <button type="button" class="ref-arch__tooth" data-arch-tooth="38" aria-pressed="false">38</button>
               </div>
-              <p class="ref-arch__hint" style="margin-top:10px;margin-bottom:0">I/II сегменты - верхняя челюсть · III/IV сегменты - нижняя</p>
+              <div class="ref-arch__seg ref-arch__seg--bottom" aria-hidden="true">
+                <div class="ref-arch__seg-cell">
+                  <span class="ref-arch__seg-num">IV сегмент</span>
+                  <span class="ref-arch__seg-desc">нижние зубы справа</span>
+                </div>
+                <div class="ref-arch__seg-cell">
+                  <span class="ref-arch__seg-num">III сегмент</span>
+                  <span class="ref-arch__seg-desc">нижние зубы слева</span>
+                </div>
+              </div>
             </div>
 
             <label class="ref-card">
