@@ -584,7 +584,7 @@
         text-shadow: none;
         width: calc(100% - 32px);
       }
-      .hero-cta {
+      .hero .hero-cta {
         top: 54%;
         transform: translate(-50%, -50%);
         display: flex;
@@ -592,25 +592,28 @@
         align-items: center;
         gap: 8px;
         margin-top: 0;
+        /* Ширина строго в рамку стеклянной панели зуба на фото */
+        width: min(260px, 50vw);
+        max-width: none;
       }
-      .hero-cta .btn-primary,
-      .hero-cta .btn-secondary {
+      .hero .hero-cta .btn-primary,
+      .hero .hero-cta .btn-secondary {
         width: 100%;
-        max-width: 320px;
-        padding: 12px 22px;
-        font-size: 14.5px;
-        border-radius: 12px;
+        max-width: none;
+        padding: 11px 14px;
+        font-size: 13.5px;
+        border-radius: 11px;
+        white-space: nowrap;
       }
-      .hero-lead {
+      .hero .hero-lead {
         top: 73%;
         transform: translate(-50%, -50%);
-        font-size: 13.5px;
+        font-size: 12.5px;
         line-height: 1.45;
         color: var(--text-body);
-        /* lead вписан в новую расширенную стеклянную панель (v2 hero-bg).
-           Ширина panel ~62-66% от viewport */
-        width: min(360px, 62vw);
-        max-width: 360px;
+        /* lead строго в ту же рамку что и CTA */
+        width: min(260px, 50vw);
+        max-width: none;
       }
       .hero-scroll-indicator { display: none; }
       .hero-tabs-bar {
@@ -630,19 +633,29 @@
         background-position: center 42%;
       }
       .hero h1 { font-size: 28px; letter-spacing: -0.4px; }
-      .hero-lead { font-size: 12.5px; line-height: 1.4; width: min(280px, 64vw); }
       .hero-eyebrow { font-size: 11px; letter-spacing: 2.2px; }
-      .hero-cta .btn-primary, .hero-cta .btn-secondary {
-        padding: 11px 18px;
-        font-size: 13.5px;
+      .hero .hero-cta { width: min(240px, 52vw); }
+      .hero .hero-cta .btn-primary, .hero .hero-cta .btn-secondary {
+        padding: 10px 12px;
+        font-size: 12.5px;
+      }
+      .hero .hero-lead {
+        width: min(240px, 52vw);
+        font-size: 11.5px;
+        line-height: 1.4;
       }
     }
     @media (max-width: 360px) {
       .hero h1 { font-size: 24px; }
-      .hero-lead { font-size: 11.5px; width: min(220px, 66vw); }
-      .hero-cta .btn-primary, .hero-cta .btn-secondary {
-        padding: 10px 14px;
-        font-size: 12.5px;
+      .hero .hero-cta { width: min(220px, 56vw); }
+      .hero .hero-cta .btn-primary, .hero .hero-cta .btn-secondary {
+        padding: 9px 10px;
+        font-size: 11.5px;
+      }
+      .hero .hero-lead {
+        width: min(220px, 56vw);
+        font-size: 11px;
+        line-height: 1.4;
       }
     }
 
