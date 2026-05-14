@@ -3815,31 +3815,91 @@
     .refsub__item input:checked ~ .refsub__dot::after { transform: translate(-50%, -50%) scale(1); }
 
     /* Quadrant mini-buttons I/II/III/IV - 2x2 anatomical grid (FDI/WHO) */
+    .ref-quad-set {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .ref-quad-set .ref-card { margin-bottom: 0; }
+    .ref-card--quad-complex { grid-column: 1 / -1; }
+    .ref-card--quad .ref-card__label { font-size: 12.5px; }
     .refsub--quad {
       display: inline-grid;
-      grid-template-columns: repeat(2, 30px);
-      gap: 6px;
+      grid-template-columns: repeat(2, minmax(38px, max-content));
+      gap: 6px 14px;
+      padding-top: 8px;
     }
     .refsub__quad-btn {
-      display: inline-flex;
-      align-items: center; justify-content: center;
-      width: 30px; height: 30px;
-      border-radius: 50%;
-      border: 1.5px solid var(--border-strong);
-      background: #fff;
+      display: inline-grid;
+      grid-template-columns: 14px auto;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 6px;
       font-family: var(--font-mono);
       font-size: 11px; font-weight: 600;
       color: var(--text-body);
       cursor: pointer;
-      transition: background 180ms ease, border-color 180ms ease, color 180ms ease;
+      transition: color 180ms ease;
     }
-    .refsub__quad-btn:hover { border-color: var(--accent); color: var(--fg); }
+    .refsub__quad-btn::before,
+    .refquad-pair__box {
+      content: '';
+      width: 14px;
+      height: 14px;
+      border: 1.5px solid rgba(33, 182, 199, 0.74);
+      border-radius: 2px;
+      background: #fff;
+      box-sizing: border-box;
+      transition: background 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+    }
+    .refsub__quad-btn:hover { color: var(--fg); }
     .refsub__quad-btn.is-checked {
+      color: var(--accent-deep);
+    }
+    .refsub__quad-btn.is-checked::before,
+    .refquad-pair.is-checked .refquad-pair__box {
       background: var(--accent);
       border-color: var(--accent-deep);
-      color: #fff;
+      box-shadow: inset 0 0 0 3px #fff;
     }
     .refsub__quad-btn input { position: absolute; opacity: 0; pointer-events: none; }
+    .refsub--quad-pairs {
+      grid-template-columns: repeat(2, minmax(54px, 1fr));
+      gap: 6px;
+    }
+    .refquad-pair {
+      display: grid;
+      grid-template-rows: repeat(2, auto);
+      gap: 6px;
+      padding: 6px 7px;
+      border: 1px dashed rgba(33, 182, 199, 0.45);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.72);
+      cursor: pointer;
+      transition: border-color 180ms ease, background 180ms ease;
+    }
+    .refquad-pair:hover,
+    .refquad-pair.is-checked {
+      border-color: var(--accent);
+      background: rgba(33, 182, 199, 0.08);
+    }
+    .refquad-pair input { position: absolute; opacity: 0; pointer-events: none; }
+    .refquad-pair__row {
+      display: inline-grid;
+      grid-template-columns: 14px auto;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-body);
+    }
+    .refquad-pair.is-checked .refquad-pair__row { color: var(--accent-deep); }
+    @media (max-width: 540px) {
+      .ref-quad-set { grid-template-columns: 1fr; }
+      .ref-card--quad-complex { grid-column: auto; }
+    }
 
     /* === DENTAL ARCH (FDI compact) === */
     .ref-arch {
@@ -4806,47 +4866,55 @@
               </div>
             </label>
 
-            <label class="ref-card">
-              <input type="checkbox" name="study3d[]" value="КЛКТ одного квадранта (сегмента)">
-              <span class="ref-check__dot" aria-hidden="true"></span>
-              <div class="ref-card__body">
-                <p class="ref-card__label">КЛКТ одного квадранта (сегмента)</p>
-                <div class="refsub refsub--quad" onclick="event.stopPropagation()">
-                  <label class="refsub__quad-btn"><input type="checkbox" name="quad1[]" value="I">I</label>
-                  <label class="refsub__quad-btn"><input type="checkbox" name="quad1[]" value="II">II</label>
-                  <label class="refsub__quad-btn"><input type="checkbox" name="quad1[]" value="IV">IV</label>
-                  <label class="refsub__quad-btn"><input type="checkbox" name="quad1[]" value="III">III</label>
+            <div class="ref-quad-set" aria-label="КЛКТ по квадрантам">
+              <label class="ref-card ref-card--quad">
+                <input type="checkbox" name="study3d[]" value="КЛКТ одного квадранта (сегмента)">
+                <span class="ref-check__dot" aria-hidden="true"></span>
+                <div class="ref-card__body">
+                  <p class="ref-card__label">КЛКТ одного квадранта (сегмента)</p>
+                  <div class="refsub refsub--quad" onclick="event.stopPropagation()">
+                    <label class="refsub__quad-btn"><input type="checkbox" name="quad1[]" value="I">I</label>
+                    <label class="refsub__quad-btn"><input type="checkbox" name="quad1[]" value="II">II</label>
+                    <label class="refsub__quad-btn"><input type="checkbox" name="quad1[]" value="IV">IV</label>
+                    <label class="refsub__quad-btn"><input type="checkbox" name="quad1[]" value="III">III</label>
+                  </div>
                 </div>
-              </div>
-            </label>
+              </label>
 
-            <label class="ref-card">
-              <input type="checkbox" name="study3d[]" value="КЛКТ двух квадрантов (сегментов)">
-              <span class="ref-check__dot" aria-hidden="true"></span>
-              <div class="ref-card__body">
-                <p class="ref-card__label">КЛКТ двух квадрантов (сегментов)</p>
-                <div class="refsub refsub--quad" onclick="event.stopPropagation()">
-                  <label class="refsub__quad-btn"><input type="checkbox" name="quad2[]" value="I">I</label>
-                  <label class="refsub__quad-btn"><input type="checkbox" name="quad2[]" value="II">II</label>
-                  <label class="refsub__quad-btn"><input type="checkbox" name="quad2[]" value="IV">IV</label>
-                  <label class="refsub__quad-btn"><input type="checkbox" name="quad2[]" value="III">III</label>
+              <label class="ref-card ref-card--quad">
+                <input type="checkbox" name="study3d[]" value="КЛКТ двух квадрантов (сегментов)">
+                <span class="ref-check__dot" aria-hidden="true"></span>
+                <div class="ref-card__body">
+                  <p class="ref-card__label">КЛКТ двух квадрантов (сегментов)</p>
+                  <div class="refsub refsub--quad refsub--quad-pairs" onclick="event.stopPropagation()">
+                    <label class="refquad-pair" data-quad-pair>
+                      <input type="checkbox" name="quad2_pair[]" value="I + IV" data-quad-values="I,IV">
+                      <span class="refquad-pair__row"><span class="refquad-pair__box" aria-hidden="true"></span>I</span>
+                      <span class="refquad-pair__row"><span class="refquad-pair__box" aria-hidden="true"></span>IV</span>
+                    </label>
+                    <label class="refquad-pair" data-quad-pair>
+                      <input type="checkbox" name="quad2_pair[]" value="II + III" data-quad-values="II,III">
+                      <span class="refquad-pair__row"><span class="refquad-pair__box" aria-hidden="true"></span>II</span>
+                      <span class="refquad-pair__row"><span class="refquad-pair__box" aria-hidden="true"></span>III</span>
+                    </label>
+                  </div>
                 </div>
-              </div>
-            </label>
+              </label>
 
-            <label class="ref-card ref-card--highlight">
-              <input type="checkbox" name="study3d[]" value="КОМПЛЕКС ОПТГ + КЛКТ одного квадранта">
-              <span class="ref-check__dot" aria-hidden="true"></span>
-              <div class="ref-card__body">
-                <p class="ref-card__label">КОМПЛЕКС: ОПТГ + КЛКТ одного квадранта</p>
-                <div class="refsub refsub--quad" onclick="event.stopPropagation()">
-                  <label class="refsub__quad-btn"><input type="checkbox" name="quad_complex[]" value="I">I</label>
-                  <label class="refsub__quad-btn"><input type="checkbox" name="quad_complex[]" value="II">II</label>
-                  <label class="refsub__quad-btn"><input type="checkbox" name="quad_complex[]" value="IV">IV</label>
-                  <label class="refsub__quad-btn"><input type="checkbox" name="quad_complex[]" value="III">III</label>
+              <label class="ref-card ref-card--highlight ref-card--quad ref-card--quad-complex">
+                <input type="checkbox" name="study3d[]" value="КОМПЛЕКС ОПТГ + КЛКТ одного квадранта">
+                <span class="ref-check__dot" aria-hidden="true"></span>
+                <div class="ref-card__body">
+                  <p class="ref-card__label">КОМПЛЕКС: ОПТГ + КЛКТ одного квадранта</p>
+                  <div class="refsub refsub--quad" onclick="event.stopPropagation()">
+                    <label class="refsub__quad-btn"><input type="checkbox" name="quad_complex[]" value="I">I</label>
+                    <label class="refsub__quad-btn"><input type="checkbox" name="quad_complex[]" value="II">II</label>
+                    <label class="refsub__quad-btn"><input type="checkbox" name="quad_complex[]" value="IV">IV</label>
+                    <label class="refsub__quad-btn"><input type="checkbox" name="quad_complex[]" value="III">III</label>
+                  </div>
                 </div>
-              </div>
-            </label>
+              </label>
+            </div>
 
             <label class="ref-card">
               <input type="checkbox" name="study3d[]" value="КЛКТ околоносовых пазух с захватом зубных рядов верхней челюсти">
@@ -4858,10 +4926,10 @@
             </label>
 
             <label class="ref-card">
-              <input type="checkbox" name="study3d[]" value="КЛКТ челюстно-лицевой области 16×15 см">
+              <input type="checkbox" name="study3d[]" value="КЛКТ челюстно-лицевой области 13×16 см">
               <span class="ref-check__dot" aria-hidden="true"></span>
               <div class="ref-card__body">
-                <p class="ref-card__label">КЛКТ челюстно-лицевой области 16×15&nbsp;см</p>
+                <p class="ref-card__label">КЛКТ челюстно-лицевой области 13×16&nbsp;см</p>
                 <div class="refsub" onclick="event.stopPropagation()">
                   <label class="refsub__item"><input type="checkbox" name="study3d_sub[]" value="ЧЛО · с 3D-цефалометрическим анализом"><span class="refsub__dot"></span>с 3D-цефалометрическим анализом</label>
                 </div>
@@ -6610,6 +6678,14 @@
         label.classList.toggle('is-checked', inp.checked);
       });
     });
+    form.querySelectorAll('[data-quad-pair]').forEach(label => {
+      const inp = label.querySelector('input[type="checkbox"]');
+      if (!inp) return;
+      if (inp.checked) label.classList.add('is-checked');
+      inp.addEventListener('change', () => {
+        label.classList.toggle('is-checked', inp.checked);
+      });
+    });
 
     // Toggle is-active class on .ref-card (skip nested sub-checkboxes)
     form.querySelectorAll('.ref-card > input[type="checkbox"]').forEach(inp => {
@@ -6757,10 +6833,12 @@
       const study3d = collect('study3d[]');
       const study3dSub = collect('study3d_sub[]');
       const quad1 = collect('quad1[]');
-      const quad2 = collect('quad2[]');
+      const quad2 = Array.from(form.querySelectorAll('input[name="quad2_pair[]"]:checked'))
+        .flatMap(i => (i.dataset.quadValues || i.value).split(',').map(v => v.trim()).filter(Boolean));
+      const quad2Pairs = collect('quad2_pair[]');
       const quadComplex = collect('quad_complex[]');
       if (quad1.length) study3dSub.push('Квадрант (одиночный): ' + quad1.join(', '));
-      if (quad2.length) study3dSub.push('Квадранты (двойной): ' + quad2.join(', '));
+      if (quad2.length) study3dSub.push('Квадранты (двойной): ' + quad2.join(', ') + ' (' + quad2Pairs.join('; ') + ')');
       if (quadComplex.length) study3dSub.push('Комплекс ОПТГ+КЛКТ квадранта: ' + quadComplex.join(', '));
 
       const study2d = collect('study2d[]');
@@ -6831,7 +6909,7 @@
               b.classList.remove('is-checked');
               b.setAttribute('aria-pressed', 'false');
             });
-            form.querySelectorAll('.refsub__quad-btn.is-checked').forEach(el => el.classList.remove('is-checked'));
+            form.querySelectorAll('.refsub__quad-btn.is-checked, [data-quad-pair].is-checked').forEach(el => el.classList.remove('is-checked'));
             form.querySelectorAll('.ref-card.is-active, .ref-icheck.is-active').forEach(el => el.classList.remove('is-active'));
             // Восстанавливаем профиль врача после reset (чтобы при следующем открытии данные были на месте)
             applyDoctorProfile(loadDoctorProfile());
